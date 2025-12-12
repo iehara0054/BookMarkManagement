@@ -1,15 +1,31 @@
 <?php
+session_start();
+header('Content-Type: application/json');
+
 require_once __DIR__ . '/../class/BookMarkManager.php';
 $BookMarkManager = new BookMarkManager;
 
-$jsonArray = file_get_contents('php://input');
-$jsonDecoded = json_decode($jsonArray, true);
+$target_id = file_get_contents('php://input');
+$json_data = file_get_contents($BookMarkManager::BOOKMARKS_JSON_FILE);
+$jsonDecodedData = json_decode($json_data, true);
 
-$itemId = $jsonDecoded['id'] ?? null;
+foreach ($jsonDecodedData as $key => $item)
+{
+    if ($item['id'] == $target_id)
+    {
+        if ($jsonDecodedData[$key]['favorite'] === false)
+        {
+            $jsonDecodedData[$key]['favorite'] = true;
+        }
+        if ($jsonDecodedData[$key]['favorite'] === true)
+        {
+            $jsonDecodedData[$key]['favorite'] = false;
+        }
+        break;
+    }
+}
 
-$value = isset($jsonDecoded['id']) ? $jsonDecoded['favorite'] : '';
+$updated_json_data = json_encode($jsonDecodedData, JSON_PRETTY_PRINT);
+file_put_contents($BookMarkManager::BOOKMARKS_JSON_FILE, $updated_json_data);
 
-
-
-var_dump($getJsonValue);
-var_dump($getJsonValue);
+echo $updated_json_data;

@@ -8,6 +8,7 @@ async function toggleFavorite(button) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ id: itemId })
+      // body: JSON.stringify({itemId})
     });
 
     const data = await response.json();

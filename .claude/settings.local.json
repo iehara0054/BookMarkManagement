@@ -12,7 +12,8 @@
       "Bash(\"/c/xampp/php/php.exe\" --version)",
       "Bash(\"/c/xampp/php/php.exe\" -m)",
       "Bash(\"/c/xampp/php/php.exe\" -i)",
-      "Bash(netstat:*)"
+      "Bash(netstat:*)",
+      "Bash(curl:*)"
     ]
   }
 }
