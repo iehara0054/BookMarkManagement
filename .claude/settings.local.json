@@ -4,7 +4,15 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git remote add:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(php:*)",
+      "Bash(C:xamppphpphp.exe --version)",
+      "Bash(C:xamppphpphp.exe -m)",
+      "Bash(findstr:*)",
+      "Bash(\"/c/xampp/php/php.exe\" --version)",
+      "Bash(\"/c/xampp/php/php.exe\" -m)",
+      "Bash(\"/c/xampp/php/php.exe\" -i)",
+      "Bash(netstat:*)"
     ]
   }
 }

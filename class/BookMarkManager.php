@@ -101,7 +101,7 @@ class BookMarkManager
         // jsonファイルの中身を取得
         $jsonContent = file_get_contents($jsonFilePath);
         // jsonファイルのデコード（配列に変換）
-        $jsonData = json_decode($jsonContent, true);
+        // $jsonData = json_decode($jsonContent, true);
         // 引数のキーにマッチする値をリターン
         $value = isset($jsonData[$key]) ? $jsonData[$key] : '';
         return $value;

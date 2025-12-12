@@ -1,11 +1,15 @@
 <?php
-require_once __DIR__ . '../class/BookMarkManager.php';
+require_once __DIR__ . '/../class/BookMarkManager.php';
 $BookMarkManager = new BookMarkManager;
 
-$json = file_get_contents('php://input');
-// $data = json_decode($json, true);
-$itemId = $data['id'] ?? null;
+$jsonArray = file_get_contents('php://input');
+$jsonDecoded = json_decode($jsonArray, true);
 
-$getJsonValue = $BookMarkManager->getJsonValue($BookMarkManager::BOOKMARKS_JSON_FILE, $itemId);
+$itemId = $jsonDecoded['id'] ?? null;
 
+$value = isset($jsonDecoded['id']) ? $jsonDecoded['favorite'] : '';
+
+
+
+var_dump($getJsonValue);
 var_dump($getJsonValue);
