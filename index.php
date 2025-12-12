@@ -19,7 +19,7 @@ if (empty($_SESSION['csrf_token']))
 // ========================================
 $BookMarkManager = new BookMarkManager;
 
-$BookMarkManager::BOOKMARKS_FILE;
+$BookMarkManager::BOOKMARKS_JSON_FILE;
 
 //エスケープ関数
 function h($str)
@@ -111,9 +111,8 @@ function h($str)
                 </thead>
                 <tbody>
                     <?php
-                    // $bookMarkLists['form_data']を配列として初期化
-                    // $getBookMarkLists
-                    if (empty($getBookMarkLists))
+            // $getBookMarkListsを配列として初期化
+            if (empty($getBookMarkLists))
                     {
                         $getBookMarkLists = [];
                     }

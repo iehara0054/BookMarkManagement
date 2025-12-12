@@ -4,7 +4,7 @@ class BookMarkManager
     // ========================================
     // 定数定義とヘルパー関数
     // ========================================
-    public const BOOKMARKS_FILE = __DIR__ . '/../json/bookmarks_file.json';
+    public const BOOKMARKS_JSON_FILE = __DIR__ . '/../json/bookmarks_file.json';
     /**
      * URLのバリデーション
      * 
@@ -36,12 +36,12 @@ class BookMarkManager
     {
         // ファイルが存在しない場合（初回起動時）は空配列を返す
         // これにより、ファイルがない状態でもエラーにならず、新規にタスクを追加できる
-        if (!file_exists($this::BOOKMARKS_FILE))
+        if (!file_exists($this::BOOKMARKS_JSON_FILE))
         {
             return [];
         }
         // file_get_contents() でファイル全体を文字列として読み込み
-        $json = file_get_contents($this::BOOKMARKS_FILE);
+        $json = file_get_contents($this::BOOKMARKS_JSON_FILE);
         // json_decode() の第2引数 true で、オブジェクトではなく連想配列として取得
         $data = json_decode($json, true);
         // json_decode() が失敗した場合は null を返すため、配列であることを確認
@@ -60,7 +60,7 @@ class BookMarkManager
         // var_dump($enteredBookMarkData);
         $json = json_encode(array_values($enteredBookMarkData), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         // var_dump($bookMarks);
-        $tmp = $this::BOOKMARKS_FILE . '.tmp';
+        $tmp = $this::BOOKMARKS_JSON_FILE . '.tmp';
         $fp = fopen($tmp, 'wb');
 
         if ($fp === false)
@@ -72,7 +72,7 @@ class BookMarkManager
 
         fclose($fp);
 
-        rename($tmp, $this::BOOKMARKS_FILE);
+        rename($tmp, $this::BOOKMARKS_JSON_FILE);
         $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
         return $enteredBookMarkData;
         // $url = 'http://localhost/Iehara/BookMarkManegiment/index.php';
@@ -95,5 +95,15 @@ class BookMarkManager
     //     exit();
     // 
     }
-    
+
+    public function getJsonValue($jsonFilePath, $key)
+    {
+        // jsonファイルの中身を取得
+        $jsonContent = file_get_contents($jsonFilePath);
+        // jsonファイルのデコード（配列に変換）
+        $jsonData = json_decode($jsonContent, true);
+        // 引数のキーにマッチする値をリターン
+        $value = isset($jsonData[$key]) ? $jsonData[$key] : '';
+        return $value;
+    }
 }

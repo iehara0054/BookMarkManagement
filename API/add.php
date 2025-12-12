@@ -18,7 +18,7 @@ $BookMarkManager = new BookMarkManager;
 // ========================================
 // 定数定義とヘルパー関数
 // ========================================
-BookMarkManager::BOOKMARKS_FILE;
+BookMarkManager::BOOKMARKS_JSON_FILE;
 
 //============================================================
 // POSTリクエストの処理
