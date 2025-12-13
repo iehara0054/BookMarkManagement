@@ -128,10 +128,14 @@ function h($str)
                             <td>
                                 <div>
                                     <a href="<?= h($b['url'] ?? '') ?>" target="_blank"> <?= h($b['title'] ?? '') ?></a>
+                                    <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
                                 </div>
                             </td>
                             <td>
-                                <div><a href="<?= h($b['url'] ?? '') ?>" target="_blank"><?= h($b['url'] ?? '') ?></a></div>
+                                <div>
+                                    <a href="<?= h($b['url'] ?? '') ?>" target="_blank"><?= h($b['url'] ?? '') ?></a>
+                                    <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
+                                </div>
                             </td>
                             <td>
                                 <div><?= h($b['memo'] ?? '') ?></div>
