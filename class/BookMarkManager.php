@@ -1,30 +1,13 @@
 <?php
+require_once __DIR__ . '/Helper.php';
+
 class BookMarkManager
 {
-    // ========================================
-    // 定数定義とヘルパー関数
-    // ========================================
-    public const BOOKMARKS_JSON_FILE = __DIR__ . '/../json/bookmarks_file.json';
-    /**
-     * URLのバリデーション
-     * 
-     * @param string $url バリデーションする文字列
-     */
-    public function is_valid_url(string $url): bool
-    {
-        echo 'ここまでis_valid_url';
-        return false !== filter_var($url, FILTER_VALIDATE_URL) && preg_match('@^https?+://@i', $url) > 0;
-    }
+    private $Helper;
 
-    /**
-     * タグをカンマで区切るり、配列としてわたす
-     * 
-     * @array string $tags 画面からPOSTされた配列
-     * @array string $splitTags 分割されたタグ
-     */
-    public function splitTags($tags)
+    public function __construct()
     {
-        return $splitTags = explode(',', $tags);
+        $this->Helper = new Helper();
     }
 
     /**
@@ -36,12 +19,12 @@ class BookMarkManager
     {
         // ファイルが存在しない場合（初回起動時）は空配列を返す
         // これにより、ファイルがない状態でもエラーにならず、新規にタスクを追加できる
-        if (!file_exists($this::BOOKMARKS_JSON_FILE))
+        if (!file_exists(Helper::BOOKMARKS_JSON_FILE))
         {
             return [];
         }
         // file_get_contents() でファイル全体を文字列として読み込み
-        $json = file_get_contents($this::BOOKMARKS_JSON_FILE);
+        $json = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
         // json_decode() の第2引数 true で、オブジェクトではなく連想配列として取得
         $data = json_decode($json, true);
         // json_decode() が失敗した場合は null を返すため、配列であることを確認
@@ -60,7 +43,7 @@ class BookMarkManager
         // var_dump($enteredBookMarkData);
         $json = json_encode(array_values($enteredBookMarkData), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         // var_dump($bookMarks);
-        $tmp = $this::BOOKMARKS_JSON_FILE . '.tmp';
+        $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
         $fp = fopen($tmp, 'wb');
 
         if ($fp === false)
@@ -72,7 +55,7 @@ class BookMarkManager
 
         fclose($fp);
 
-        rename($tmp, $this::BOOKMARKS_JSON_FILE);
+        rename($tmp, Helper::BOOKMARKS_JSON_FILE);
         $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
         return $enteredBookMarkData;
     }

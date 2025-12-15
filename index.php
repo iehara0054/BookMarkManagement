@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/class/BookMarkManager.php';
+require_once __DIR__ . '/../class/Helper.php';
 
 // ========================================
 // セッション管理とCSRF対策
@@ -18,8 +19,8 @@ if (empty($_SESSION['csrf_token']))
 // 定数定義とヘルパー関数
 // ========================================
 $BookMarkManager = new BookMarkManager;
-
-$BookMarkManager::BOOKMARKS_JSON_FILE;
+        $Helper = new Helper;
+        $Helper::BOOKMARKS_JSON_FILE;
 
 //エスケープ関数
 function h($str)
@@ -88,7 +89,7 @@ function h($str)
 
         if (!empty($_POST['tags']))
         {
-            $splitTags = $BookMarkManager->splitTags($_POST['tags']);
+            $splitTags = $Helper->splitTags($_POST['tags']);
             $getBookMarkLists = $splitTags;
         }
         // var_dump($bookMarkLists);

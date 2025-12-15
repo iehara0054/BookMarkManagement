@@ -14,7 +14,8 @@
       "Bash(\"/c/xampp/php/php.exe\" -i)",
       "Bash(netstat:*)",
       "Bash(curl:*)",
-      "Bash(if not exist \".vscode\" mkdir .vscode)"
+      "Bash(if not exist \".vscode\" mkdir .vscode)",
+      "Bash(if not exist \"docs\" mkdir docs)"
     ]
   }
 }

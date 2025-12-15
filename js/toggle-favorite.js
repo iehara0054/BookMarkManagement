@@ -12,15 +12,16 @@ async function toggleFavorite(button) {
       body: JSON.stringify(requestBody),
     });
 
-    const json = await response.json();
-    // const obj = JSON.parse(json);
-    json.forEach(function(value){
-      const obj = JSON.parse(value);
-      // if ((value.favorite == false) && (value.id == "556381f0c07ba834")){
-        console.log('==========')
-        console.log(obj.result);
-      // }
+    const data = await response.json();
+    // const obj = Object.entries(data);
+    //   console.log(obj['key']);
+    const obj = JSON.parse(data);
+    data.forEach((value) => {
+      // const obj = JSON.parse(value);
+      // const obj = Object.entries(value);
+      console.log(obj['id']);
     });
+
   } catch (error) {
     console.error('❌ エラー発生:', error);
   }

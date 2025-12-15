@@ -1,11 +1,12 @@
 <?php
 echo 'ここまで-1';
 require_once __DIR__ . '/../class/BookMarkManager.php';
-
+require_once __DIR__ . '/../class/Helper.php';
 session_start();
 
 // var_dump($_POST);
 $BookMarkManager = new BookMarkManager;
+$Helper = new Helper;
 // var_dump($BookMarkManager);
 
 /**
@@ -18,7 +19,7 @@ $BookMarkManager = new BookMarkManager;
 // ========================================
 // 定数定義とヘルパー関数
 // ========================================
-BookMarkManager::BOOKMARKS_JSON_FILE;
+$Helper::BOOKMARKS_JSON_FILE;
 
 //============================================================
 // POSTリクエストの処理
@@ -104,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				'updated_at' => $now,
 			);
 			// var_dump($enteredBookMarkData);
-			$valid_url = $BookMarkManager->is_valid_url($url);
+			$valid_url = $Helper->is_valid_url($url);
 			if ($valid_url === false)
 			{
 				if ($_POST['url'] ?? '')
