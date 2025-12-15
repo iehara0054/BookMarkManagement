@@ -1,7 +1,9 @@
 <?php
 require_once __DIR__ . '/class/BookMarkManager.php';
-require_once __DIR__ . '/../class/Helper.php';
+require_once __DIR__ . '/class/Helper.php';
 
+        $BookMarkManager = new BookMarkManager;
+        $Helper = new Helper;
 // ========================================
 // セッション管理とCSRF対策
 // ========================================
@@ -15,15 +17,13 @@ if (empty($_SESSION['csrf_token']))
 }
 
 
-// ========================================
-// 定数定義とヘルパー関数
-// ========================================
-$BookMarkManager = new BookMarkManager;
-        $Helper = new Helper;
-        $Helper::BOOKMARKS_JSON_FILE;
+        // ========================================
+        // 定数定義とヘルパー関数
+        // ========================================
 
-//エスケープ関数
-function h($str)
+
+        //エスケープ関数
+        function h($str)
 {
     return htmlspecialchars($str);
 }

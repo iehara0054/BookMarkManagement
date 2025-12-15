@@ -1,5 +1,4 @@
 <?php
-echo 'ここまで-1';
 require_once __DIR__ . '/../class/BookMarkManager.php';
 require_once __DIR__ . '/../class/Helper.php';
 session_start();
@@ -30,13 +29,10 @@ $enteredBookMarkData = $_POST;
 // var_dump($SplitTags);
 // var_dump($bookMarks);
 $errors = [];
-echo 'ここまで０';
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-	echo 'ここまで１';
 	if (!hash_equals($_SESSION["csrf_token"], $_POST['csrf_token'] ?? ''))
 	{
-		echo 'トークンエラー';
 		// トークンが一致しない場合は400エラーを返す
 		http_response_code(400);
 		$errors[] = 'Invalid CSRF token.';
@@ -45,20 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 	{
 		$bookMarkList = $BookMarkManager->load_bookmarkLists();
 		// var_dump($bookMarks);
-		echo 'ここまで3';
 		$now = date('c');
 		// var_dump($bookMarks);
 		//============================================================================
 		// アクション: タスクの追加
 		// ============================================================================
-
-		echo 'ここまで４';
-
-		// ========================================
-		// エラーチェック
-		// ========================================
 		// フォームからPOSTされた値を受け取る
-		$SplitTags = [];
+		$splitTags = [];
 		$title = trim((string)($_POST['title'] ?? ''));
 		$url = trim((string)($_POST['url'] ?? ''));
 		$memo = trim((string)($_POST['memo'] ?? ''));
@@ -66,30 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		$userEnteredLowTags = trim((string)($_POST['tags'] ?? ''));
 		$favorite = false;
 
-		// フォームデータを配列として初期化
-		// if (!is_array($_SESSION['form_data']))
-		// {
-		// 	$_SESSION['form_data'] = [];
-		// }
-
-		// $_SESSION['form_data']に値を代入
-		// $_SESSION['form_data']['favorite'] = $favorite;
-		// $_SESSION['form_data']['title'] = $title;
-		// $_SESSION['form_data']['originUrl'] = $url;
-		// $_SESSION['form_data']['url'] = $url;
-		// $_SESSION['form_data']['memo'] = $memo;
-		// $_SESSION['form_data']['tags'] = $tags;
-
-
-		
-
 		if ($title === '' || $url === '')
 		{
 			$errors[] = 'Title is required.';
 		}
 		else
 		{
-			$splitTags = [];
+			// $splitTags = [];
 			$splitTags = explode(",", $tags);
 			// var_dump($splitTags);
 			$splitTags = array_filter($splitTags);
@@ -118,14 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				header('Location: http://localhost/iehara/BookMarkManegiment/index.php');
 				exit();
 			}
-			echo 'ここまで５';
 			// var_dump($bookMarks);
 			$bookMarkList[] = $enteredBookMarkData;
 
 			$BookMarkManager->save_bookMarks($bookMarkList);
 
-			unset($enteredBookMarkData['tags']);
-			
+			// unset($enteredBookMarkData['tags']);
+
 			// var_dump($bookMarks);
 			//PRGパターン
 			$_SESSION['success_message'] = 'ブックマークを追加しました';
