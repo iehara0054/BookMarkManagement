@@ -75,35 +75,42 @@ class BookMarkManager
         rename($tmp, $this::BOOKMARKS_JSON_FILE);
         $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
         return $enteredBookMarkData;
-        // $url = 'http://localhost/Iehara/BookMarkManegiment/index.php';
-        // $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
-        // $context = array(
-        //     'http' => array(
-        //         'method'  => 'POST',
-        //         'header'  => implode("\r\n", array('Content-Type: application/x-www-form-urlencoded',)),
-        //         'content' => http_build_query($enteredBookMarkData)
-        //     )
-        // );
-        // $html = file_get_contents($url, false, stream_context_create($context));
-        // // var_dump($url);
-        // // var_dump($html);
-        // // var_dump($http_response_header);
-        // // echo $html;
-        // echo $html;
-
-    //     header('Location: http://localhost/iehara/BookMarkManegiment/index.php');
-    //     exit();
-    // 
     }
 
-    public function getJsonValue($jsonFilePath, $key)
-    {
-        // jsonファイルの中身を取得
-        $jsonContent = file_get_contents($jsonFilePath);
-        // jsonファイルのデコード（配列に変換）
-        // $jsonData = json_decode($jsonContent, true);
-        // 引数のキーにマッチする値をリターン
-        $value = isset($jsonData[$key]) ? $jsonData[$key] : '';
-        return $value;
-    }
+    // public function getJsonValue($jsonFilePath, $key)
+    // {
+    //     // jsonファイルの中身を取得
+    //     $jsonContent = file_get_contents($jsonFilePath);
+    //     // jsonファイルのデコード（配列に変換）
+    //     // $jsonData = json_decode($jsonContent, true);
+    //     // 引数のキーにマッチする値をリターン
+    //     $value = isset($jsonData[$key]) ? $jsonData[$key] : '';
+    //     return $value;
+    // }
+    // public function encored_json(array $jsonData): string
+    // {
+    //     header("Content-Type: application/json; charset=utf-8");
+    //     // var_dump($enteredBookMarkData);
+    //     $json = json_encode(array_values($jsonData), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    //     // var_dump($bookMarks);
+    //     $tmp = $this::BOOKMARKS_JSON_FILE . '.tmp';
+    //     $fp = fopen($tmp, 'wb');
+
+    //     if ($fp === false)
+    //     {
+    //         throw new RuntimeException('Cannot write temp file');
+    //     }
+
+    //     fwrite($fp, $json);
+
+    //     fclose($fp);
+
+    //     rename($tmp, $this::BOOKMARKS_JSON_FILE);
+
+
+    //     // $updated_json_data = json_encode($json, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    //     // file_put_contents($BookMarkManager::BOOKMARKS_JSON_FILE, $updated_json_data);
+
+    //     return $updated_json_data;
+    // }
 }

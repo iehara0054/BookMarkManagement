@@ -1,6 +1,6 @@
 <?php
 session_start();
-header('Content-Type: application/json');
+header("Content-Type: application/json; charset=utf-8");
 
 require_once __DIR__ . '/../class/BookMarkManager.php';
 $BookMarkManager = new BookMarkManager;
@@ -34,7 +34,9 @@ foreach ($jsonDecodedData as $key => $item)
     }
 }
 
-$updated_json_data = json_encode($jsonDecodedData, JSON_PRETTY_PRINT);
+header("Content-Type: application/json; charset=utf-8");
+$updated_json_data = json_encode($jsonDecodedData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 file_put_contents($BookMarkManager::BOOKMARKS_JSON_FILE, $updated_json_data);
 
 echo $updated_json_data;
+// var_dump($updated_json_data);
