@@ -12,14 +12,15 @@ async function toggleFavorite(button) {
       body: JSON.stringify(requestBody),
     });
 
-    const data = await response.json();
-    const favoriteBtn =  document.getElementById('favorite-button');
-      favoriteBtn.addEventListener('click', function() {
-        if ((data.favorite == true) && (favoriteBtn.getAttribute('data-item-id') == data.id)) {
-          console.log('OK');
-        }
-      });
-
+    const json = await response.json();
+    // const obj = JSON.parse(json);
+    json.forEach(function(value){
+      const obj = JSON.parse(value);
+      // if ((value.favorite == false) && (value.id == "556381f0c07ba834")){
+        console.log('==========')
+        console.log(obj.result);
+      // }
+    });
   } catch (error) {
     console.error('❌ エラー発生:', error);
   }
