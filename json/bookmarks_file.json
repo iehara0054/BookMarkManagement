@@ -14,7 +14,7 @@
         "title": "11111111111",
         "url": "http:\/\/localhost\/iehara\/BookMarkManegiment\/index.php",
         "memo": "11111111111",
-        "favorite": false,
+        "favorite": true,
         "tags": [
             "4",
             "4",

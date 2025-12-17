@@ -12,17 +12,17 @@ async function toggleFavorite(button) {
       body: JSON.stringify(requestBody),
     });
 
-    const jsonString = await response.json();
+    const data = await response.json();
 
-    // console.log(data);
+    console.log(data);
 
     // const jsonString = '[{"name": "Alice", "age": 30}, {"name": "Bob", "age": 25}]';
     // const testdata = JSON.parse(jsonString);
     // console.log(testdata[0].name);
 
-    const obj = JSON.parse(jsonString);
-
-    console.log(obj['id']);
+    // const obj = JSON.parse(jsonString);
+    // console.log(jsonString);
+    // console.log(obj['id']);
     // $i = 0;
     // obj.forEach((value) => {
       // console.log(value[0].id);
