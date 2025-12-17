@@ -56,7 +56,7 @@ class BookMarkManager
         fclose($fp);
 
         rename($tmp, Helper::BOOKMARKS_JSON_FILE);
-        $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
+        // $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
         return $enteredBookMarkData;
     }
 
@@ -111,38 +111,17 @@ class BookMarkManager
                 $id_number = $get_json_data_decode[$key]['id'];
                 $array_id = [];
                 $array_id = array('id' => $id_number);
+                header("Content-Type: application/json; charset=utf-8");
                 $array_id_json = json_encode($array_id, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
                 echo $array_id_json;
+                break;
             }
         }
         // header("Content-Type: application/json; charset=utf-8");
-        // $updated_json_data = json_encode($jsonDecodedData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        // $updated_json_data = json_encode($get_json_data_decode, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         // file_put_contents(Helper::BOOKMARKS_JSON_FILE, $updated_json_data);
 
         // echo $updated_json_data;
-        // header("Content-Type: application/json; charset=utf-8");
-        // // var_dump($enteredBookMarkData);
-        // $json = json_encode(array_values($jsonData), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        // // var_dump($bookMarks);
-        // $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
-        // $fp = fopen($tmp, 'wb');
-
-        // if ($fp === false)
-        // {
-        //     throw new RuntimeException('Cannot write temp file');
-        // }
-
-        // fwrite($fp, $json);
-
-        // fclose($fp);
-
-        // rename($tmp, Helper::BOOKMARKS_JSON_FILE);
-
-
-        // $updated_json_data = json_encode($json, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        // file_put_contents($BookMarkManager::BOOKMARKS_JSON_FILE, $updated_json_data);
-
-        // return Helper::BOOKMARKS_JSON_FILE;
     }
 }
