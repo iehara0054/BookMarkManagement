@@ -37,7 +37,7 @@ class BookMarkManager
      * @param array $bookMarks 保存するタスクの配列
      * @return void
      */
-    public function save_bookMarks(array $enteredBookMarkData): array
+    public function save_bookMarks(array $enteredBookMarkData): string
     {
         echo 'ここまで６';
         // var_dump($enteredBookMarkData);
@@ -57,7 +57,11 @@ class BookMarkManager
 
         rename($tmp, Helper::BOOKMARKS_JSON_FILE);
         // $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
+<<<<<<< HEAD
         return $enteredBookMarkData;
+=======
+        return $json;
+>>>>>>> c9288cfe1223a1c154f7eca91b4ab808384f6514
     }
 
     public function toggle_favorite()
