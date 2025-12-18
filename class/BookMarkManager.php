@@ -89,52 +89,37 @@ class BookMarkManager
 
         foreach ($get_json_data_decode as $key => $item)
         {
-            if ($item['id'] === $clicked_id['id'])
-            {
-                if ($get_json_data_decode[$key]['favorite'] === false)
-                {
-                    $json_data_decode[$key]['favorite'] = true;
-                }
-                else if ($get_json_data_decode[$key]['favorite'] === true)
-                {
-                    $get_json_data_decode[$key]['favorite'] = false;
-                }
-
-                $id_number = $get_json_data_decode[$key]['id'];
-                $id_favorite = $get_json_data_decode[$key]['favorite'];
-
-                $array_id = [];
-                $array_id = array('id' => $id_number, 'favorite' => $id_favorite);
-
-                header("Content-Type: application/json; charset=utf-8");
-                $array_id_json = json_encode($array_id, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-                $get_json_data_decode_json = json_encode($get_json_data_decode, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-                file_put_contents(Helper::BOOKMARKS_JSON_FILE, $get_json_data_decode_json);
-
-                echo $array_id_json;
-            }
+            if ($item['id'] !== $clicked_id) continue;
+            $item['favorite'] = !$item['favorite'] ?? true;
         }
 
         // foreach ($get_json_data_decode as $key => $item)
         // {
         //     if ($item['id'] === $clicked_id['id'])
         //     {
+        //         if ($get_json_data_decode[$key]['favorite'] === false)
+        //         {
+        //             $json_data_decode[$key]['favorite'] = true;
+        //         }
+        //         else if ($get_json_data_decode[$key]['favorite'] === true)
+        //         {
+        //             $get_json_data_decode[$key]['favorite'] = false;
+        //         }
+
         //         $id_number = $get_json_data_decode[$key]['id'];
         //         $id_favorite = $get_json_data_decode[$key]['favorite'];
+
         //         $array_id = [];
         //         $array_id = array('id' => $id_number, 'favorite' => $id_favorite);
+
         //         header("Content-Type: application/json; charset=utf-8");
         //         $array_id_json = json_encode($array_id, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        //         $get_json_data_decode_json = json_encode($get_json_data_decode, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+        //         file_put_contents(Helper::BOOKMARKS_JSON_FILE, $get_json_data_decode_json);
 
         //         echo $array_id_json;
-        //         break;
         //     }
         // }
-        // header("Content-Type: application/json; charset=utf-8");
-        // $updated_json_data = json_encode($get_json_data_decode, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        // file_put_contents(Helper::BOOKMARKS_JSON_FILE, $updated_json_data);
-
-        // echo $updated_json_data;
     }
 }
