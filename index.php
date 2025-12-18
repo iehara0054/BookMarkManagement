@@ -2,12 +2,11 @@
 require_once __DIR__ . '/class/BookMarkManager.php';
 require_once __DIR__ . '/class/Helper.php';
 
-        $BookMarkManager = new BookMarkManager;
-        $Helper = new Helper;
+$BookMarkManager = new BookMarkManager;
+$Helper = new Helper;
 // ========================================
 // セッション管理とCSRF対策
 // ========================================
-
 session_start();
 
 if (empty($_SESSION['csrf_token']))
@@ -17,21 +16,19 @@ if (empty($_SESSION['csrf_token']))
 }
 
 
-        // ========================================
-        // 定数定義とヘルパー関数
-        // ========================================
-
-
-        //エスケープ関数
-        function h($str)
+// ========================================
+// 定数定義とヘルパー関数
+// ========================================
+//エスケープ関数
+function h($str)
 {
     return htmlspecialchars($str);
 }
-// フォームデータを配列として初期化
-// if (!is_array($_POST['form_data']))
-// {
-//     $_POST['form_data'] = [];
-// }
+
+// ========================================
+// onload時のお気に入りの状態
+// ========================================
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,6 +40,7 @@ if (empty($_SESSION['csrf_token']))
 </head>
 
 <body>
+
     <h1>ブックマークリスト</h1>
     <p>ブックマークを追加・更新ができます</p>
     <form id="inputForm" method="POST" action="./API/add.php">
@@ -112,8 +110,8 @@ if (empty($_SESSION['csrf_token']))
                 </thead>
                 <tbody>
                     <?php
-            // $getBookMarkListsを配列として初期化
-            if (empty($getBookMarkLists))
+                    // $getBookMarkListsを配列として初期化
+                    if (empty($getBookMarkLists))
                     {
                         $getBookMarkLists = [];
                     }
@@ -157,6 +155,7 @@ if (empty($_SESSION['csrf_token']))
             </table>
         <?php endif; ?>
     </div>
+    <script src="./js/onload-favorite.js"></script>
     <script src="./js/toggle-favorite.js"></script>
     <script src="./js/utilities.js"></script>
 </body>

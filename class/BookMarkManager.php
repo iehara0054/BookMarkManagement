@@ -3,12 +3,13 @@ require_once __DIR__ . '/Helper.php';
 
 class BookMarkManager
 {
-    private $Helper;
+    public $Helper;
 
     public function __construct()
     {
         $this->Helper = new Helper();
     }
+
 
     /**
      * ブックマークデータをJSONファイルから読み込む
@@ -18,7 +19,6 @@ class BookMarkManager
     public function load_bookmarkLists(): array
     {
         // ファイルが存在しない場合（初回起動時）は空配列を返す
-        // これにより、ファイルがない状態でもエラーにならず、新規にタスクを追加できる
         if (!file_exists(Helper::BOOKMARKS_JSON_FILE))
         {
             return [];
@@ -60,20 +60,8 @@ class BookMarkManager
         return $enteredBookMarkData;
     }
 
-    // public function getJsonValue($jsonFilePath, $key)
-    // {
-    //     // jsonファイルの中身を取得
-    //     $jsonContent = file_get_contents($jsonFilePath);
-    //     // jsonファイルのデコード（配列に変換）
-    //     // $jsonData = json_decode($jsonContent, true);
-    //     // 引数のキーにマッチする値をリターン
-    //     $value = isset($jsonData[$key]) ? $jsonData[$key] : '';
-    //     return $value;
-    // }
     public function toggle_favorite()
     {
-        header("Content-Type: application/json; charset=utf-8");
-
         $clicked_id = json_decode(file_get_contents('php://input'), true);
         $clicked_id = $clicked_id ?? null;
 
@@ -87,39 +75,24 @@ class BookMarkManager
 
         $get_json_data_decode = json_decode($get_json_data, true);
 
-        foreach ($get_json_data_decode as $key => $item)
+        foreach ($get_json_data_decode as $key => &$item)
         {
-            if ($item['id'] !== $clicked_id) continue;
-            $item['favorite'] = !$item['favorite'] ?? true;
+            if ($item['id'] !== $clicked_id['id']) continue;
+            $item['favorite'] = !$item['favorite'];
+
+            $item_array = [];
+            $item_array = array('id' => $item['id'], 'favorite' => $item['favorite']);
+
+            header("Content-Type: application/json; charset=utf-8");
+
+            $array_item_json = json_encode($item_array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+            $get_json_data_decode_json = json_encode($get_json_data_decode, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            file_put_contents(Helper::BOOKMARKS_JSON_FILE, $get_json_data_decode_json);
+
+            echo $array_item_json;
+            break;
         }
-
-        // foreach ($get_json_data_decode as $key => $item)
-        // {
-        //     if ($item['id'] === $clicked_id['id'])
-        //     {
-        //         if ($get_json_data_decode[$key]['favorite'] === false)
-        //         {
-        //             $json_data_decode[$key]['favorite'] = true;
-        //         }
-        //         else if ($get_json_data_decode[$key]['favorite'] === true)
-        //         {
-        //             $get_json_data_decode[$key]['favorite'] = false;
-        //         }
-
-        //         $id_number = $get_json_data_decode[$key]['id'];
-        //         $id_favorite = $get_json_data_decode[$key]['favorite'];
-
-        //         $array_id = [];
-        //         $array_id = array('id' => $id_number, 'favorite' => $id_favorite);
-
-        //         header("Content-Type: application/json; charset=utf-8");
-        //         $array_id_json = json_encode($array_id, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        //         $get_json_data_decode_json = json_encode($get_json_data_decode, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-        //         file_put_contents(Helper::BOOKMARKS_JSON_FILE, $get_json_data_decode_json);
-
-        //         echo $array_id_json;
-        //     }
-        // }
+        unset($item);
     }
 }
