@@ -56,12 +56,8 @@ class BookMarkManager
         fclose($fp);
 
         rename($tmp, Helper::BOOKMARKS_JSON_FILE);
-        // $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
-<<<<<<< HEAD
-        return $enteredBookMarkData;
-=======
+        // $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true))
         return $json;
->>>>>>> c9288cfe1223a1c154f7eca91b4ab808384f6514
     }
 
     public function toggle_favorite()
