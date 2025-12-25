@@ -1,5 +1,3 @@
-const Url = 'json/bookmarks_file.json';
-
 document.addEventListener('DOMContentLoaded', async () =>  {
   try {
     const response = await fetch('json/bookmarks_file.json');
@@ -11,28 +9,27 @@ document.addEventListener('DOMContentLoaded', async () =>  {
 
     const data = await response.json();
 
-    
-    // const favoriteBtn = document.querySelector('.favorite-btn');
-    // itemId = favoriteBtn.dataset.itemId;
-    // console.log(itemId);
+    const favoriteBtns = document.querySelectorAll('.favorite-btn');
+    favoriteBtns.forEach(favoriteBtn => {
+      const itemId = favoriteBtn.dataset.itemId;
+    });
 
     data.forEach(value => {
-      
-    const favoriteBtn = document.querySelector('.favorite-btn');
-    itemId = favoriteBtn.dataset.itemId;
-    console.log(itemId);
-
-
     if ((value.id === itemId) && (value.favorite === false))
       { 
-        favoriteBtn.querySelector('.is-favorited');
-        favoriteBtn.classList.remove('.is-favorited');
+        const classBtn = favoriteBtn.querySelector('.favorite-btn');
+        if(classBtn.classList.contains('is-favorited'))
+        {
+           classBtn.classList.remove('.is-favorited');
+        } 
       } else if ((value.id === itemId) && (value.favorite === true))
       {
-        favoriteBtn.querySelector('.is-favorited');
-        favoriteBtn.classList.add('.is-favorited');
+        const classBtn = favoriteBtn.querySelector('.favorite-btn');
+        if(!classBtn.classList.contains('is-favorited'))
+        {
+           classBtn.classList.remove('.is-favorited');
+        }
       }
-
     });
     } catch (error) {
       // エラーハンドリング
