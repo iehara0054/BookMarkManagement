@@ -78,18 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 			);
 			// var_dump($enteredBookMarkData);
 			$valid_url = $Helper->is_valid_url($url);
-			if ($valid_url === false)
-			{
-				if ($_POST['url'] ?? '')
-				{
-					$_SESSION['error_url'] = 'URLの形式ではありません';
-					$_SESSION['detectedErrorUrl'] = $enteredBookMarkData;
-					$_SESSION['detectedErrorUrl']['userEnteredLowTags'] = $userEnteredLowTags;
-				}
 
-				header('Location: http://localhost/iehara/BookMarkManegiment/index.php');
-				exit();
-			}
 			// var_dump($bookMarks);
 			$bookMarkList[] = $enteredBookMarkData;
 

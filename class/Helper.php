@@ -15,6 +15,19 @@ class Helper
     {
         echo 'ここまでis_valid_url';
         return false !== filter_var($url, FILTER_VALIDATE_URL) && preg_match('@^https?+://@i', $url) > 0;
+
+        if ($valid_url === false)
+        {
+            if ($_POST['url'] ?? '')
+            {
+                $_SESSION['error_url'] = 'URLの形式ではありません';
+                $_SESSION['detectedErrorUrl'] = $enteredBookMarkData;
+                $_SESSION['detectedErrorUrl']['userEnteredLowTags'] = $userEnteredLowTags;
+            }
+
+            header('Location: http://localhost/iehara/BookMarkManegiment/index.php');
+            exit();
+        }
     }
 
     /**

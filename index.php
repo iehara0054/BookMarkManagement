@@ -120,8 +120,9 @@ function h($str)
                         <tr>
                             <td>
                                 <div>
-                                    <button id="favorite-button" class="favorite-btn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
+                                    <button class="favorite-btn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
                                         <span class="icon">☆</span></button>
+                                    <?= $b['id'] ?>
                                 </div>
                             </td>
                             <td>

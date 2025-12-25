@@ -62,35 +62,61 @@ class BookMarkManager
 
     public function toggle_favorite()
     {
-        $clicked_id = json_decode(file_get_contents('php://input'), true);
-        $clicked_id = $clicked_id ?? null;
+        $posted_data = json_decode(file_get_contents('php://input'), true);
+        $target_id = $posted_data['id'] ?? null;
 
-        if ($clicked_id === null)
+        if ($target_id === null)
         {
             echo json_encode(['error' => 'ID is required']);
             exit;
         }
 
         $get_json_data = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
-
         $get_json_data_decode = json_decode($get_json_data, true);
 
-        foreach ($get_json_data_decode as $key => &$item)
+        foreach ($get_json_data_decode as $key => $item)
         {
-            if ($item['id'] !== $clicked_id['id']) continue;
-            $item['favorite'] = !$item['favorite'];
+            // if ($item['id'] == $clicked_id['id']) continue;
+            // $item['favorite'] = !$item['favorite'];
 
-            $item_array = [];
-            $item_array = array('id' => $item['id'], 'favorite' => $item['favorite']);
+            foreach ($get_json_data_decode as $key => $item)
+            {
+                if ($item['id'] === $target_id)
+                {
+                    if ($get_json_data_decode[$key]['favorite'] === false)
+                    {
+                        $get_json_data_decode[$key]['favorite'] = true;
+                    }
+                    else if ($get_json_data_decode[$key]['favorite'] === true)
+                    {
+                        $get_json_data_decode[$key]['favorite'] = false;
+                    }
+
+                    // break;
+                }
+            }
+            // $item_array = [];
+            // $item_array = array('id' => $item['id'], 'favorite' => $item['favorite']);
 
             header("Content-Type: application/json; charset=utf-8");
 
-            $array_item_json = json_encode($item_array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            $json = json_encode(array_values($get_json_data_decode), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+            // var_dump($bookMarks);
+            $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
+            $fp = fopen($tmp, 'wb');
 
-            $get_json_data_decode_json = json_encode($get_json_data_decode, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-            file_put_contents(Helper::BOOKMARKS_JSON_FILE, $get_json_data_decode_json);
+            if ($fp === false)
+            {
+                throw new RuntimeException('Cannot write temp file');
+            }
 
-            echo $array_item_json;
+            fwrite($fp, $json);
+
+            fclose($fp);
+
+            rename($tmp, Helper::BOOKMARKS_JSON_FILE);
+            // $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
+            echo $json;
             break;
         }
         unset($item);

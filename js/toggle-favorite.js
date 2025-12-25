@@ -3,10 +3,10 @@ async function toggleFavorite(button) {
     const itemId = button.getAttribute('data-item-id');
     const icon = button.querySelector('.icon');
 
-    // AIでCSSを当てた時に勝手に書かれました
+    // AIでCSSを当てた時に書かれました
     // ボタンを一時的に無効化（連続クリック防止）
-    button.disabled = true;
-    // AIでCSSを当てた時に勝手に書かれました
+    // button.disabled = true;
+    // AIでCSSを当てた時に書かれました
     // クリック時の即座のフィードバック
     button.style.transform = 'scale(0.95)';
     setTimeout(() => {
@@ -24,29 +24,32 @@ async function toggleFavorite(button) {
     });
 
     const data = await response.json();
-    console.log('お気に入り状態:', data.favorite);
+    data.forEach(value => {
+
+    console.log('お気に入り状態:', value.favorite);
 
     // お気に入り状態を切り替え
-    if (data.favorite === true) {
+    if (value.favorite === true) {
       button.classList.add('is-favorited');
       icon.textContent = '★';
 
       // パーティクルエフェクトを追加
       createSparkles(button);
-    } else {
+    } else if (value.favorite === false) {
       button.classList.remove('is-favorited');
       icon.textContent = '☆';
     }
 
     // ボタンを再度有効化
     button.disabled = false;
+    });
 
   } catch (error) {
     console.error('❌ エラー発生:', error);
     button.disabled = false;
   }
 }
-// AIでCSSを当てた時に勝手に書かれました
+// AIでCSSを当てた時に書かれました
 // スパークルエフェクト関数
 function createSparkles(button) {
   const sparkleCount = 6;
