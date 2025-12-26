@@ -1,45 +1,45 @@
-// document.addEventListener('DOMContentLoaded', async () =>  {
-//   try {
-//     const response = await fetch('json/bookmarks_file.json');
+document.addEventListener('DOMContentLoaded', async () =>  {
+  try {
+    const response = await fetch('json/bookmarks_file.json');
 
-//     if (!response.ok) {
-//       // レスポンスがOKでない場合、エラーを投げる
-//       throw new Error(`HTTPエラー! ステータス: ${response.status}`);
-//     }
+    if (!response.ok) {
+      // レスポンスがOKでない場合、エラーを投げる
+      throw new Error(`HTTPエラー! ステータス: ${response.status}`);
+    }
 
-//     const data = await response.json();
+    const data = await response.json();
 
-//     const favoriteBtns = document.querySelectorAll('.favorite-btn');
-//     favoriteBtns.forEach(favoriteBtn => {
-//       const itemId = favoriteBtn.dataset.itemId;
+    const favoriteBtns = document.querySelectorAll('.favorite-btn');
+    favoriteBtns.forEach(favoriteBtn => {
+      const itemId = favoriteBtn.dataset.itemId;
     
-//         data.forEach(value => {
-//         if ((value.id === itemId) && (value.favorite === false))
-//           {
-//             if(favoriteBtn.classList.contains('is-favorited'))
-//             {
-//               favoriteBtn.classList.remove('is-favorited');
-//             }
-//           } else if ((value.id === itemId) && (value.favorite === true))
-//           {
-//             if(!favoriteBtn.classList.contains('is-favorited'))
-//             {
-//               favoriteBtn.classList.add('is-favorited');
-//             }
-//           }
-//         });
-//         });
-//       } catch (error) {
-//         // エラーハンドリング
-//         console.error('データの取得中にエラーが発生しました:', error);
-//         return null; // または適切なエラー値を返す
-//       }
-// });
-//       // if (data.favorite === false)
-//       // {
-//       //   favoriteBtn.querySelectorAll('.is-favorited');
-//       //   favoriteBtn.classList.remove('.is-favorited');
-//       // }
+        data.forEach(value => {
+        if ((value.id === itemId) && (value.favorite === false))
+          {
+            if(favoriteBtn.classList.contains('is-favorited'))
+            {
+              favoriteBtn.classList.remove('is-favorited');
+            }
+          } else if ((value.id === itemId) && (value.favorite === true))
+          {
+            if(!favoriteBtn.classList.contains('is-favorited'))
+            {
+              favoriteBtn.classList.add('is-favorited');
+            }
+          }
+        });
+        });
+      } catch (error) {
+        // エラーハンドリング
+        console.error('データの取得中にエラーが発生しました:', error);
+        return null; // または適切なエラー値を返す
+      }
+});
+      // if (data.favorite === false)
+      // {
+      //   favoriteBtn.querySelectorAll('.is-favorited');
+      //   favoriteBtn.classList.remove('.is-favorited');
+      // }
 
  
 
