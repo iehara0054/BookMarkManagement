@@ -10,10 +10,13 @@ $Helper = new Helper;
 
 // $BookMarkManager->toggle_favorite()
 
-$posted_data = json_decode(file_get_contents('php://input'), true);
-$target_id = $posted_data['id'] ?? null;
+$posted = json_decode(file_get_contents('php://input'), true);
+$posted_id = $posted['id'] ?? null;
 
-if ($target_id === null)
+
+
+
+if ($posted_id === null)
 {
     echo json_encode(['error' => 'ID is required']);
     exit;
@@ -22,27 +25,34 @@ if ($target_id === null)
 $get_json_data = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
 $get_json_data_decode = json_decode($get_json_data, true);
 
-foreach ($get_json_data_decode as $key => $item)
+// if ($item['id'] == $clicked_id['id']) continue;
+// $item['favorite'] = !$item['favorite'];
+try
 {
-    // if ($item['id'] == $clicked_id['id']) continue;
-    // $item['favorite'] = !$item['favorite'];
 
-    foreach ($get_json_data_decode as $key => $item)
+
+    foreach ($get_json_data_decode as $key => &$item)
     {
-        if ($item['id'] === $target_id)
+        if ($item['id'] === $posted_id)
         {
-            if ($get_json_data_decode[$key]['favorite'] === false)
-            {
-                $get_json_data_decode[$key]['favorite'] = true;
-            }
-            else if ($get_json_data_decode[$key]['favorite'] === true)
-            {
-                $get_json_data_decode[$key]['favorite'] = false;
-            }
-
-            // break;
+            // if ($item['favorite'] === false)
+            // {
+            $item['favorite'] = !$item['favorite'];
+            // }
+            // else if ($item['favorite'] === true)
+            // {
+            //     $item['favorite'] = !$item['favorite'];
+            // }
+            break;
         }
     }
+    unset($item);
+}
+catch (Exception $e)
+{
+    echo $e->getMessage() . "<br>";
+    exit();
+}
     // $item_array = [];
     // $item_array = array('id' => $item['id'], 'favorite' => $item['favorite']);
 
@@ -63,8 +73,5 @@ foreach ($get_json_data_decode as $key => $item)
     fclose($fp);
 
     rename($tmp, Helper::BOOKMARKS_JSON_FILE);
-    // $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
-    echo $json;
-    break;
-}
-unset($item);
+// $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
+echo $json;

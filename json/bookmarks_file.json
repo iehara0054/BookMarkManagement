@@ -4,7 +4,7 @@
         "title": "111111111111111111",
         "url": "http:\/\/localhost\/Iehara\/BookMarkManegiment\/index.php",
         "memo": "",
-        "favorite": false,
+        "favorite": true,
         "tags": [],
         "created_at": "2025-12-25T01:16:23+01:00",
         "updated_at": "2025-12-25T01:16:23+01:00"
@@ -14,7 +14,7 @@
         "title": "2222222222222222222",
         "url": "http:\/\/localhost\/Iehara\/BookMarkManegiment\/index.php",
         "memo": "",
-        "favorite": false,
+        "favorite": true,
         "tags": [],
         "created_at": "2025-12-25T01:16:32+01:00",
         "updated_at": "2025-12-25T01:16:32+01:00"
