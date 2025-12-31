@@ -11,12 +11,11 @@ class Helper
      * 
      * @param string $url バリデーションする文字列
      */
-    public function is_valid_url(string $url): bool
+    public function is_valid_url($url, $enteredBookMarkData, $userEnteredLowTags): bool
     {
-        echo 'ここまでis_valid_url';
-        return false !== filter_var($url, FILTER_VALIDATE_URL) && preg_match('@^https?+://@i', $url) > 0;
+        $validUrl = false !== filter_var($url, FILTER_VALIDATE_URL) && preg_match('@^https?+://@i', $url) > 0;
 
-        if ($valid_url === false)
+        if ($validUrl === false)
         {
             if ($_POST['url'] ?? '')
             {
@@ -28,6 +27,7 @@ class Helper
             header('Location: http://localhost/iehara/BookMarkManegiment/index.php');
             exit();
         }
+        return $validUrl;
     }
 
     /**

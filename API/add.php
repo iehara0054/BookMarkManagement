@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				'updated_at' => $now,
 			);
 			// var_dump($enteredBookMarkData);
-			$valid_url = $Helper->is_valid_url($url);
+			$Helper->is_valid_url($url, $enteredBookMarkData, $userEnteredLowTags);
 
 			// var_dump($bookMarks);
 			$bookMarkList[] = $enteredBookMarkData;
