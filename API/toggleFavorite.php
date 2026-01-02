@@ -7,42 +7,25 @@ require_once __DIR__ . '/../class/Helper.php';
 $BookMarkManager = new BookMarkManager;
 $Helper = new Helper;
 
-
-// $BookMarkManager->toggle_favorite()
-
 $posted = json_decode(file_get_contents('php://input'), true);
-$posted_id = $posted['id'] ?? null;
+$postedId = $posted['id'] ?? null;
 
-
-
-
-if ($posted_id === null)
+if ($postedId === null)
 {
     echo json_encode(['error' => 'ID is required']);
     exit;
 }
 
-$get_json_data = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
-$get_json_data_decode = json_decode($get_json_data, true);
+$getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
+$getJsonDataDecode = json_decode($getJsonData, true);
 
-// if ($item['id'] == $clicked_id['id']) continue;
-// $item['favorite'] = !$item['favorite'];
 try
 {
-
-
-    foreach ($get_json_data_decode as $key => &$item)
+    foreach ($getJsonDataDecode as $key => &$item)
     {
-        if ($item['id'] === $posted_id)
+        if ($item['id'] === $postedId)
         {
-            // if ($item['favorite'] === false)
-            // {
             $item['favorite'] = !$item['favorite'];
-            // }
-            // else if ($item['favorite'] === true)
-            // {
-            //     $item['favorite'] = !$item['favorite'];
-            // }
             break;
         }
     }
@@ -53,13 +36,10 @@ catch (Exception $e)
     echo $e->getMessage() . "<br>";
     exit();
 }
-    // $item_array = [];
-    // $item_array = array('id' => $item['id'], 'favorite' => $item['favorite']);
 
     header("Content-Type: application/json; charset=utf-8");
 
-    $json = json_encode(array_values($get_json_data_decode), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    // var_dump($bookMarks);
+$json = json_encode(array_values($getJsonDataDecode), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
     $fp = fopen($tmp, 'wb');
 
@@ -73,5 +53,5 @@ catch (Exception $e)
     fclose($fp);
 
     rename($tmp, Helper::BOOKMARKS_JSON_FILE);
-// $enteredBookMarkData = array_merge($enteredBookMarkData, array('complete' => true));
+
 echo $json;
