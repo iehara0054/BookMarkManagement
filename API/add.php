@@ -3,17 +3,8 @@ require_once __DIR__ . '/../class/BookMarkManager.php';
 require_once __DIR__ . '/../class/Helper.php';
 session_start();
 
-// var_dump($_POST);
 $BookMarkManager = new BookMarkManager;
 $Helper = new Helper;
-// var_dump($BookMarkManager);
-
-/**
- * タスクをJSONファイルに保存する
- * 
- * @param array $tasks 保存するタスクの配列
- * @return void
- */
 
 // ========================================
 // 定数定義とヘルパー関数
@@ -26,23 +17,21 @@ $Helper::BOOKMARKS_JSON_FILE;
 $tags = '';
 $enteredBookMarkData =[];
 $enteredBookMarkData = $_POST;
-// var_dump($SplitTags);
-// var_dump($bookMarks);
+
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
 	if (!hash_equals($_SESSION["csrf_token"], $_POST['csrf_token'] ?? ''))
 	{
-		// トークンが一致しない場合は400エラーを返す
 		http_response_code(400);
 		$errors[] = 'Invalid CSRF token.';
 	}
 	else
 	{
 		$bookMarkList = $BookMarkManager->load_bookmarkLists();
-		// var_dump($bookMarks);
+
 		$now = date('c');
-		// var_dump($bookMarks);
+
 		//============================================================================
 		// アクション: タスクの追加
 		// ============================================================================
@@ -61,9 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		}
 		else
 		{
-			// $splitTags = [];
 			$splitTags = explode(",", $tags);
-			// var_dump($splitTags);
 			$splitTags = array_filter($splitTags);
 
 			$enteredBookMarkData = array(
@@ -76,18 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				'created_at' => $now,
 				'updated_at' => $now,
 			);
-			// var_dump($enteredBookMarkData);
+
 			$Helper->is_valid_url($url, $enteredBookMarkData, $userEnteredLowTags);
 
-			// var_dump($bookMarks);
 			$bookMarkList[] = $enteredBookMarkData;
 
 			$BookMarkManager->save_bookMarks($bookMarkList);
 
-			// unset($enteredBookMarkData['tags']);
-
-			// var_dump($bookMarks);
-			//PRGパターン
 			$_SESSION['success_message'] = 'ブックマークを追加しました';
 
 			header('Location: ../index.php');
