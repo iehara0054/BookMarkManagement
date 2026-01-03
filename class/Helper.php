@@ -33,8 +33,8 @@ class Helper
     /**
      * タグをカンマで区切るり、配列としてわたす
      * 
-     * @array string $tags 画面からPOSTされた配列
-     * @array string $splitTags 分割されたタグ
+     * @param string $tags 画面からPOSTされた配列
+     * @return string $splitTags 分割されたタグ
      */
     public function splitTags($tags)
     {
