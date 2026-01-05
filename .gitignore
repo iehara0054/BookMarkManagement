@@ -41,3 +41,4 @@ sessions/
 
 # 問題のあるファイル名
 nul
+.claude/settings.local.json
