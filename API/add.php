@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		$memo = trim((string)($_POST['memo'] ?? ''));
 		$tags = trim((string)($_POST['tags'] ?? ''));
 		$userEnteredLowTags = trim((string)($_POST['tags'] ?? ''));
-		$favorite = false;
+		$favorite = false; // お気に入りは常にfalse
 
 		if ($title === '' || $url === '')
 		{
