@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () =>  {
   try {
-    const response = await fetch('json/bookmarks_file.json');
+    const response = await fetch('data/bookmarks_file.json');
 
     if (!response.ok) {
       // レスポンスがOKでない場合、エラーを投げる
