@@ -155,8 +155,8 @@ function h($str)
             </table>
         <?php endif; ?>
     </div>
-    <script src="./js/onload-favorite.js"></script>
-    <script src="./js/toggle-favorite.js"></script>
+    <script src="./js/onload_favorite.js"></script>
+    <script src="./js/toggle_favorite.js"></script>
     <script src="./js/utilities.js"></script>
 </body>
 
