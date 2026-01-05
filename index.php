@@ -106,6 +106,7 @@ function h($str)
                         <th>URL</th>
                         <th>メモ</th>
                         <th>タグ</th>
+                        <th>削除</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -148,6 +149,9 @@ function h($str)
                                         <div><?= h(trim($t)) ?></div>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
+                            </td>
+                            <td>
+                                <button class="delete-btn">削除</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
