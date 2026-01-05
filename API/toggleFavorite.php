@@ -19,9 +19,7 @@ if ($postedId === null)
 $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
 $getJsonDataDecode = json_decode($getJsonData, true);
 
-try
-{
-    foreach ($getJsonDataDecode as $key => &$item)
+foreach ($getJsonDataDecode as $key => &$item)
     {
         if ($item['id'] === $postedId)
         {
@@ -29,16 +27,11 @@ try
             break;
         }
     }
-    unset($item);
-}
-catch (Exception $e)
-{
-    echo $e->getMessage() . "<br>";
-    exit();
-}
+unset($item);
 
     header("Content-Type: application/json; charset=utf-8");
-
+try
+{
 $json = json_encode(array_values($getJsonDataDecode), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
     $fp = fopen($tmp, 'wb');
@@ -53,5 +46,10 @@ $json = json_encode(array_values($getJsonDataDecode), JSON_PRETTY_PRINT | JSON_U
     fclose($fp);
 
     rename($tmp, Helper::BOOKMARKS_JSON_FILE);
-
+}
+catch (Exception $e)
+{
+    echo $e->getMessage() . "<br>";
+    exit();
+}
 echo $json;
