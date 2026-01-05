@@ -37,7 +37,9 @@ class BookMarkManager
      */
     public function save_bookMarks(array $enteredBookMarkData): string
     {
-        $json = json_encode(array_values($enteredBookMarkData), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        try
+        {
+            $json = json_encode(array_values($enteredBookMarkData), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
         $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
         $fp = fopen($tmp, 'wb');
@@ -52,7 +54,12 @@ class BookMarkManager
         fclose($fp);
 
         rename($tmp, Helper::BOOKMARKS_JSON_FILE);
-
+        }
+        catch (Exception $e)
+        {
+            echo $e->getMessage() . "<br>";
+            exit();
+        }
         return $json;
     }
 }
