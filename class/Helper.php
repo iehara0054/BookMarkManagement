@@ -4,7 +4,7 @@ class Helper
     // ========================================
     // 定数定義とヘルパー関数
     // ========================================
-    public const BOOKMARKS_JSON_FILE = __DIR__ . '/../json/bookmarks_file.json';
+    public const BOOKMARKS_JSON_FILE = __DIR__ . '/../data/bookmarks_file.json';
 
     /**
      * URLのバリデーション
