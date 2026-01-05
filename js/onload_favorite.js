@@ -30,31 +30,9 @@ document.addEventListener('DOMContentLoaded', async () =>  {
         });
         });
       } catch (error) {
-        // エラーハンドリング
         console.error('データの取得中にエラーが発生しました:', error);
-        return null; // または適切なエラー値を返す
+        return null;
       }
 });
-      // if (data.favorite === false)
-      // {
-      //   favoriteBtn.querySelectorAll('.is-favorited');
-      //   favoriteBtn.classList.remove('.is-favorited');
-      // }
-
- 
-
-//     // const favoriteBtn = document.querySelector('.favorite-btn');
-//     // const itemId = favoriteBtn.getAttribute('data-item-id');
-//     // const favoriteClass = favoriteBtn.classList.contains('.is-favorited');
-
-//       // console.log(favoriteClass);
-//     // if (favoriteClass ?? '')
-//     // {
-//     //   if ((itemId === value.id) && (favoriteClass === true))
-//     //   {
-//     //     favoriteBtn.classList.add('is-favorited');
-//     //   } else if ((itemId === value.id) && (favoriteClass === false))
-//     //   {
-//     //     favoriteBtn.classList.remove('.is-favorited');
  
 
