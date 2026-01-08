@@ -41,18 +41,18 @@ class Helper
         return $splitTags = explode(',', $tags);
     }
 
-    public static function getJsonData(): array
-    {
-        $posted = json_decode(file_get_contents('php://input'), true);
-        $postedId = $posted['id'] ?? null;
+    // public static function getJsonData(): array
+    // {
+    //     $posted = json_decode(file_get_contents('php://input'), true);
+    //     $postedId = $posted['id'] ?? null;
 
-        if ($postedId === null)
-        {
-            echo json_encode(['error' => 'ID is required']);
-            exit;
-        }
+    //     if ($postedId === null)
+    //     {
+    //         echo json_encode(['error' => 'ID is required']);
+    //         exit;
+    //     }
 
-        $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
-        return $getJsonDataDecode = json_decode($getJsonData, true);
-    }
+    //     $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
+    //     return $getJsonDataDecode = json_decode($getJsonData, true);
+    // }
 }
