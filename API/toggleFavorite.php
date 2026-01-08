@@ -19,6 +19,8 @@ if ($postedId === null)
 $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
 $getJsonDataDecode = json_decode($getJsonData, true);
 
+// $getJsonDataDecode = $Helper::getJsonData();
+
 foreach ($getJsonDataDecode as $key => &$item)
     {
         if ($item['id'] === $postedId)
