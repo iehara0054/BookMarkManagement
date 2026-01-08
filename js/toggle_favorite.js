@@ -1,7 +1,9 @@
-async function toggleFavorite(button) {
+const favoriteBtns = button.querySelector('.favorite-btn');
+
+async function toggleFavorite(favoriteBtns) {
   try {
-    const itemId = button.getAttribute('data-item-id');
-    const icon = button.querySelector('.icon');
+    const itemId = favoriteBtns.getAttribute('data-item-id');
+    const icon = favoriteBtns.querySelector('.icon');
 
     const requestBody = { id: itemId };
 
@@ -17,32 +19,29 @@ async function toggleFavorite(button) {
     data.forEach(value => {
 
     console.log('お気に入り状態:', value.favorite);
-
-    // const favoriteBtns = document.querySelectorAll('.favorite-btn');
-    // itemId = favoriteBtns.dataset.itemId;
-     console.log(itemId);
+    console.log(itemId);
 
     // お気に入り状態を切り替え
     if (value.id === itemId && value.favorite === true) {
-      button.classList.add('is-favorited');
+      favoriteBtns.classList.add('is-favorited');
       icon.textContent = '★';
 
     } else if (value.id === itemId && value.favorite === false) {
-      button.classList.remove('is-favorited');
+      favoriteBtns.classList.remove('is-favorited');
       icon.textContent = '☆';
     }
     });
 
   } catch (error) {
     console.error('❌ エラー発生:', error);
-    button.disabled = false;
+    favoriteBtns.disabled = false;
   }
 }
 // AIでCSSを当てた時に書かれました
 // スパークルエフェクト関数
 function createSparkles(button) {
   const sparkleCount = 6;
-  const rect = button.getBoundingClientRect();
+  const rect = favoriteBtns.getBoundingClientRect();
 
   for (let i = 0; i < sparkleCount; i++) {
     const sparkle = document.createElement('div');
