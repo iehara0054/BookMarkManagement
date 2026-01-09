@@ -16,6 +16,7 @@ async function toggleFavorite(favoriteBtns) {
     });
 
     const data = await response.json();
+    
     data.forEach(value => {
 
     console.log('お気に入り状態:', value.favorite);

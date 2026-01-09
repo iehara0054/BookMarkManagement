@@ -1,7 +1,9 @@
- async function toggleFavorite(button) {
+const favoriteBtns = button.querySelector('.favorite-btn');
+const deleteBtns = button.querySelector('.delete-btn');
+
+async function toggleFavorite(favoriteBtns, deleteBtns) {
   try {
-    const itemId = button.getAttribute('data-item-id');
-    const icon = button.querySelector('.icon');
+    const itemId = favoriteBtns.getAttribute('data-item-id');
 
     const requestBody = { id: itemId };
 
@@ -23,6 +25,6 @@
 
       } catch (error) {
     console.error('❌ エラー発生:', error);
-    button.disabled = false;
+    deleteBtns.disabled = false;
   }
 }
