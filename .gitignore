@@ -1,0 +1,46 @@
+# IDE設定
+.vscode/
+
+# データベース設定ファイル（機密情報を含む場合）
+config/database.php
+config/db.php
+
+# 環境設定ファイル
+.env
+.env.local
+
+# 一時ファイル
+*.log
+*.tmp
+temp/
+tmp/
+
+# OS生成ファイル
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# PHPの依存関係
+/vendor/
+composer.lock
+
+# キャッシュ
+cache/
+*.cache
+
+# アップロードファイル（必要に応じて）
+uploads/
+
+# バックアップファイル
+*.bak
+*.backup
+*~
+
+# セッションファイル
+sessions/
+
+# 問題のあるファイル名
+nul
+.claude/settings.local.json
+data/bookmarks_file.json
+.claude/settings.local.json
