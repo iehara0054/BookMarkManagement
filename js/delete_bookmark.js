@@ -1,12 +1,9 @@
-const favoriteBtns = button.querySelector('.favorite-btn');
-const deleteBtns = button.querySelector('.delete-btn');
-
-async function toggleFavorite(favoriteBtns, deleteBtns) {
+async function deleteBookMark(button) {
   try {
-    const itemId = favoriteBtns.getAttribute('data-item-id');
+        const deleteKey = button.getAttribute('data-delete-item-key');
 
-    const requestBody = { id: itemId };
-
+    const requestBody = { id: deleteKey };
+    console.log('delete_Key：', deleteKey);
     const response = await fetch('API/deleteBookMark.php', {
       method: 'POST',
       headers: {
@@ -25,6 +22,6 @@ async function toggleFavorite(favoriteBtns, deleteBtns) {
 
       } catch (error) {
     console.error('❌ エラー発生:', error);
-    deleteBtns.disabled = false;
+    button.disabled = false;
   }
 }

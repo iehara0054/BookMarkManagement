@@ -151,7 +151,8 @@ function h($str)
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <button class="delete-btn">削除</button>
+                                <!-- <button class="delete-btn">削除</button> -->
+                                <button class="delete-btn" onclick="deleteBookMark(this)" data-delete-item-key="<?= h($b['delete_key']) ?>">削除</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -161,6 +162,7 @@ function h($str)
     </div>
     <script src="./js/onload_favorite.js"></script>
     <script src="./js/toggle_favorite.js"></script>
+    <script src="./js/delete_bookmark.js"></script>
     <script src="./js/utilities.js"></script>
 </body>
 
