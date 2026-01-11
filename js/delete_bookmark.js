@@ -15,8 +15,8 @@ async function deleteBookMark(button) {
         }),
       });
 
-    // const data = await response.json();
-//ここから処理を書きます
+    const data = await response.json();
+    console.log(data);
 
 
       } catch (error) {

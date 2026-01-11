@@ -22,4 +22,28 @@ $new_data = array_values(array_filter($data, function ($item) use ($target_key, 
 }));
 
 // 保存
-file_put_contents(Helper::BOOKMARKS_JSON_FILE, json_encode($new_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+try
+{
+    $json = json_encode(array_values($new_data), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+    $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
+    $fp = fopen($tmp, 'wb');
+
+    if ($fp === false)
+    {
+        throw new RuntimeException('Cannot write temp file');
+    }
+
+    fwrite($fp, $json);
+
+    fclose($fp);
+
+    rename($tmp, Helper::BOOKMARKS_JSON_FILE);
+}
+catch (Exception $e)
+{
+    echo $e->getMessage() . "<br>";
+    exit();
+}
+
+echo $json;
