@@ -160,7 +160,7 @@ function h($str)
                             <td>
                                 <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
                                 <input type="hidden" name="id" value="<?= h($b['id']) ?>">
-                                <button class="delete-btn" name="action" value="delete" data-delete-item-key="<?= h($b['delete_key']) ?>">削除</button>
+                                <button class="delete-btn" name="action" value="delete">削除</button>
                             </td>
                         </tr>
                     </form>

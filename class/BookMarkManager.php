@@ -35,7 +35,7 @@ class BookMarkManager
      * @param array $bookMarks 保存するタスクの配列
      * @return void
      */
-    public function save_bookMarks(array $enteredBookMarkData): string
+    public function save_bookMarks(array $enteredBookMarkData): void
     {
         try
         {
@@ -60,7 +60,6 @@ class BookMarkManager
             echo $e->getMessage() . "<br>";
             exit();
         }
-        return $json;
     }
     /**
      * 削除ボタンの押されたブックマークを削除する
@@ -69,7 +68,7 @@ class BookMarkManager
      * @param $targetValue　削除するブックマークのID
      * @return $newData 削除の完了したブックマークデータ
      */
-    public function delete_bookMarks($targetId, $targetValue)
+    public function delete_bookMarks(string $targetId, $targetValue): array
     {
         try
         {

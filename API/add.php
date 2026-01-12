@@ -55,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				'memo' => $memo,
 				'favorite' => false,
 				'tags' => $splitTags,
-				'delete_key' => bin2hex(random_bytes(8)),
 				'created_at' => $now,
 				'updated_at' => $now,
 			);
