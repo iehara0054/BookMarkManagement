@@ -1,49 +1,61 @@
 <?php
-session_start();
-header("Content-Type: application/json; charset=utf-8");
-
 require_once __DIR__ . '/../class/BookMarkManager.php';
 require_once __DIR__ . '/../class/Helper.php';
+session_start();
+
 $BookMarkManager = new BookMarkManager;
 $Helper = new Helper;
 
-$postData = json_decode(file_get_contents('php://input'), true);
-
-$target_key = $postData['key'];
-$target_value = $postData['value'];
-
-// ファイル読み込み
-$data = json_decode(file_get_contents(Helper::BOOKMARKS_JSON_FILE), true);
-
+//一時退避
 // 削除実行（keyと値が両方一致するものを削除）
-$new_data = array_values(array_filter($data, function ($item) use ($target_key, $target_value)
+// $new_data = array_values(array_filter($data, function ($item) use ($target_key, $target_value)
+// {
+//     return !(isset($item[$target_key]) && $item[$target_key] === $target_value);
+// }));
+
+//============================================================
+// POSTリクエストの処理
+// ============================================================
+$errors = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    return !(isset($item[$target_key]) && $item[$target_key] === $target_value);
-}));
-
-// 保存
-try
-{
-    $json = json_encode(array_values($new_data), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
-    $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
-    $fp = fopen($tmp, 'wb');
-
-    if ($fp === false)
+    if (!hash_equals($_SESSION["csrf_token"], $_POST['csrf_token'] ?? ''))
     {
-        throw new RuntimeException('Cannot write temp file');
+        http_response_code(400);
+        $errors[] = 'Invalid CSRF token.';
     }
+    else
+    {
+        $targetId = 'id';
+        $targetValue = $_POST['id'] ?? null;
 
-    fwrite($fp, $json);
+        if ($targetId === null)
+        {
+            echo json_encode(['error' => 'ID is required']);
+            exit;
+        }
 
-    fclose($fp);
+        try
+        {
+            $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
+            $getJsonDataDecode = json_decode($getJsonData, true);
 
-    rename($tmp, Helper::BOOKMARKS_JSON_FILE);
+            $newData = array_values(array_filter($getJsonDataDecode, function ($item) use ($targetId, $targetValue)
+            {
+                return !(isset($item[$targetId]) && $item[$targetId] === $targetValue);
+            }));
+        }
+        catch (Exception $e)
+        {
+            echo $e->getMessage() . "<br>";
+            exit();
+        }
+
+        $BookMarkManager->save_bookMarks($newData);
+
+        $_SESSION['delete_message'] = 'ブックマークを削除しました';
+
+        header('Location: ../index.php');
+        exit();
+    }
 }
-catch (Exception $e)
-{
-    echo $e->getMessage() . "<br>";
-    exit();
-}
-
-echo $json;

@@ -95,29 +95,36 @@ function h($str)
         <?php if (empty($getBookMarkLists)): ?>
             <!-- タスクが1つもない場合の表示 -->
             <div class="empty">まだタスクがありません。上のフォームから追加してください。</div>
-        <?php else: ?>
-            <!-- ブックマークが存在する場合、テーブルで表示 -->
-            <table>
-                <thead>
-                    <tr>
-                        <!-- テーブルヘッダー -->
-                        <th>お気に入り</th>
-                        <th>タイトル</th>
-                        <th>URL</th>
-                        <th>メモ</th>
-                        <th>タグ</th>
-                        <th>削除</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    // $getBookMarkListsを配列として初期化
-                    if (empty($getBookMarkLists))
-                    {
-                        $getBookMarkLists = [];
-                    }
-                    ?>
-                    <?php foreach (array_reverse($getBookMarkLists) as $b): ?>
+        <?php endif; ?>
+        <?php if (!empty($_SESSION['delete_message'])): ?>
+            <div class="delete_message">
+                <?= h($_SESSION['delete_message']) ?>
+            </div>
+            <?php unset($_SESSION['delete_message']); ?>
+        <?php endif; ?>
+        <!-- ブックマークが存在する場合、テーブルで表示 -->
+        <table>
+            <thead>
+                <tr>
+                    <!-- テーブルヘッダー -->
+                    <th>お気に入り</th>
+                    <th>タイトル</th>
+                    <th>URL</th>
+                    <th>メモ</th>
+                    <th>タグ</th>
+                    <th>削除</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // $getBookMarkListsを配列として初期化
+                if (empty($getBookMarkLists))
+                {
+                    $getBookMarkLists = [];
+                }
+                ?>
+                <?php foreach (array_reverse($getBookMarkLists) as $b): ?>
+                    <form action="./API/deleteBookMark.php" method="post">
                         <tr>
                             <td>
                                 <div>
@@ -151,18 +158,18 @@ function h($str)
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <!-- <button class="delete-btn">削除</button> -->
-                                <button class="delete-btn" onclick="deleteBookMark(this)" data-delete-item-key="<?= h($b['delete_key']) ?>">削除</button>
+                                <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
+                                <input type="hidden" name="id" value="<?= h($b['id']) ?>">
+                                <button class="delete-btn" name="action" value="delete" data-delete-item-key="<?= h($b['delete_key']) ?>">削除</button>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
+                    </form>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
     <script src="./js/onload_favorite.js"></script>
     <script src="./js/toggle_favorite.js"></script>
-    <script src="./js/delete_bookmark.js"></script>
     <script src="./js/utilities.js"></script>
 </body>
 

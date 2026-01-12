@@ -62,4 +62,30 @@ class BookMarkManager
         }
         return $json;
     }
+    /**
+     * 削除ボタンの押されたブックマークを削除する
+     * 
+     * @param $targetId 文字列ID
+     * @param $targetValue　削除するブックマークのID
+     * @return $newData 削除の完了したブックマークデータ
+     */
+    public function delete_bookMarks($targetId, $targetValue)
+    {
+        try
+        {
+            $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
+            $getJsonDataDecode = json_decode($getJsonData, true);
+
+            $newData = array_values(array_filter($getJsonDataDecode, function ($item) use ($targetId, $targetValue)
+            {
+                return !(isset($item[$targetId]) && $item[$targetId] === $targetValue);
+            }));
+        }
+        catch (Exception $e)
+        {
+            echo $e->getMessage() . "<br>";
+            exit();
+        }
+        return $newData;
+    }
 }
