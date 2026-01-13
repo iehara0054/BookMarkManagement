@@ -94,7 +94,7 @@ function h($str)
         ?>
         <?php if (empty($getBookMarkLists)): ?>
             <!-- タスクが1つもない場合の表示 -->
-            <div class="empty">まだタスクがありません。上のフォームから追加してください。</div>
+            <div class="empty">まだブックマークがありません。上のフォームから追加してください。</div>
         <?php endif; ?>
         <?php if (!empty($_SESSION['delete_message'])): ?>
             <div class="delete_message">
