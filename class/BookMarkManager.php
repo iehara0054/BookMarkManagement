@@ -28,7 +28,6 @@ class BookMarkManager
         return is_array($data) ? $data : [];
     }
 
-
     /**
      * タスクデータをJSONファイルに保存
      * 
@@ -64,20 +63,20 @@ class BookMarkManager
     /**
      * 削除ボタンの押されたブックマークを削除する
      * 
-     * @param $targetId 文字列ID
+     * @param $targetKey 文字列'target_key'
      * @param $targetValue　削除するブックマークのID
      * @return $newData 削除の完了したブックマークデータ
      */
-    public function delete_bookMarks(string $targetId, $targetValue): array
+    public function delete_bookMarks(string $targetKey, $targetValue): array
     {
         try
         {
             $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
             $getJsonDataDecode = json_decode($getJsonData, true);
 
-            $newData = array_values(array_filter($getJsonDataDecode, function ($item) use ($targetId, $targetValue)
+            $newData = array_values(array_filter($getJsonDataDecode, function ($item) use ($targetKey, $targetValue)
             {
-                return !(isset($item[$targetId]) && $item[$targetId] === $targetValue);
+                return !(isset($item[$targetKey]) && $item[$targetKey] === $targetValue);
             }));
         }
         catch (Exception $e)

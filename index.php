@@ -124,46 +124,46 @@ function h($str)
                 }
                 ?>
                 <?php foreach (array_reverse($getBookMarkLists) as $b): ?>
-                    <form action="./API/deleteBookMark.php" method="post">
-                        <tr>
-                            <td>
-                                <div>
-                                    <button class="favorite-btn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
-                                        <span class="icon">☆</span></button>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <a href="<?= h($b['url'] ?? '') ?>" target="_blank"> <?= h($b['title'] ?? '') ?></a>
-                                    <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <a href="<?= h($b['url'] ?? '') ?>" target="_blank"><?= h($b['url'] ?? '') ?></a>
-                                    <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
-                                </div>
-                            </td>
-                            <td>
-                                <div><?= h($b['memo'] ?? '') ?></div>
-                            </td>
-                            <td>
-                                <?php if (!empty($b['tags'])) : ?>
-                                    <?php
-                                    $currentTags = is_array($b['tags']) ? $b['tags'] : explode(',', $b['tags']);
-                                    foreach ($currentTags as $t) :
-                                    ?>
-                                        <div><?= h(trim($t)) ?></div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </td>
-                            <td>
+                    <tr>
+                        <td>
+                            <div>
+                                <button class="favorite-btn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
+                                    <span class="icon">☆</span></button>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank"> <?= h($b['title'] ?? '') ?></a>
+                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank"><?= h($b['url'] ?? '') ?></a>
+                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div><?= h($b['memo'] ?? '') ?></div>
+                        </td>
+                        <td>
+                            <?php if (!empty($b['tags'])) : ?>
+                                <?php
+                                $currentTags = is_array($b['tags']) ? $b['tags'] : explode(',', $b['tags']);
+                                foreach ($currentTags as $t) :
+                                ?>
+                                    <div><?= h(trim($t)) ?></div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <form action="./API/deleteBookMark.php" method="post">
                                 <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
-                                <input type="hidden" name="id" value="<?= h($b['id']) ?>">
-                                <button class="delete-btn" name="action" value="delete">削除</button>
-                            </td>
-                        </tr>
-                    </form>
+                                <input type="hidden" name="delete_key" value="<?= h($b['delete_key']) ?>">
+                                <button class="delete-btn" name="action" value="delete" data-delete-item-key="<?= h($b['delete_key']) ?>">削除</button>
+                            </form>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

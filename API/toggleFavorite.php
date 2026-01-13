@@ -29,7 +29,6 @@ foreach ($getJsonDataDecode as $key => &$item)
     }
 unset($item);
 
-    header("Content-Type: application/json; charset=utf-8");
 try
 {
 $json = json_encode(array_values($getJsonDataDecode), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

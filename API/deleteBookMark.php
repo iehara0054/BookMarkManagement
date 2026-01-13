@@ -19,17 +19,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     }
     else
     {
-        $targetId = 'id';
-        $targetValue = $_POST['id'] ?? null;
+        $targetKey = 'delete_key';
+        $targetValue = $_POST['delete_key'] ?? null;
 
-        if ($targetId === null)
+        if ($targetKey === null)
         {
-            echo json_encode(['error' => 'ID is required']);
+            echo json_encode(['error' => 'delete_key is required']);
             exit;
         }
 
         /** @var array $newData */
-        $newData = $BookMarkManager->delete_bookMarks($targetId, $targetValue);
+        $newData = $BookMarkManager->delete_bookMarks($targetKey, $targetValue);
 
         $BookMarkManager->save_bookMarks($newData);
 
