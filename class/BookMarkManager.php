@@ -32,9 +32,9 @@ class BookMarkManager
      * タスクデータをJSONファイルに保存
      * 
      * @param array $bookMarks 保存するタスクの配列
-     * @return void
+     * @return string $json
      */
-    public function save_bookMarks(array $enteredBookMarkData): void
+    public function save_bookMarks(array $enteredBookMarkData): string
     {
         try
         {
@@ -59,6 +59,7 @@ class BookMarkManager
             echo $e->getMessage() . "<br>";
             exit();
         }
+        return $json;
     }
     /**
      * 削除ボタンの押されたブックマークを削除する

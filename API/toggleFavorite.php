@@ -29,26 +29,6 @@ foreach ($getJsonDataDecode as $key => &$item)
     }
 unset($item);
 
-try
-{
-$json = json_encode(array_values($getJsonDataDecode), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
-    $fp = fopen($tmp, 'wb');
+$json = $BookMarkManager->save_bookMarks($getJsonDataDecode);
 
-    if ($fp === false)
-    {
-        throw new RuntimeException('Cannot write temp file');
-    }
-
-    fwrite($fp, $json);
-
-    fclose($fp);
-
-    rename($tmp, Helper::BOOKMARKS_JSON_FILE);
-}
-catch (Exception $e)
-{
-    echo $e->getMessage() . "<br>";
-    exit();
-}
 echo $json;
