@@ -82,6 +82,13 @@ function h($str)
          ブックマーク一覧の表示
         ============================================================================ -->
         <h2>ブックマーク一覧</h2>
+
+        <form id="searchForm" name="search" method="POST" action="./API/searchTitle.php">
+            <input type="text" id="searchInput" name="searchTitle" placeholder="検索したいタイトル">
+            <button class="searchBtn">検索</button>
+            <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
+        </form>
+
         <?php
         $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
 
@@ -134,6 +141,7 @@ function h($str)
                         <td>
                             <div>
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank"> <?= h($b['title'] ?? '') ?></a>
+                                <input type="hidden" name="title" value="<?= h($b['title']) ?>">
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
                             </div>
                         </td>
@@ -165,6 +173,7 @@ function h($str)
                         </td>
                     </tr>
                 <?php endforeach; ?>
+
             </tbody>
         </table>
     </div>

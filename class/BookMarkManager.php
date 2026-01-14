@@ -13,7 +13,7 @@ class BookMarkManager
     /**
      * ブックマークデータをJSONファイルから読み込む
      * 
-     * @return array ブックマークの配列。ファイルが存在しない場合は空配列
+     * @return array ブックマーク一覧。ファイルが存在しない場合は空
      */
     public function load_bookmarkLists(): array
     {
@@ -86,5 +86,19 @@ class BookMarkManager
             exit();
         }
         return $newData;
+    }
+
+    /**
+     * ブックマークデータの絞り込み検索の表示
+     * 
+     * @return array ブックマークデータの絞り込み検索の表示。ファイルが存在しない場合は空
+     */
+    public function search_bookmarks($searchItem): string
+    {
+        if ($searchItem ?? null)
+        {
+            $data = json_decode($searchItem, true);
+        }
+        return $data;
     }
 }
