@@ -251,6 +251,62 @@ body > p {
 }
 
 /* ========================================
+   検索フォーム
+   ======================================== */
+#searchForm {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+#searchForm #searchInput {
+    flex: 1;
+    max-width: 400px;
+    padding: 12px 18px;
+    border: 2px solid #e5e5e5;
+    border-radius: 25px;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+}
+
+#searchForm #searchInput:focus {
+    outline: none;
+    border-color: #8a2be2;
+    box-shadow: 0 0 0 4px rgba(138, 43, 226, 0.12), 0 4px 12px rgba(138, 43, 226, 0.15);
+    background: #fff;
+    transform: translateY(-1px);
+}
+
+#searchForm #searchInput::placeholder {
+    color: #999;
+}
+
+#searchForm .searchBtn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(135deg, #8a2be2 0%, #5a189a 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#searchForm .searchBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+}
+
+#searchForm .searchBtn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 10px rgba(138, 43, 226, 0.4);
+}
+
+/* ========================================
    テーブルスタイル
    ======================================== */
 table {
@@ -299,7 +355,7 @@ tbody td {
 
 tbody td a {
     color: #8a2be2;
-    text-decoration: none;
+    text-decoration: underline;
     font-weight: 600;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -473,5 +529,18 @@ tbody td:last-child div {
         width: 100%;
         margin-bottom: 10px;
         margin-right: 0;
+    }
+
+    #searchForm {
+        flex-direction: column;
+    }
+
+    #searchForm #searchInput {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    #searchForm .searchBtn {
+        width: 100%;
     }
 }
