@@ -4,6 +4,7 @@ require_once __DIR__ . '/class/Helper.php';
 
 $BookMarkManager = new BookMarkManager;
 $Helper = new Helper;
+
 // ========================================
 // セッション管理とCSRF対策
 // ========================================
@@ -26,8 +27,12 @@ function h($str)
 }
 
 // ========================================
-// onload時のお気に入りの状態
+// 検索機能
 // ========================================
+$targetKey = 'title';
+$targetValue = $_POST['searchTitle'] ?? '';
+
+$filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
 
 ?>
 <!DOCTYPE html>
@@ -83,21 +88,30 @@ function h($str)
         ============================================================================ -->
         <h2>ブックマーク一覧</h2>
 
-        <form id="searchForm" name="search" method="POST" action="./API/searchTitle.php">
+        <form id="searchForm" name="search" method="POST" action="">
             <input type="text" id="searchInput" name="searchTitle" placeholder="検索したいタイトル">
             <button class="searchBtn">検索</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
 
+        <form id="all" name="all" method="POST" action="">
+            <input type="submit" name="submit_button" value="全て表示">
+        </form>
+
         <?php
+        $targetKey = 'title';
+        $targetValue = $_POST['searchTitle'] ?? '';
+
         $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
+        $filteredTitle =  $BookMarkManager->search_bookmarks($targetKey, $targetValue);
+
+
 
         if (!empty($_POST['tags']))
         {
             $splitTags = $Helper->splitTags($_POST['tags']);
             $getBookMarkLists = $splitTags;
         }
-        // var_dump($bookMarkLists);
         ?>
         <?php if (empty($getBookMarkLists)): ?>
             <!-- タスクが1つもない場合の表示 -->
@@ -130,7 +144,22 @@ function h($str)
                     $getBookMarkLists = [];
                 }
                 ?>
-                <?php foreach (array_reverse($getBookMarkLists) as $b): ?>
+                <?php
+                if (isset($_POST['submit_button']))
+                {
+                    $arrayBookMarkList =  $BookMarkManager->load_bookmarkLists();
+                }
+                else if (!empty($filteredTitle))
+                {
+                    $arrayBookMarkList = $filteredTitle;
+                }
+                else
+                {
+                    $arrayBookMarkList = $getBookMarkLists;
+                }
+                ?>
+                <?php
+                foreach (array_reverse($arrayBookMarkList) as $b): ?>
                     <tr>
                         <td>
                             <div>
@@ -165,7 +194,7 @@ function h($str)
                             <?php endif; ?>
                         </td>
                         <td>
-                            <form action="./API/deleteBookMark.php" method="post">
+                            <form action="/API/deleteBookMark.php" method="post">
                                 <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
                                 <input type="hidden" name="delete_key" value="<?= h($b['delete_key']) ?>">
                                 <button class="delete-btn" name="action" value="delete" data-delete-item-key="<?= h($b['delete_key']) ?>">削除</button>
