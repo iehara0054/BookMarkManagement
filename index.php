@@ -90,12 +90,12 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
 
         <form id="searchForm" name="search" method="POST" action="">
             <input type="text" id="searchInput" name="searchTitle" placeholder="検索したいタイトル">
-            <button class="searchBtn">検索</button>
+            <button class="searchBtn">絞り込み検索</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
 
         <form id="all" name="all" method="POST" action="">
-            <input type="submit" name="submit_button" value="全て表示">
+            <input type="submit" name="submit_button" value="絞り込み解除">
         </form>
 
         <?php
