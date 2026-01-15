@@ -14,18 +14,21 @@ document.addEventListener('DOMContentLoaded', async () =>  {
       const itemId = favoriteBtn.dataset.itemId;
     
         data.forEach(value => {
-        if ((value.id === itemId) && (value.favorite === false))
+          const icon = favoriteBtn.querySelector('.icon');
+          if ((value.id === itemId) && (value.favorite === false))
           {
             if(favoriteBtn.classList.contains('is-favorited'))
             {
               favoriteBtn.classList.remove('is-favorited');
             }
+            if (icon) icon.textContent = '☆';
           } else if ((value.id === itemId) && (value.favorite === true))
           {
             if(!favoriteBtn.classList.contains('is-favorited'))
             {
               favoriteBtn.classList.add('is-favorited');
             }
+            if (icon) icon.textContent = '★';
           }
         });
         });

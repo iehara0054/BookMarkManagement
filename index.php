@@ -102,7 +102,7 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
         $targetKey = 'title';
         $targetValue = $_POST['searchTitle'] ?? '';
 
-                $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
+        $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
 
         if (!empty($_POST['tags']))
         {
@@ -199,13 +199,13 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
                             </form>
                         </td>
                     </tr>
+                    <script src="./js/onload_favorite.js"></script>
                 <?php endforeach; ?>
 
             </tbody>
         </table>
     </div>
-    <script src="./js/onload_favorite.js"></script>
-    <script src="./js/onclick_favorite.js"></script>
+    <!-- <script src="./js/onload_favorite.js"></script> -->
     <script src="./js/toggle_favorite.js"></script>
     <script src="./js/utilities.js"></script>
 </body>
