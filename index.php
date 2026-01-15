@@ -207,6 +207,7 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
         </table>
     </div>
     <script src="./js/onload_favorite.js"></script>
+    <script src="./js/onclick_favorite.js"></script>
     <script src="./js/toggle_favorite.js"></script>
     <script src="./js/utilities.js"></script>
 </body>
