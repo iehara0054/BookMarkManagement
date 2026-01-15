@@ -102,10 +102,7 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
         $targetKey = 'title';
         $targetValue = $_POST['searchTitle'] ?? '';
 
-        $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
-        $filteredTitle =  $BookMarkManager->search_bookmarks($targetKey, $targetValue);
-
-
+                $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
 
         if (!empty($_POST['tags']))
         {
@@ -145,6 +142,7 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
                 }
                 ?>
                 <?php
+                $filteredTitle =  $BookMarkManager->search_bookmarks($targetKey, $targetValue);
                 if (isset($_POST['submit_button']))
                 {
                     $arrayBookMarkList =  $BookMarkManager->load_bookmarkLists();
