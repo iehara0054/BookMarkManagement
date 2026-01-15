@@ -194,7 +194,7 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
                             <?php endif; ?>
                         </td>
                         <td>
-                            <form action="/API/deleteBookMark.php" method="post">
+                            <form action="./API/deleteBookMark.php" method="post">
                                 <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
                                 <input type="hidden" name="delete_key" value="<?= h($b['delete_key']) ?>">
                                 <button class="delete-btn" name="action" value="delete" data-delete-item-key="<?= h($b['delete_key']) ?>">削除</button>
