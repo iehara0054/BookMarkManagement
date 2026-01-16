@@ -118,6 +118,12 @@ $targetValue = $_POST['searchTitle'] ?? '';
             <?php unset($_SESSION['delete_message']); ?>
         <?php endif; ?>
 
+        <?php $targetKey = 'title';
+        $targetValue = $_POST['searchTitle'] ?? '';
+
+        $filteredTitle =  $BookMarkManager->search_bookmarks($targetKey, $targetValue);
+        ?>
+
         <!-- ブックマークが存在する場合、テーブルで表示 -->
         <table>
             <thead>
@@ -140,10 +146,7 @@ $targetValue = $_POST['searchTitle'] ?? '';
                 }
                 ?>
                 <?php
-                $targetKey = 'title';
-                $targetValue = $_POST['searchTitle'] ?? '';
 
-                $filteredTitle =  $BookMarkManager->search_bookmarks($targetKey, $targetValue);
 
                 if (isset($_POST['submit_button']))
                 {
