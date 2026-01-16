@@ -23,7 +23,7 @@ if (empty($_SESSION['csrf_token']))
 //エスケープ関数
 function h($str)
 {
-    return htmlspecialchars($str);
+    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
 
 // ========================================
@@ -32,7 +32,7 @@ function h($str)
 $targetKey = 'title';
 $targetValue = $_POST['searchTitle'] ?? '';
 
-$filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
+
 
 ?>
 <!DOCTYPE html>
@@ -59,7 +59,7 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
             <?php unset($_SESSION['success_message']); ?>
         <?php endif; ?>
 
-        <input id="title" type="text" name="title" placeholder="タイトル" value="<?= h(!empty($_SESSION['detectedErrorUrl']['title']) ? $_SESSION['detectedErrorUrl']['title'] : '') ?>" required>
+        <input id="title" type="text" name="title" placeholder="タイトル（必須）" value="<?= h(!empty($_SESSION['detectedErrorUrl']['title']) ? $_SESSION['detectedErrorUrl']['title'] : '') ?>" required>
 
         <?php if (!empty($_SESSION['error_url'])): ?>
             <div class="error-url">
@@ -68,13 +68,11 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
             <?php unset($_SESSION['error_url']); ?>
         <?php endif; ?>
 
-        <input id="url" type="text" name="url" placeholder="URL" value="<?= h(!empty($_SESSION['detectedErrorUrl']['url']) ? $_SESSION['detectedErrorUrl']['url'] : '') ?>" required>
+        <input id="url" type="text" name="url" placeholder="URL（必須）" value="<?= h(!empty($_SESSION['detectedErrorUrl']['url']) ? $_SESSION['detectedErrorUrl']['url'] : '') ?>" required>
 
         <input id="memo" type="text" name="memo" placeholder="メモ（任意）" value="<?= h(!empty($_SESSION['detectedErrorUrl']['memo']) ? $_SESSION['detectedErrorUrl']['memo'] : '') ?>">
 
         <input id="tags" type="text" name="tags" placeholder="タグ・カンマ区切り可(任意)" value="<?= h(!empty($_SESSION['detectedErrorUrl']['userEnteredLowTags']) ? $_SESSION['detectedErrorUrl']['userEnteredLowTags'] : '') ?>">
-
-
 
         <button type="submit">追加</button>
         <button type="button" onclick="clearText()">クリア</button>
@@ -99,8 +97,7 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
         </form>
 
         <?php
-        $targetKey = 'title';
-        $targetValue = $_POST['searchTitle'] ?? '';
+
 
         $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
 
@@ -120,6 +117,7 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
             </div>
             <?php unset($_SESSION['delete_message']); ?>
         <?php endif; ?>
+
         <!-- ブックマークが存在する場合、テーブルで表示 -->
         <table>
             <thead>
@@ -142,7 +140,11 @@ $filteredTitle = $BookMarkManager->search_bookmarks($targetKey, $targetValue);
                 }
                 ?>
                 <?php
+                $targetKey = 'title';
+                $targetValue = $_POST['searchTitle'] ?? '';
+
                 $filteredTitle =  $BookMarkManager->search_bookmarks($targetKey, $targetValue);
+
                 if (isset($_POST['submit_button']))
                 {
                     $arrayBookMarkList =  $BookMarkManager->load_bookmarkLists();
