@@ -40,19 +40,19 @@ class BookMarkManager
         {
             $json = json_encode(array_values($enteredBookMarkData), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
-        $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
-        $fp = fopen($tmp, 'wb');
+            $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
+            $fp = fopen($tmp, 'wb');
 
         if ($fp === false)
         {
             throw new RuntimeException('Cannot write temp file');
         }
 
-        fwrite($fp, $json);
+            fwrite($fp, $json);
 
-        fclose($fp);
+            fclose($fp);
 
-        rename($tmp, Helper::BOOKMARKS_JSON_FILE);
+            rename($tmp, Helper::BOOKMARKS_JSON_FILE);
         }
         catch (Exception $e)
         {
@@ -85,7 +85,7 @@ class BookMarkManager
             echo $e->getMessage() . "<br>";
             exit();
         }
-        return $newData;
+        return is_array($newData) ? $newData : [];
     }
 
     /**
@@ -104,6 +104,6 @@ class BookMarkManager
         {
             return $title[$targetKey] === $targetValue;
         });
-        return $filteredTitle;
+        return is_array($filteredTitle) ? $filteredTitle : [];
     }
 }
