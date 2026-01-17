@@ -27,7 +27,8 @@
       "Bash(else echo \"No .gitignore file found\")",
       "Bash(fi)",
       "Bash(git restore:*)",
-      "Bash(git update-index:*)"
+      "Bash(git update-index:*)",
+      "Bash(git revert:*)"
     ]
   }
 }
