@@ -153,6 +153,11 @@ $targetValue = $_POST['searchTitle'] ?? '';
                 {
                     $arrayBookMarkList = $filteredTitle;
                 }
+                else if (!empty($targetValue) && empty($filteredTitle))
+                {
+                    echo '<div class="error-message">そのタイトルは存在しません</div>';
+                    $arrayBookMarkList = [];
+                }
                 else
                 {
                     $arrayBookMarkList = $getBookMarkLists;
