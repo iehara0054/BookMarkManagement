@@ -214,7 +214,6 @@ $targetValue = $_POST['searchTitle'] ?? '';
             </tbody>
         </table>
     </div>
-    <!-- <script src="./js/onload_favorite.js"></script> -->
     <script src="./js/toggle_favorite.js"></script>
     <script src="./js/utilities.js"></script>
 </body>

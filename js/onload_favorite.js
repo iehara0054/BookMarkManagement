@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const itemId = favoriteBtn.dataset.itemId;
       const icon = favoriteBtn.querySelector('.icon');
       const bookmark = data.find(value => value.id === itemId);
-
+      // console.log('bookmark:', bookmark);
+      // console.log('data:', data);
       if (!bookmark) return;
 
       if (bookmark.favorite) {
