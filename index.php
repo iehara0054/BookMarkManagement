@@ -2,8 +2,8 @@
 require_once __DIR__ . '/class/BookMarkManager.php';
 require_once __DIR__ . '/class/Helper.php';
 
-$BookMarkManager = new BookMarkManager;
-$Helper = new Helper;
+$BookMarkManager = new BookMarkManager();
+$Helper = new Helper();
 
 // ========================================
 // セッション管理とCSRF対策
@@ -31,9 +31,6 @@ function h($str)
 // ========================================
 $targetKey = 'title';
 $targetValue = $_POST['searchTitle'] ?? '';
-
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -76,7 +73,7 @@ $targetValue = $_POST['searchTitle'] ?? '';
 
         <button type="submit">追加</button>
         <button type="button" onclick="clearText()">クリア</button>
-        <!-- <input type="button" value="クリア" onclick="clearText()" /> -->
+
         <?php unset($_SESSION['detectedErrorUrl']); ?>
     </form>
 
