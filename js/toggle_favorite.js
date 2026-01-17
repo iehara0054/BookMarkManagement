@@ -3,7 +3,7 @@ async function toggleFavorite(button) {
     const itemId = button.getAttribute('data-item-id');
     const icon = button.querySelector('.icon');
 
-    const requestBody = { id: itemId };
+    const requestBody = { id: itemId };// 送ったitemIdのjsonだけ取得すればいい
 
     const response = await fetch('API/toggleFavorite.php', {
       method: 'POST',
