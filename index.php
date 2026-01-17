@@ -27,11 +27,12 @@ function h($str)
 }
 
 // ========================================
-// 検索機能
+// 絞り込み機能
 // ========================================
 $targetKey = 'title';
 $targetValue = $_POST['searchTitle'] ?? '';
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -143,8 +144,9 @@ $targetValue = $_POST['searchTitle'] ?? '';
                 }
                 ?>
                 <?php
-
-
+                // ========================================
+                // 絞り込み解除
+                // ========================================
                 if (isset($_POST['submit_button']))
                 {
                     $arrayBookMarkList =  $BookMarkManager->load_bookmarkLists();

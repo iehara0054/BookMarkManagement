@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () =>  {
+document.addEventListener('DOMContentLoaded', async () => {
   try {
     const response = await fetch('data/bookmarks_file.json');
 
@@ -12,30 +12,21 @@ document.addEventListener('DOMContentLoaded', async () =>  {
     const favoriteBtns = document.querySelectorAll('.favorite-btn');
     favoriteBtns.forEach(favoriteBtn => {
       const itemId = favoriteBtn.dataset.itemId;
-    
-        data.forEach(value => {
-          const icon = favoriteBtn.querySelector('.icon');
-          if ((value.id === itemId) && (value.favorite === false))
-          {
-            if(favoriteBtn.classList.contains('is-favorited'))
-            {
-              favoriteBtn.classList.remove('is-favorited');
-            }
-            if (icon) icon.textContent = '☆';
-          } else if ((value.id === itemId) && (value.favorite === true))
-          {
-            if(!favoriteBtn.classList.contains('is-favorited'))
-            {
-              favoriteBtn.classList.add('is-favorited');
-            }
-            if (icon) icon.textContent = '★';
-          }
-        });
-        });
-      } catch (error) {
-        console.error('データの取得中にエラーが発生しました:', error);
-        return null;
-      }
-});
- 
+      const icon = favoriteBtn.querySelector('.icon');
+      const bookmark = data.find(value => value.id === itemId);
 
+      if (!bookmark) return;
+
+      if (bookmark.favorite) {
+        favoriteBtn.classList.add('is-favorited');
+        if (icon) icon.textContent = '★';
+      } else {
+        favoriteBtn.classList.remove('is-favorited');
+        if (icon) icon.textContent = '☆';
+      }
+    });
+  } catch (error) {
+    console.error('データの取得中にエラーが発生しました:', error);
+    return null;
+  }
+});
