@@ -112,13 +112,13 @@ class BookMarkManager
                 return true;
             }
 
-            // foreach ($item['tags'] as $tag)
-            // {
-            //     if ($tag === $targetValue)
-            //     {
-            //         return true;
-            //     }
-            // }
+            foreach ($item['tags'] as $tag)
+            {
+                if (trim($tag) === $targetValue)
+                {
+                    return true;
+                }
+            }
         });
         return is_array($filteredValue) ? $filteredValue : [];
     }
