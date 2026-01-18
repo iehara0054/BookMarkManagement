@@ -10,19 +10,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     const data = await response.json();
 
     const favoriteBtns = document.querySelectorAll('.favorite-btn');
+
     favoriteBtns.forEach(favoriteBtn => {
+
       const itemId = favoriteBtn.dataset.itemId;
       const icon = favoriteBtn.querySelector('.icon');
       const bookmark = data.find(value => value.id === itemId);
-      // console.log('bookmark:', bookmark);
-      // console.log('data:', data);
+
       if (!bookmark) return;
 
-      if (bookmark.favorite) {
-        favoriteBtn.classList.add('is-favorited');
+      if (bookmark.favorite === true) {
         if (icon) icon.textContent = '★';
       } else {
-        favoriteBtn.classList.remove('is-favorited');
         if (icon) icon.textContent = '☆';
       }
     });

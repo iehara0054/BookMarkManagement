@@ -44,22 +44,11 @@
         "title": "タイトル",
         "url": "http:\/\/localhost\/Iehara\/BookMarkManegiment\/index.php",
         "memo": "二つ目のタイトルテスト",
-        "favorite": false,
+        "favorite": true,
         "tags": [],
         "delete_key": "33b79eca33fb8f02",
         "created_at": "2026-01-16T02:36:26+01:00",
         "updated_at": "2026-01-16T02:36:26+01:00"
-    },
-    {
-        "id": "286a29b5cfa6672d",
-        "title": "ああああああああああああああああ",
-        "url": "http:\/\/localhost\/Iehara\/BookMarkManegiment\/index.php",
-        "memo": "",
-        "favorite": false,
-        "tags": [],
-        "delete_key": "d961be1fd9e9b644",
-        "created_at": "2026-01-16T03:09:50+01:00",
-        "updated_at": "2026-01-16T03:09:50+01:00"
     },
     {
         "id": "94377d51b0af3d3c",
@@ -71,5 +60,19 @@
         "delete_key": "61b35cc2389b8991",
         "created_at": "2026-01-16T03:59:54+01:00",
         "updated_at": "2026-01-16T03:59:54+01:00"
+    },
+    {
+        "id": "c05843fb3c5fe934",
+        "title": "おはよう",
+        "url": "http:\/\/localhost\/iehara\/BookMarkManegiment\/index.php",
+        "memo": "おやすみ",
+        "favorite": false,
+        "tags": [
+            "こんにちは",
+            " こんばんは"
+        ],
+        "delete_key": "67c04c836e4f44f5",
+        "created_at": "2026-01-18T02:35:19+09:00",
+        "updated_at": "2026-01-18T02:35:19+09:00"
     }
 ]

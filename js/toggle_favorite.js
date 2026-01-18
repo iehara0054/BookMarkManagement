@@ -27,7 +27,8 @@ try {
       button.classList.add('is-favorited');
       icon.textContent = '★';
 
-    } else
+    } 
+    else
     {
       button.classList.remove('is-favorited');
       icon.textContent = '☆';
