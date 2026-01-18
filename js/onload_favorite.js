@@ -20,8 +20,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (!bookmark) return;
 
       if (bookmark.favorite === true) {
+        favoriteBtn.classList.add('is-favorited');
         if (icon) icon.textContent = '★';
       } else {
+        favoriteBtn.classList.remove('is-favorited');
         if (icon) icon.textContent = '☆';
       }
     });
