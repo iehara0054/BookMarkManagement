@@ -102,7 +102,23 @@ class BookMarkManager
 
         $filteredValue = array_filter($getJsonDataDecode, function ($item) use ($targetValue)
         {
-            return $item['title'] === $targetValue;
+            if ($item['title'] === $targetValue)
+            {
+                return true;
+            }
+
+            if ($item['memo'] === $targetValue)
+            {
+                return true;
+            }
+
+            foreach ($item['tags'] as $tag)
+            {
+                if ($tag === $targetValue)
+                {
+                    return true;
+                }
+            }
         });
         return is_array($filteredValue) ? $filteredValue : [];
     }

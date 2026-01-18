@@ -85,7 +85,7 @@ function h($str)
         <h2>ブックマーク一覧</h2>
 
         <form id="searchForm" name="search" method="POST" action="">
-            <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル">
+            <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル、メモ、タグ">
             <button class="searchBtn">絞り込み検索</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
@@ -127,10 +127,6 @@ function h($str)
         }
 
         $filteredValue =  $BookMarkManager->search_bookmarks($searchValue);
-
-        // $targetValue = $_POST['searchValue'] ?? '';
-
-        // $filteredTitle =  $BookMarkManager->search_bookmarks($targetValue);
         ?>
 
         <!-- ブックマークが存在する場合、テーブルで表示 -->
@@ -162,11 +158,11 @@ function h($str)
                 {
                     $arrayBookMarkList =  $BookMarkManager->load_bookmarkLists();
                 }
-                else if (!empty($filteredTitle))
+                else if (!empty($filteredValue))
                 {
-                    $arrayBookMarkList = $filteredTitle;
+                    $arrayBookMarkList = $filteredValue;
                 }
-                else if (!empty($targetValue) && empty($filteredTitle))
+                else if (!empty($targetValue) && empty($filteredValue))
                 {
                     echo '<div class="error-message">そのタイトルは存在しません</div>';
                     $arrayBookMarkList = [];
