@@ -95,15 +95,15 @@ class BookMarkManager
      * @param string $targetValue 検索する文字列
      * @return array ブックマークデータの絞り込み検索の表示。ファイルが存在しない場合は空
      */
-    public function search_bookmarks($targetKey, $targetValue)
+    public function search_bookmarks($targetValue)
     {
         $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
         $getJsonDataDecode = json_decode($getJsonData, true);
 
-        $filteredTitle = array_filter($getJsonDataDecode, function ($title) use ($targetKey, $targetValue)
+        $filteredValue = array_filter($getJsonDataDecode, function ($item) use ($targetValue)
         {
-            return $title[$targetKey] === $targetValue;
+            return $item['title'] === $targetValue;
         });
-        return is_array($filteredTitle) ? $filteredTitle : [];
+        return is_array($filteredValue) ? $filteredValue : [];
     }
 }

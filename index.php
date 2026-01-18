@@ -29,8 +29,8 @@ function h($str)
 // ========================================
 // 絞り込み機能
 // ========================================
-$targetKey = 'title';
-$targetValue = $_POST['searchTitle'] ?? '';
+// $targetKey = 'title';
+// $targetValue = $_POST['searchTitle'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -84,8 +84,8 @@ $targetValue = $_POST['searchTitle'] ?? '';
         ============================================================================ -->
         <h2>ブックマーク一覧</h2>
 
-        <form id="searchForm" name="search" method="POST" action="">
-            <input type="text" id="searchInput" name="searchTitle" placeholder="検索したいタイトル">
+        <form id="searchForm" name="search" method="POST" action="./API/searchBookMark.php">
+            <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル">
             <button class="searchBtn">絞り込み検索</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
@@ -116,10 +116,11 @@ $targetValue = $_POST['searchTitle'] ?? '';
             <?php unset($_SESSION['delete_message']); ?>
         <?php endif; ?>
 
-        <?php $targetKey = 'title';
-        $targetValue = $_POST['searchTitle'] ?? '';
+        <?php
 
-        $filteredTitle =  $BookMarkManager->search_bookmarks($targetKey, $targetValue);
+        $targetValue = $_POST['searchValue'] ?? '';
+
+        $filteredTitle =  $BookMarkManager->search_bookmarks($targetValue);
         ?>
 
         <!-- ブックマークが存在する場合、テーブルで表示 -->
