@@ -84,7 +84,7 @@ function h($str)
         ============================================================================ -->
         <h2>ブックマーク一覧</h2>
 
-        <form id="searchForm" name="search" method="POST" action="./API/searchBookMark.php">
+        <form id="searchForm" name="search" method="POST" action="">
             <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル">
             <button class="searchBtn">絞り込み検索</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
@@ -118,9 +118,19 @@ function h($str)
 
         <?php
 
-        $targetValue = $_POST['searchValue'] ?? '';
+        $searchValue = $_POST['searchValue'] ?? '';
 
-        $filteredTitle =  $BookMarkManager->search_bookmarks($targetValue);
+        if ($searchValue === null)
+        {
+            echo json_encode(['error' => 'json value is required']);
+            exit;
+        }
+
+        $filteredValue =  $BookMarkManager->search_bookmarks($searchValue);
+
+        // $targetValue = $_POST['searchValue'] ?? '';
+
+        // $filteredTitle =  $BookMarkManager->search_bookmarks($targetValue);
         ?>
 
         <!-- ブックマークが存在する場合、テーブルで表示 -->
