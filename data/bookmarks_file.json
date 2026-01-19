@@ -91,7 +91,7 @@
         "title": "いいいいいいいいい",
         "url": "http:\/\/localhost\/iehara\/BookMarkManegiment\/index.php",
         "memo": "",
-        "favorite": true,
+        "favorite": false,
         "tags": [
             "タイトル"
         ],

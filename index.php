@@ -118,15 +118,14 @@ function h($str)
 
         <?php
 
-        $searchValue = $_POST['searchValue'] ?? '';
-
-        if ($searchValue === null)
+        // $searchValue = $_POST['searchValue'] ?? '';
+        $searchValue = '';
+        $filteredValue = [];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchValue']) && $_POST['searchValue'] !== '')
         {
-            echo json_encode(['error' => 'json value is required']);
-            exit;
+            $searchValue = $_POST['searchValue'];
+            $filteredValue = $BookMarkManager->search_bookmarks($searchValue);
         }
-
-        $filteredValue =  $BookMarkManager->search_bookmarks($searchValue);
         ?>
 
         <!-- ブックマークが存在する場合、テーブルで表示 -->
@@ -215,14 +214,15 @@ function h($str)
                             </form>
                         </td>
                     </tr>
-                    <script src="./js/onload_favorite.js"></script>
+                    <script src="./js/inloop_favorite.js"></script>
                 <?php endforeach; ?>
-
             </tbody>
         </table>
     </div>
-    <script src="./js/toggle_favorite.js"></script>
     <script src="./js/utilities.js"></script>
+    <script src="./js/onload_favorite.js"></script>
+    <script src="./js/toggle_favorite.js"></script>
+
 </body>
 
 </html>
