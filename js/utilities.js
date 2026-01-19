@@ -14,7 +14,7 @@ function clearText() {
  */
 async function initializeFavoriteButtons() {
   try {
-    const response = await fetch('data/bookmarks_file.json');
+    const response = await fetch('data/bookmarks_file.json?t=' + Date.now());
 
     if (!response.ok) {
       throw new Error(`HTTPエラー! ステータス: ${response.status}`);
