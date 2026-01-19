@@ -16,21 +16,14 @@ if (empty($_SESSION['csrf_token']))
     $_SESSION['csrf_token'] = $csrf_token;
 }
 
-
 // ========================================
 // 定数定義とヘルパー関数
 // ========================================
 //エスケープ関数
 function h($str)
 {
-    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
-
-// ========================================
-// 絞り込み機能
-// ========================================
-// $targetKey = 'title';
-// $targetValue = $_POST['searchTitle'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -95,8 +88,6 @@ function h($str)
         </form>
 
         <?php
-
-
         $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
 
         if (!empty($_POST['tags']))
@@ -106,7 +97,7 @@ function h($str)
         }
         ?>
         <?php if (empty($getBookMarkLists)): ?>
-            <!-- タスクが1つもない場合の表示 -->
+            <!-- ブックマークが1つもない場合の表示 -->
             <div class="empty">まだブックマークがありません。上のフォームから追加してください。</div>
         <?php endif; ?>
         <?php if (!empty($_SESSION['delete_message'])): ?>
@@ -117,8 +108,6 @@ function h($str)
         <?php endif; ?>
 
         <?php
-
-        // $searchValue = $_POST['searchValue'] ?? '';
         $searchValue = '';
         $filteredValue = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchValue']) && $_POST['searchValue'] !== '')
@@ -143,13 +132,6 @@ function h($str)
             </thead>
             <tbody>
                 <?php
-                // $getBookMarkListsを配列として初期化
-                if (empty($getBookMarkLists))
-                {
-                    $getBookMarkLists = [];
-                }
-                ?>
-                <?php
                 // ========================================
                 // 絞り込み解除
                 // ========================================
@@ -163,7 +145,7 @@ function h($str)
                 }
                 else if (!empty($targetValue) && empty($filteredValue))
                 {
-                    echo '<div class="error-message">そのタイトルは存在しません</div>';
+                    echo '<div class="error-message">その検索ワードは存在しません</div>';
                     $arrayBookMarkList = [];
                 }
                 else
@@ -214,7 +196,7 @@ function h($str)
                             </form>
                         </td>
                     </tr>
-                    <script src="./js/inloop_favorite.js"></script>
+                    <script src="./js/innerloop_favorite.js"></script>
                 <?php endforeach; ?>
             </tbody>
         </table>
