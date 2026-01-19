@@ -144,7 +144,7 @@ function h($str)
                 {
                     $arrayBookMarkList = $filteredValue;
                 }
-                else if (!empty($targetValue) && empty($filteredValue))
+                else if (!empty($searchValue) && empty($filteredValue))
                 {
                     echo '<div class="error-message">その検索ワードは存在しません</div>';
                     $arrayBookMarkList = [];
