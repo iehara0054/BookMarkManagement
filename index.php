@@ -118,7 +118,7 @@ function h($str)
         ?>
 
         <!-- ブックマークが存在する場合、テーブルで表示 -->
-        <script src="./js/utilities.js"></script>
+        <script src="./js/button_control.js"></script>
         <table>
             <thead>
                 <tr>
