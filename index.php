@@ -118,6 +118,7 @@ function h($str)
         ?>
 
         <!-- ブックマークが存在する場合、テーブルで表示 -->
+        <script src="./js/utilities.js"></script>
         <table>
             <thead>
                 <tr>
@@ -201,7 +202,6 @@ function h($str)
             </tbody>
         </table>
     </div>
-    <script src="./js/utilities.js"></script>
     <script src="./js/onload_favorite.js"></script>
     <script src="./js/toggle_favorite.js"></script>
 
