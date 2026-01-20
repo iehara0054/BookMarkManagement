@@ -323,13 +323,13 @@ body > p {
 }
 
 /* ========================================
-   全て表示ボタン
+   絞り込み解除ボタン
    ======================================== */
 #all {
     display: inline;
 }
 
-#all input[type="submit"] {
+.releaseBtn {
     padding: 12px 24px;
     border: 2px solid #555;
     border-radius: 25px;
@@ -342,14 +342,14 @@ body > p {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#all input[type="submit"]:hover {
+.releaseBtn:hover {
     background: linear-gradient(135deg, #444 0%, #222 100%);
     color: #fff;
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-#all input[type="submit"]:active {
+.releaseBtn:active {
     transform: translateY(-1px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
 }

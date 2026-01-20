@@ -84,7 +84,7 @@ function h($str)
         </form>
 
         <form id="all" name="all" method="POST" action="">
-            <input type="submit" name="submit_button" value="絞り込み解除">
+            <button type="submit" class="releaseBtn" name="submit_button">絞り込み解除</button>
         </form>
 
         <?php
@@ -134,24 +134,24 @@ function h($str)
             <tbody>
                 <?php
                 // ========================================
-                // 絞り込み解除
+                // 絞り込み検索
                 // ========================================
-                if (isset($_POST['submit_button']))
+                if (isset($_POST['submit_button'])) //jsonからブックマークリストを読み込む
                 {
                     $arrayBookMarkList =  $BookMarkManager->load_bookmarkLists();
                 }
-                else if (!empty($filteredValue))
+                else if (!empty($filteredValue)) //絞り込み検索の結果が存在する場合
                 {
                     $arrayBookMarkList = $filteredValue;
                 }
-                else if (!empty($searchValue) && empty($filteredValue))
+                else if (!empty($searchValue) && empty($filteredValue)) //絞り込み検索の結果が存在しない場合
                 {
                     echo '<div class="error-message">その検索ワードは存在しません</div>';
                     $arrayBookMarkList = [];
                 }
                 else
                 {
-                    $arrayBookMarkList = $getBookMarkLists;
+                    $arrayBookMarkList = $getBookMarkLists; //ブックマークがひとつもない場合
                 }
                 ?>
                 <?php
@@ -197,6 +197,7 @@ function h($str)
                             </form>
                         </td>
                     </tr>
+                    <!-- 絞り込み、絞り込み解除時のお気に入りボタンの状態保持 -->
                     <script src="./js/innerloop_favorite.js"></script>
                 <?php endforeach; ?>
             </tbody>
@@ -204,6 +205,22 @@ function h($str)
     </div>
     <script src="./js/onload_favorite.js"></script>
     <script src="./js/toggle_favorite.js"></script>
+    <!-- 絞り込み検索後のスクロール -->
+    <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchValue'])): ?>
+        <script>
+            document.querySelector('table').scrollIntoView({
+                behavior: 'auto'
+            });
+        </script>
+    <?php endif; ?>
+    <!-- 絞り込み検索解除後のスクロール -->
+    <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_button'])): ?>
+        <script>
+            document.querySelector('table').scrollIntoView({
+                behavior: 'auto'
+            });
+        </script>
+    <?php endif; ?>
 
 </body>
 
