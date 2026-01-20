@@ -102,19 +102,17 @@ class BookMarkManager
 
         $filteredValue = array_filter($getJsonDataDecode, function ($item) use ($targetValue)
         {
-            if ($item['title'] === $targetValue)
+            if (stripos($item['title'], $targetValue) !== false)
             {
                 return true;
             }
-
-            if ($item['memo'] === $targetValue)
+            if (stripos($item['memo'], $targetValue) !== false)
             {
                 return true;
             }
-
             foreach ($item['tags'] as $tag)
             {
-                if (trim($tag) === $targetValue)
+                if (stripos((trim($tag)), $targetValue) !== false)
                 {
                     return true;
                 }
