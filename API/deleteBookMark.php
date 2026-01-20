@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         $BookMarkManager->save_bookMarks($newData);
 
         $_SESSION['delete_message'] = 'ブックマークを削除しました';
+        $_SESSION['delete_flg'] = 'delete_flg';
 
         header('Location: ../index.php');
         exit();

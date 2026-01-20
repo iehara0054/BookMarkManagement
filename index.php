@@ -221,7 +221,15 @@ function h($str)
             });
         </script>
     <?php endif; ?>
-
+    <!-- 削除後のスクロール -->
+    <?php if (!empty($_SESSION['delete_flg'])): ?>
+        <script>
+            document.querySelector('table').scrollIntoView({
+                behavior: 'auto'
+            });
+        </script>
+        <?php unset($_SESSION['delete_flg']) ?>
+    <?php endif; ?>
 </body>
 
 </html>
