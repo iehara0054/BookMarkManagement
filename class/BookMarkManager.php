@@ -13,7 +13,7 @@ class BookMarkManager
     /**
      * ブックマークデータをJSONファイルから読み込む
      * 
-     * @return array ブックマーク一覧。ファイルが存在しない場合は空
+     * @return array　$data ブックマーク一覧。ファイルが存在しない場合は空
      */
     public function load_bookmarkLists(): array
     {
@@ -29,10 +29,10 @@ class BookMarkManager
     }
 
     /**
-     * タスクデータをJSONファイルに保存
+     * ブックマークデータをJSONファイルに保存
      * 
      * @param array $bookMarks 保存するタスクの配列
-     * @return string $json
+     * @return string $json　保存したjsonファイル
      */
     public function save_bookMarks(array $enteredBookMarkData): string
     {
@@ -64,9 +64,9 @@ class BookMarkManager
     /**
      * 削除ボタンの押されたブックマークを削除する
      * 
-     * @param $targetKey 文字列'target_key'
-     * @param $targetValue　削除するブックマークのID
-     * @return $newData 削除の完了したブックマークデータ
+     * @param string $targetKey 文字列'target_key'
+     * @param string $targetValue　削除するブックマークのID
+     * @return array $newData 削除の完了したブックマークデータ
      */
     public function delete_bookMarks(string $targetKey, $targetValue): array
     {
