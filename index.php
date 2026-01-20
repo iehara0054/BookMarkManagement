@@ -75,7 +75,7 @@ function h($str)
         <!-- ============================================================================
          ブックマーク一覧の表示
         ============================================================================ -->
-        <h2>ブックマーク一覧（部分一致に対応しています）</h2>
+        <h2>ブックマーク一覧</h2>
 
         <form id="searchForm" name="search" method="POST" action="">
             <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル、メモ、タグ">
@@ -86,7 +86,7 @@ function h($str)
         <form id="all" name="all" method="POST" action="">
             <button type="submit" class="releaseBtn" name="submit_button">絞り込み解除</button>
         </form>
-
+        <p class="search-hint">部分一致に対応しています</p>
         <?php
         $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
 
