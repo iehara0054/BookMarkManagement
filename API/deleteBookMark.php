@@ -3,8 +3,8 @@ require_once __DIR__ . '/../class/BookMarkManager.php';
 require_once __DIR__ . '/../class/Helper.php';
 session_start();
 
-$BookMarkManager = new BookMarkManager;
-$Helper = new Helper;
+$BookMarkManager = new BookMarkManager();
+$Helper = new Helper();
 
 //============================================================
 // POSTリクエストの処理
