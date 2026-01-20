@@ -224,7 +224,7 @@ function h($str)
     <!-- 削除後のスクロール -->
     <?php if (!empty($_SESSION['delete_flg'])): ?>
         <script>
-            document.querySelector('table').scrollIntoView({
+            document.querySelector('.delete_message').scrollIntoView({
                 behavior: 'auto'
             });
         </script>
