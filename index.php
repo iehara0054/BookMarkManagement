@@ -208,7 +208,7 @@ function h($str)
     <!-- 絞り込み検索後のスクロール -->
     <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchValue'])): ?>
         <script>
-            document.querySelector('table').scrollIntoView({
+            document.querySelector('#list_tpl').scrollIntoView({
                 behavior: 'auto'
             });
         </script>
@@ -216,7 +216,7 @@ function h($str)
     <!-- 絞り込み検索解除後のスクロール -->
     <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_button'])): ?>
         <script>
-            document.querySelector('table').scrollIntoView({
+            document.querySelector('#list_tpl').scrollIntoView({
                 behavior: 'auto'
             });
         </script>
