@@ -2,7 +2,11 @@
  * クリアボタン
  */
 function clearText() {
+            // [問題] 未使用変数 - textFormは宣言されているが使用されていない
             let textForm = document.getElementById("inputForm");
+            // [問題] グローバル変数参照 - title, url, memo, tagsはグローバル変数として参照されている
+            // - HTMLのid属性がグローバル変数になる仕様に依存している（非推奨）
+            // - 明示的にdocument.getElementById()を使うべき
             title.value = '';
             url.value = '';
             memo.value = '';

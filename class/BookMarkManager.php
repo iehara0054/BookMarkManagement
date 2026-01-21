@@ -3,6 +3,8 @@ require_once __DIR__ . '/Helper.php';
 
 class BookMarkManager
 {
+    // [問題] 不要な依存注入 - $this->Helper はクラス内で一度も使用されていない
+    // - 削除するか、実際に使用すべき
     public $Helper;
 
     public function __construct()
@@ -95,6 +97,9 @@ class BookMarkManager
      * @param string $targetValue 検索する文字列
      * @return array ブックマークデータの絞り込み検索の表示。ファイルが存在しない場合は空
      */
+    // [問題] ファイル存在チェックなし
+    // - load_bookmarkLists()にはfile_exists()チェックがあるのに、この関数にはない
+    // - 一貫性がなく、ファイルが存在しない場合にエラーになる
     public function search_bookmarks($targetValue)
     {
         $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
@@ -110,6 +115,9 @@ class BookMarkManager
             {
                 return true;
             }
+            // [問題] tagsがnullや未定義の場合の考慮不足
+            // - $item['tags']がnullや未定義の場合にエラーになる
+            // - if (!empty($item['tags'])) でチェックすべき
             foreach ($item['tags'] as $tag)
             {
                 if (stripos((trim($tag)), $targetValue) !== false)

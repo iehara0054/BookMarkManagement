@@ -16,11 +16,15 @@ async function toggleFavorite(button) {
     });
 
     const data = await response.json();
-    
+
 const item = data.find(value => value.id === itemId);
+// [問題] try-catchの位置が不適切
+// - tryがfetch後の処理途中から始まっており、エラーハンドリングが不完全
+// - fetchを含む全体を囲むべき
 try {
     if (item) {
 
+    // [問題] デバッグ用console.logが残存 - 本番コードには不要、削除すべき
     console.log('お気に入り状態:', item.favorite);
     console.log(itemId);
 
@@ -42,6 +46,7 @@ try {
     button.disabled = false;
   }
 }
+// [問題] コメントアウトされたコード - 不要なら削除すべき
 // AIでCSSを当てた時に書かれました
 // スパークルエフェクト関数
 // function createSparkles(button) {

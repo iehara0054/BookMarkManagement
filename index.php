@@ -27,6 +27,7 @@ function h($str)
 ?>
 
 <!DOCTYPE html>
+<!-- [問題] lang属性がない（アクセシビリティ）- <html lang="ja"> にすべき -->
 <html>
 
 <head>
@@ -44,6 +45,7 @@ function h($str)
         <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
 
         <?php if (!empty($_SESSION['success_message'])): ?>
+            <!-- [問題] CSSクラス名の不一致 - HTMLでは "successMessage" だが、CSSでは ".success-message" のためスタイルが適用されていない -->
             <div class="successMessage">
                 <?= h($_SESSION['success_message']) ?>
             </div>
@@ -77,12 +79,14 @@ function h($str)
         ============================================================================ -->
         <h2>ブックマーク一覧</h2>
 
+        <!-- [問題] フォームのaction属性が空 - action="" は現在のページにPOSTするが、明示的にすべき -->
         <form id="searchForm" name="search" method="POST" action="">
             <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル、メモ、タグ">
             <button class="searchBtn">絞り込み検索</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
 
+        <!-- [問題] フォームのaction属性が空 - action="" は現在のページにPOSTするが、明示的にすべき -->
         <form id="all" name="all" method="POST" action="">
             <button type="submit" class="release-btn" name="submitButton">絞り込み解除</button>
         </form>
@@ -90,6 +94,9 @@ function h($str)
         <?php
         $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
 
+        // [問題] 使用されていないコード / バグの可能性
+        // - $_POST['tags']が存在する場合、タグ配列でブックマークリストを上書きしている
+        // - この処理の意図が不明。おそらくバグ
         if (!empty($_POST['tags']))
         {
             $splitTags = $Helper->splitTags($_POST['tags']);
@@ -146,6 +153,7 @@ function h($str)
                 }
                 else if (!empty($searchValue) && empty($filteredValue)) //絞り込み検索の結果が存在しない場合
                 {
+                    // [問題] CSSクラス名の不一致 - HTMLでは "errorMessage" だが、CSSでは ".error-message" のためスタイルが適用されていない
                     echo '<div class="errorMessage">その検索ワードは存在しません</div>';
                     $arrayBookMarkList = [];
                 }
@@ -166,6 +174,7 @@ function h($str)
                         <td>
                             <div>
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank"> <?= h($b['title'] ?? '') ?></a>
+                                <!-- [問題] この隠しinputは使用されていない - 削除を検討 -->
                                 <input type="hidden" name="title" value="<?= h($b['title']) ?>">
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
                             </div>
@@ -197,6 +206,10 @@ function h($str)
                             </form>
                         </td>
                     </tr>
+                    <!-- [問題] ループ内でのスクリプト読み込み（パフォーマンス問題）
+                         - foreachループ内で毎回 innerloop_favorite.js を読み込んでいる
+                         - ブックマークが100件あれば100回読み込まれる
+                         - ループ外に移動すべき -->
                     <!-- 絞り込み、絞り込み解除時のお気に入りボタンの状態保持 -->
                     <script src="./js/innerloop_favorite.js"></script>
                 <?php endforeach; ?>

@@ -1,4 +1,8 @@
 <?php
+// [問題] セキュリティ: CSRF対策がない
+// - お気に入り切り替えAPIにCSRFトークン検証がない
+// - 他のAPI（add.php, deleteBookMark.php）には実装されているのに、このAPIだけ欠落している
+// - CSRFトークンをリクエストに含め、検証処理を追加すべき
 session_start();
 header("Content-Type: application/json; charset=utf-8");
 
