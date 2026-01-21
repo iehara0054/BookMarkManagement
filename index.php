@@ -241,7 +241,7 @@ function h($str)
                     絞り込み処理側で document.dispatchEvent(new Event('filterApplied')) を呼び出します。
 
                     案3: 絞り込み後に直接呼び出し（最もシンプル）
-                    PHPで絞り込みが行われた場合のみ、ループ外で一度だけ初期化を呼び出します。
+                    PHPで絞り込みが行われた場合のみ、ループ外で一度だけ初期化を呼び出します。 -->
 
 
                     <!-- 214行目を削除し、ループ外に以下を追加 -->
@@ -252,7 +252,7 @@ function h($str)
                             }
                         </script>
                     <?php endif; ?>
-                    **案1（MutationObserver）**が最も堅牢で、今後の拡張にも対応しやすいです。どの案で進めますか？ -->
+                    <!-- **案1（MutationObserver）**が最も堅牢で、今後の拡張にも対応しやすいです。どの案で進めますか？ -->
                     <!-- 絞り込み、絞り込み解除時のお気に入りボタンの状態保持 -->
                     <script src="./js/innerloop_favorite.js"></script>
                 <?php endforeach; ?>
