@@ -210,6 +210,49 @@ function h($str)
                          - foreachループ内で毎回 innerloop_favorite.js を読み込んでいる
                          - ブックマークが100件あれば100回読み込まれる
                          - ループ外に移動すべき -->
+                    <!-- 問題を理解しました。現在214行目のinnerloop_favorite.jsはループ内で毎回読み込まれており、パフォーマンス上の問題があります。
+
+                    代替案
+                    案1: MutationObserverを使用（推奨）
+                    ループ外で一度だけスクリプトを読み込み、DOMの変更を監視して自動的にボタンを初期化します。
+
+
+                    // onload_favorite.js を以下のように修正
+                    document.addEventListener('DOMContentLoaded', function() {
+                    initializeFavoriteButtons();
+
+                    // 絞り込みでDOMが変更された時も再初期化
+                    const observer = new MutationObserver(function(mutations) {
+                    initializeFavoriteButtons();
+                    });
+
+                    const tbody = document.querySelector('#listTpl tbody');
+                    if (tbody) {
+                    observer.observe(tbody, { childList: true, subtree: true });
+                    }
+                    });
+                    案2: カスタムイベントを使用
+                    絞り込み処理の後にカスタムイベントを発火させ、それをトリガーに初期化を実行します。
+
+
+                    // onload_favorite.js を以下のように修正
+                    document.addEventListener('DOMContentLoaded', initializeFavoriteButtons);
+                    document.addEventListener('filterApplied', initializeFavoriteButtons);
+                    絞り込み処理側で document.dispatchEvent(new Event('filterApplied')) を呼び出します。
+
+                    案3: 絞り込み後に直接呼び出し（最もシンプル）
+                    PHPで絞り込みが行われた場合のみ、ループ外で一度だけ初期化を呼び出します。
+
+
+                    <!-- 214行目を削除し、ループ外に以下を追加 -->
+                    <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
+                        <script>
+                            if (typeof initializeFavoriteButtons === 'function') {
+                                initializeFavoriteButtons();
+                            }
+                        </script>
+                    <?php endif; ?>
+                    **案1（MutationObserver）**が最も堅牢で、今後の拡張にも対応しやすいです。どの案で進めますか？ -->
                     <!-- 絞り込み、絞り込み解除時のお気に入りボタンの状態保持 -->
                     <script src="./js/innerloop_favorite.js"></script>
                 <?php endforeach; ?>
