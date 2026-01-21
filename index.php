@@ -44,7 +44,7 @@ function h($str)
         <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
 
         <?php if (!empty($_SESSION['success_message'])): ?>
-            <div class="success-message">
+            <div class="successMessage">
                 <?= h($_SESSION['success_message']) ?>
             </div>
             <?php unset($_SESSION['success_message']); ?>
@@ -52,11 +52,11 @@ function h($str)
 
         <input id="title" type="text" name="title" placeholder="タイトル（必須）" value="<?= h(!empty($_SESSION['detectedErrorUrl']['title']) ? $_SESSION['detectedErrorUrl']['title'] : '') ?>" required>
 
-        <?php if (!empty($_SESSION['error_url'])): ?>
-            <div class="error-url">
-                <?= h($_SESSION['error_url']) ?>
+        <?php if (!empty($_SESSION['errorUrl'])): ?>
+            <div class="errorUrl">
+                <?= h($_SESSION['errorUrl']) ?>
             </div>
-            <?php unset($_SESSION['error_url']); ?>
+            <?php unset($_SESSION['errorUrl']); ?>
         <?php endif; ?>
 
         <input id="url" type="text" name="url" placeholder="URL（必須）" value="<?= h(!empty($_SESSION['detectedErrorUrl']['url']) ? $_SESSION['detectedErrorUrl']['url'] : '') ?>" required>
@@ -71,7 +71,7 @@ function h($str)
         <?php unset($_SESSION['detectedErrorUrl']); ?>
     </form>
 
-    <div id='list_tpl'>
+    <div id='listTpl'>
         <!-- ============================================================================
          ブックマーク一覧の表示
         ============================================================================ -->
@@ -84,7 +84,7 @@ function h($str)
         </form>
 
         <form id="all" name="all" method="POST" action="">
-            <button type="submit" class="releaseBtn" name="submit_button">絞り込み解除</button>
+            <button type="submit" class="releaseBtn" name="submitButton">絞り込み解除</button>
         </form>
         <p class="search-hint">部分一致に対応しています</p>
         <?php
@@ -100,11 +100,11 @@ function h($str)
             <!-- ブックマークが1つもない場合の表示 -->
             <div class="empty">まだブックマークがありません。上のフォームから追加してください。</div>
         <?php endif; ?>
-        <?php if (!empty($_SESSION['delete_message'])): ?>
-            <div class="delete_message">
-                <?= h($_SESSION['delete_message']) ?>
+        <?php if (!empty($_SESSION['deleteMessage'])): ?>
+            <div class="deleteMessage">
+                <?= h($_SESSION['deleteMessage']) ?>
             </div>
-            <?php unset($_SESSION['delete_message']); ?>
+            <?php unset($_SESSION['deleteMessage']); ?>
         <?php endif; ?>
 
         <?php
@@ -136,7 +136,7 @@ function h($str)
                 // ========================================
                 // 絞り込み検索
                 // ========================================
-                if (isset($_POST['submit_button'])) //jsonからブックマークリストを読み込む
+                if (isset($_POST['submitButton'])) //jsonからブックマークリストを読み込む
                 {
                     $arrayBookMarkList =  $BookMarkManager->load_bookmarkLists();
                 }
@@ -146,7 +146,7 @@ function h($str)
                 }
                 else if (!empty($searchValue) && empty($filteredValue)) //絞り込み検索の結果が存在しない場合
                 {
-                    echo '<div class="error-message">その検索ワードは存在しません</div>';
+                    echo '<div class="errorMessage">その検索ワードは存在しません</div>';
                     $arrayBookMarkList = [];
                 }
                 else
@@ -159,7 +159,7 @@ function h($str)
                     <tr>
                         <td>
                             <div>
-                                <button class="favorite-btn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
+                                <button class="favoriteBtn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
                                     <span class="icon">☆</span></button>
                             </div>
                         </td>
@@ -167,13 +167,13 @@ function h($str)
                             <div>
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank"> <?= h($b['title'] ?? '') ?></a>
                                 <input type="hidden" name="title" value="<?= h($b['title']) ?>">
-                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
+                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="openNewTab" title="新しいタブで開く">↗️</a>
                             </div>
                         </td>
                         <td>
                             <div>
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank"><?= h($b['url'] ?? '') ?></a>
-                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
+                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="openNewTab" title="新しいタブで開く">↗️</a>
                             </div>
                         </td>
                         <td>
@@ -192,8 +192,8 @@ function h($str)
                         <td>
                             <form action="./API/deleteBookMark.php" method="post">
                                 <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
-                                <input type="hidden" name="delete_key" value="<?= h($b['delete_key']) ?>">
-                                <button class="delete-btn" name="action" value="delete" data-delete-item-key="<?= h($b['delete_key']) ?>">削除</button>
+                                <input type="hidden" name="deleteKey" value="<?= h($b['deleteKey']) ?>">
+                                <button class="delete-btn" name="action" value="delete" data-delete-item-key="<?= h($b['deleteKey']) ?>">削除</button>
                             </form>
                         </td>
                     </tr>
@@ -208,27 +208,27 @@ function h($str)
     <!-- 絞り込み検索後のスクロール -->
     <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchValue'])): ?>
         <script>
-            document.querySelector('#list_tpl').scrollIntoView({
+            document.querySelector('#listTpl').scrollIntoView({
                 behavior: 'auto'
             });
         </script>
     <?php endif; ?>
     <!-- 絞り込み検索解除後のスクロール -->
-    <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_button'])): ?>
+    <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitButton'])): ?>
         <script>
-            document.querySelector('#list_tpl').scrollIntoView({
+            document.querySelector('#listTpl').scrollIntoView({
                 behavior: 'auto'
             });
         </script>
     <?php endif; ?>
     <!-- 削除後のスクロール -->
-    <?php if (!empty($_SESSION['delete_flg'])): ?>
+    <?php if (!empty($_SESSION['deleteFlg'])): ?>
         <script>
-            document.querySelector('.delete_message').scrollIntoView({
+            document.querySelector('.deleteMessage').scrollIntoView({
                 behavior: 'auto'
             });
         </script>
-        <?php unset($_SESSION['delete_flg']) ?>
+        <?php unset($_SESSION['deleteFlg']) ?>
     <?php endif; ?>
 </body>
 

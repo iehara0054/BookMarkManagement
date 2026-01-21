@@ -19,7 +19,7 @@ class Helper
         {
             if ($_POST['url'] ?? '')
             {
-                $_SESSION['error_url'] = 'URLの形式ではありません';
+                $_SESSION['errorUrl'] = 'URLの形式ではありません';
                 $_SESSION['detectedErrorUrl'] = $enteredBookMarkData;
                 $_SESSION['detectedErrorUrl']['userEnteredLowTags'] = $userEnteredLowTags;
             }

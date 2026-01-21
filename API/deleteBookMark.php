@@ -19,12 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     }
     else
     {
-        $targetKey = 'delete_key';
-        $targetValue = $_POST['delete_key'] ?? null;
+        $targetKey = 'deleteKey';
+        $targetValue = $_POST['deleteKey'] ?? null;
 
         if ($targetKey === null)
         {
-            echo json_encode(['error' => 'delete_key is required']);
+            echo json_encode(['error' => 'deleteKey is required']);
             exit;
         }
 
@@ -33,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
         $BookMarkManager->save_bookMarks($newData);
 
-        $_SESSION['delete_message'] = 'ブックマークを削除しました';
-        $_SESSION['delete_flg'] = 'delete_flg';
+        $_SESSION['deleteMessage'] = 'ブックマークを削除しました';
+        $_SESSION['deleteFlg'] = 'deleteFlg';
 
         header('Location: ../index.php');
         exit();
