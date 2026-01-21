@@ -1,8 +1,11 @@
+/**
+ * お気に入りボタン点滅ロジック
+ */
 async function toggleFavorite(button) {
     const itemId = button.getAttribute('data-item-id');
     const icon = button.querySelector('.icon');
 
-    const requestBody = { id: itemId };// 送ったitemIdのjsonだけ取得すればいい
+    const requestBody = { id: itemId };
 
     const response = await fetch('API/toggleFavorite.php', {
       method: 'POST',
