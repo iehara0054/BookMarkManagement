@@ -32,7 +32,7 @@ class Helper
 
             // [問題] ハードコードされたURL - 本番環境で動作しない
             // - 相対パスまたは環境変数を使用すべき
-            header('Location: http://localhost/iehara/BookMarkManegiment/index.php');
+            header('Location: ../index.php');
             exit();
         }
         return $validUrl;
