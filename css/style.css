@@ -155,7 +155,7 @@ body > p {
 }
 
 .delete-message,
-.deleteMessage {
+.delete_message {
     background: linear-gradient(135deg, #e0e0e0 0%, #ccc 100%);
     color: #444;
     padding: 15px 20px;
@@ -329,7 +329,7 @@ body > p {
     display: inline;
 }
 
-.releaseBtn {
+.release-btn {
     padding: 12px 24px;
     border: 2px solid #555;
     border-radius: 25px;
@@ -342,14 +342,14 @@ body > p {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.releaseBtn:hover {
+.release-btn:hover {
     background: linear-gradient(135deg, #444 0%, #222 100%);
     color: #fff;
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-.releaseBtn:active {
+.release-btn:active {
     transform: translateY(-1px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
 }
@@ -460,7 +460,7 @@ tbody td a:hover {
 }
 
 /* 新しいタブで開くアイコン */
-.openNewTab {
+.open-new-tab {
     margin-left: 8px;
     font-size: 1.2rem;
     text-decoration: none !important;
@@ -468,7 +468,7 @@ tbody td a:hover {
     transition: transform 0.2s, color 0.2s;
 }
 
-.openNewTab:hover {
+.open-new-tab:hover {
     transform: scale(1.3);
     color: #222 !important;
 }
@@ -507,7 +507,7 @@ tbody td:nth-child(5) div {
 /* ========================================
    お気に入りボタン
    ======================================== */
-.favoriteBtn {
+.favorite-btn {
     padding: 8px 12px;
     cursor: pointer;
     border: 1px solid #e5e5e5;
@@ -521,13 +521,13 @@ tbody td:nth-child(5) div {
     color: #999;
 }
 
-.favoriteBtn:hover {
+.favorite-btn:hover {
     background: #f0f0f0;
     border-color: #555;
     color: #555;
 }
 
-.favoriteBtn.is-favorited {
+.favorite-btn.is-favorited {
     color: #333;
     background: #e8e8e8;
     border-color: #555;

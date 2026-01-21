@@ -50,25 +50,25 @@ function h($str)
             <?php unset($_SESSION['success_message']); ?>
         <?php endif; ?>
 
-        <input id="title" type="text" name="title" placeholder="タイトル（必須）" value="<?= h(!empty($_SESSION['detectedErrorUrl']['title']) ? $_SESSION['detectedErrorUrl']['title'] : '') ?>" required>
+        <input id="title" type="text" name="title" placeholder="タイトル（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['title']) ? $_SESSION['detected_error_url']['title'] : '') ?>" required>
 
-        <?php if (!empty($_SESSION['errorUrl'])): ?>
-            <div class="errorUrl">
-                <?= h($_SESSION['errorUrl']) ?>
+        <?php if (!empty($_SESSION['error_url'])): ?>
+            <div class="error-url">
+                <?= h($_SESSION['error_url']) ?>
             </div>
-            <?php unset($_SESSION['errorUrl']); ?>
+            <?php unset($_SESSION['error_url']); ?>
         <?php endif; ?>
 
-        <input id="url" type="text" name="url" placeholder="URL（必須）" value="<?= h(!empty($_SESSION['detectedErrorUrl']['url']) ? $_SESSION['detectedErrorUrl']['url'] : '') ?>" required>
+        <input id="url" type="text" name="url" placeholder="URL（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['url']) ? $_SESSION['detected_error_url']['url'] : '') ?>" required>
 
-        <input id="memo" type="text" name="memo" placeholder="メモ（任意）" value="<?= h(!empty($_SESSION['detectedErrorUrl']['memo']) ? $_SESSION['detectedErrorUrl']['memo'] : '') ?>">
+        <input id="memo" type="text" name="memo" placeholder="メモ（任意）" value="<?= h(!empty($_SESSION['detected_error_url']['memo']) ? $_SESSION['detected_error_url']['memo'] : '') ?>">
 
-        <input id="tags" type="text" name="tags" placeholder="タグ・カンマ区切り可(任意)" value="<?= h(!empty($_SESSION['detectedErrorUrl']['userEnteredLowTags']) ? $_SESSION['detectedErrorUrl']['userEnteredLowTags'] : '') ?>">
+        <input id="tags" type="text" name="tags" placeholder="タグ・カンマ区切り可(任意)" value="<?= h(!empty($_SESSION['detected_error_url']['user_entered_low_tags']) ? $_SESSION['detected_error_url']['user_entered_low_tags'] : '') ?>">
 
         <button type="submit">追加</button>
         <button type="button" onclick="clearText()">クリア</button>
 
-        <?php unset($_SESSION['detectedErrorUrl']); ?>
+        <?php unset($_SESSION['detected_error_url']); ?>
     </form>
 
     <div id='listTpl'>
@@ -84,7 +84,7 @@ function h($str)
         </form>
 
         <form id="all" name="all" method="POST" action="">
-            <button type="submit" class="releaseBtn" name="submitButton">絞り込み解除</button>
+            <button type="submit" class="release-btn" name="submitButton">絞り込み解除</button>
         </form>
         <p class="search-hint">部分一致に対応しています</p>
         <?php
@@ -100,11 +100,11 @@ function h($str)
             <!-- ブックマークが1つもない場合の表示 -->
             <div class="empty">まだブックマークがありません。上のフォームから追加してください。</div>
         <?php endif; ?>
-        <?php if (!empty($_SESSION['deleteMessage'])): ?>
-            <div class="deleteMessage">
-                <?= h($_SESSION['deleteMessage']) ?>
+        <?php if (!empty($_SESSION['delete_message'])): ?>
+            <div class="delete_message">
+                <?= h($_SESSION['delete_message']) ?>
             </div>
-            <?php unset($_SESSION['deleteMessage']); ?>
+            <?php unset($_SESSION['delete_message']); ?>
         <?php endif; ?>
 
         <?php
@@ -159,7 +159,7 @@ function h($str)
                     <tr>
                         <td>
                             <div>
-                                <button class="favoriteBtn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
+                                <button class="favorite-btn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
                                     <span class="icon">☆</span></button>
                             </div>
                         </td>
@@ -167,13 +167,13 @@ function h($str)
                             <div>
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank"> <?= h($b['title'] ?? '') ?></a>
                                 <input type="hidden" name="title" value="<?= h($b['title']) ?>">
-                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="openNewTab" title="新しいタブで開く">↗️</a>
+                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
                             </div>
                         </td>
                         <td>
                             <div>
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank"><?= h($b['url'] ?? '') ?></a>
-                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="openNewTab" title="新しいタブで開く">↗️</a>
+                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
                             </div>
                         </td>
                         <td>
@@ -222,13 +222,13 @@ function h($str)
         </script>
     <?php endif; ?>
     <!-- 削除後のスクロール -->
-    <?php if (!empty($_SESSION['deleteFlg'])): ?>
+    <?php if (!empty($_SESSION['delete_flg'])): ?>
         <script>
-            document.querySelector('.deleteMessage').scrollIntoView({
+            document.querySelector('.delete_message').scrollIntoView({
                 behavior: 'auto'
             });
         </script>
-        <?php unset($_SESSION['deleteFlg']) ?>
+        <?php unset($_SESSION['delete_flg']) ?>
     <?php endif; ?>
 </body>
 

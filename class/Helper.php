@@ -19,9 +19,9 @@ class Helper
         {
             if ($_POST['url'] ?? '')
             {
-                $_SESSION['errorUrl'] = 'URLの形式ではありません';
-                $_SESSION['detectedErrorUrl'] = $enteredBookMarkData;
-                $_SESSION['detectedErrorUrl']['userEnteredLowTags'] = $userEnteredLowTags;
+                $_SESSION['error_url'] = 'URLの形式ではありません';
+                $_SESSION['detected_error_url'] = $enteredBookMarkData;
+                $_SESSION['detected_error_url']['user_entered_low_tags'] = $userEnteredLowTags;
             }
 
             header('Location: http://localhost/iehara/BookMarkManegiment/index.php');

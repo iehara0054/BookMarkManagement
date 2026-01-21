@@ -22,7 +22,7 @@ async function initializeFavoriteButtons() {
 
     const data = await response.json();
 
-    const favoriteBtns = document.querySelectorAll('.favoriteBtn');
+    const favoriteBtns = document.querySelectorAll('.favorite-btn');
 
     favoriteBtns.forEach(favoriteBtn => {
 
