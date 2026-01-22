@@ -65,7 +65,7 @@ function h($str)
 
         <input id="memo" type="text" name="memo" placeholder="メモ（任意）" value="<?= h(!empty($_SESSION['detected_error_url']['memo']) ? $_SESSION['detected_error_url']['memo'] : '') ?>">
 
-        <input id="tags" type="text" name="tags" placeholder="タグ・カンマ区切り可(任意)" value="<?= h(!empty($_SESSION['detected_error_url']['user_entered_low_tags']) ? $_SESSION['detected_error_url']['user_entered_low_tags'] : '') ?>">
+        <input id="tags" type="text" name="tags" placeholder="タグ・カンマ区切り可(任意・全角カンマ可)" value="<?= h(!empty($_SESSION['detected_error_url']['user_entered_low_tags']) ? $_SESSION['detected_error_url']['user_entered_low_tags'] : '') ?>">
 
         <button type="submit">追加</button>
         <button type="button" onclick="clearText()">クリア</button>
