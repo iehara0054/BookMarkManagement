@@ -47,7 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		}
 		else
 		{
-			$splitTags = explode(",", $tags);
+			$normalized_comma_tags = str_replace(['，', '、'], ',', $tags);
+			$splitTags = explode(',', $normalized_comma_tags);
 			$splitTags = array_filter($splitTags);
 
 			$enteredBookMarkData = array(
