@@ -121,7 +121,7 @@ body > p {
    - このクラス名は ".success-message" だが、index.phpでは "successMessage" を使用している
    - どちらかに統一すべき（HTMLを修正するか、CSSを修正するか）
 */
-.success-message {
+.successMessage {
     background: linear-gradient(135deg, #e8e8e8 0%, #d8d8d8 100%);
     color: #333;
     padding: 15px 20px;
@@ -149,7 +149,7 @@ body > p {
    - このクラス名は ".error-message" だが、index.phpでは "errorMessage" を使用している
    - どちらかに統一すべき（HTMLを修正するか、CSSを修正するか）
 */
-.error-message {
+.errorMessage {
     background: linear-gradient(135deg, #d0d0d0 0%, #b8b8b8 100%);
     color: #222;
     padding: 15px 20px;
@@ -468,7 +468,7 @@ tbody td a:hover {
 }
 
 /* 新しいタブで開くアイコン */
-.open-new-tab {
+.openNewTab {
     margin-left: 8px;
     font-size: 1.2rem;
     text-decoration: none !important;
@@ -476,7 +476,7 @@ tbody td a:hover {
     transition: transform 0.2s, color 0.2s;
 }
 
-.open-new-tab:hover {
+.openNewTab:hover {
     transform: scale(1.3);
     color: #222 !important;
 }
@@ -515,7 +515,7 @@ tbody td:nth-child(5) div {
 /* ========================================
    お気に入りボタン
    ======================================== */
-.favorite-btn {
+.favoriteBtn {
     padding: 8px 12px;
     cursor: pointer;
     border: 1px solid #e5e5e5;
@@ -529,13 +529,13 @@ tbody td:nth-child(5) div {
     color: #999;
 }
 
-.favorite-btn:hover {
+.favoriteBtn:hover {
     background: #f0f0f0;
     border-color: #555;
     color: #555;
 }
 
-.favorite-btn.is-favorited {
+.favoriteBtn.is-favorited {
     color: #333;
     background: #e8e8e8;
     border-color: #555;
@@ -544,7 +544,7 @@ tbody td:nth-child(5) div {
 /* ========================================
    削除ボタン
    ======================================== */
-.delete-btn {
+.deleteBtn {
     padding: 8px 16px;
     cursor: pointer;
     border: 2px solid #666;
@@ -557,14 +557,14 @@ tbody td:nth-child(5) div {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.delete-btn:hover {
+.deleteBtn:hover {
     background: linear-gradient(135deg, #555 0%, #333 100%);
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.delete-btn:active {
+.deleteBtn:active {
     transform: translateY(0);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }

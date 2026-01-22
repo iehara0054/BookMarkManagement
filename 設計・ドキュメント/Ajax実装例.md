@@ -54,10 +54,10 @@ HTML構造
 =================================================================================
 お気に入りボタンのHTML構造です。
 
-<button id="favorite-button" class="favorite-btn" data-item-id="123">
+<button id="favorite-button" class="favoriteBtn" data-item-id="123">
     ↑ ボタン要素
     - id="favorite-button": JavaScriptからこのボタンを取得するための一意の識別子
-    - class="favorite-btn": スタイリング用のCSSクラス
+    - class="favoriteBtn": スタイリング用のCSSクラス
     - data-item-id="123": お気に入り対象のアイテムID（カスタムデータ属性）
                           この値がサーバーに送信されます
 
@@ -80,7 +80,7 @@ CSSスタイル定義
 =================================================================================
 お気に入りボタンの見た目を定義するスタイルです。
 
-.favorite-btn {
+.favoriteBtn {
     padding: 10px 15px;              // ボタン内側の余白（上下10px、左右15px）
     cursor: pointer;                 // マウスカーソルをポインター（指マーク）に変更
     border: 1px solid #ccc;          // 1pxの灰色の境界線
@@ -88,7 +88,7 @@ CSSスタイル定義
     transition: color 0.3s, background-color 0.3s;  // 色変化を0.3秒かけてスムーズに
 }
 
-.favorite-btn.is-favorited {
+.favoriteBtn.is-favorited {
     // お気に入り登録済み状態のスタイル
     // 「is-favorited」クラスが追加されたときに適用される
     color: white;                    // テキスト色を白に変更
@@ -96,7 +96,7 @@ CSSスタイル定義
     border-color: #ff4500;           // 境界線の色も同じオレンジ赤に
 }
 
-.favorite-btn.is-favorited .icon {
+.favoriteBtn.is-favorited .icon {
     // お気に入り登録済み状態のアイコンスタイル
     content: "★";                    // アイコンを塗りつぶし星に変更
                                      // ※実際はJavaScriptのtextContentで変更します
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // ========== お気に入り登録済みの場合 ==========
 
                 // classList.add(): 'is-favorited'クラスを追加
-                // これによりCSSの.favorite-btn.is-favoritedスタイルが適用されます
+                // これによりCSSの.favoriteBtn.is-favoritedスタイルが適用されます
                 favoriteButton.classList.add('is-favorited');
 
                 // textContent: 要素のテキスト内容を設定
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // ========== お気に入り未登録の場合 ==========
 
                 // classList.remove(): 'is-favorited'クラスを削除
-                // 通常の.favorite-btnスタイルに戻ります
+                // 通常の.favoriteBtnスタイルに戻ります
                 favoriteButton.classList.remove('is-favorited');
 
                 // アイコンを白抜き星（☆）に変更

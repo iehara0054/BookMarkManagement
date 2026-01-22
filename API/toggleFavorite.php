@@ -11,28 +11,42 @@ require_once __DIR__ . '/../class/Helper.php';
 $BookMarkManager = new BookMarkManager();
 $Helper = new Helper();
 
-$posted = json_decode(file_get_contents('php://input'), true);
-$postedId = $posted['id'] ?? null;
 
-if ($postedId === null)
+$errors = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    echo json_encode(['error' => 'ID is required']);
-    exit;
-}
-
-$getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
-$getJsonDataDecode = json_decode($getJsonData, true);
-
-foreach ($getJsonDataDecode as $key => &$item)
+    if (!hash_equals($_SESSION["csrf_token"], $_POST['csrf_token'] ?? ''))
     {
-        if ($item['id'] === $postedId)
-        {
-            $item['favorite'] = !$item['favorite'];
-            break;
-        }
+        http_response_code(400);
+        $errors[] = 'Invalid CSRF token.';
     }
-unset($item);
+    else
+    {
 
-$json = $BookMarkManager->save_bookMarks($getJsonDataDecode);
+        $posted = json_decode(file_get_contents('php://input'), true);
+        $postedId = $posted['id'] ?? null;
 
-echo $json;
+        if ($postedId === null)
+        {
+            echo json_encode(['error' => 'ID is required']);
+            exit;
+        }
+
+        $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
+        $getJsonDataDecode = json_decode($getJsonData, true);
+
+        foreach ($getJsonDataDecode as $key => &$item)
+        {
+            if ($item['id'] === $postedId)
+            {
+                $item['favorite'] = !$item['favorite'];
+                break;
+            }
+        }
+        unset($item);
+
+        $json = $BookMarkManager->save_bookMarks($getJsonDataDecode);
+
+        echo $json;
+    }
+}

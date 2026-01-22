@@ -19,12 +19,12 @@ class BookMarkManager
      */
     public function load_bookmarkLists(): array
     {
-        if (!file_exists(Helper::BOOKMARKS_JSON_FILE))
+        if (!file_exists($this->Helper::BOOKMARKS_JSON_FILE))
         {
             return [];
         }
 
-        $json = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
+        $json = file_get_contents($this->Helper::BOOKMARKS_JSON_FILE);
         $data = json_decode($json, true);
 
         return is_array($data) ? $data : [];

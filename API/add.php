@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 	}
 	else
 	{
+		/** @var array $bookMarkList */
 		$bookMarkList = $BookMarkManager->load_bookmarkLists();
 
 		$now = date('c');
@@ -64,7 +65,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 			// [問題] バリデーション後も処理が続行する可能性
 			// - is_valid_url()は内部でexit()するが、関数の戻り値を使って明示的に処理を分岐すべき
 			// - 現状では処理フローが分かりにくい
-			$Helper->is_valid_url($url, $enteredBookMarkData, $userEnteredLowTags);
+			// URLのバリデーション
+			if (!$Helper->is_valid_url($url))
+			{
+				// 無効な場合：エラー情報をセッションに保存
+				$_SESSION['error_url'] = 'URLの形式ではありません';
+				$_SESSION['detected_error_url'] = $enteredBookMarkData;
+				$_SESSION['detected_error_url']['user_entered_low_tags'] = $userEnteredLowTags;
+
+				header('Location: ../index.php');
+				exit();
+			}
 
 			$bookMarkList[] = $enteredBookMarkData;
 

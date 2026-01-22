@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
         // [問題] 条件が常にfalse - $targetKeyは直前で'deleteKey'に固定されているため、この条件は常にfalse
         // - $targetValue をチェックすべき（if ($targetValue === null)）
-        if ($targetKey === null)
+        if ($targetValue === null)
         {
             echo json_encode(['error' => 'deleteKey is required']);
             exit;

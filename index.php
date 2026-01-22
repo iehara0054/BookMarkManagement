@@ -26,7 +26,7 @@ function h($str)
 }
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html lang="ja">
 <!-- [問題] lang属性がない（アクセシビリティ）- <html lang="ja"> にすべき -->
 <html>
 
@@ -80,14 +80,14 @@ function h($str)
         <h2>ブックマーク一覧</h2>
 
         <!-- [問題] フォームのaction属性が空 - action="" は現在のページにPOSTするが、明示的にすべき -->
-        <form id="searchForm" name="search" method="POST" action="">
+        <form id="searchForm" name="search" method="POST" action="index.php">
             <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル、メモ、タグ">
             <button class="searchBtn">絞り込み検索</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
 
         <!-- [問題] フォームのaction属性が空 - action="" は現在のページにPOSTするが、明示的にすべき -->
-        <form id="all" name="all" method="POST" action="">
+        <form id="all" name="all" method="POST" action="index.php">
             <button type="submit" class="release-btn" name="submitButton">絞り込み解除</button>
         </form>
         <p class="search-hint">部分一致に対応しています</p>
@@ -97,11 +97,6 @@ function h($str)
         // [問題] 使用されていないコード / バグの可能性
         // - $_POST['tags']が存在する場合、タグ配列でブックマークリストを上書きしている
         // - この処理の意図が不明。おそらくバグ
-        if (!empty($_POST['tags']))
-        {
-            $splitTags = $Helper->splitTags($_POST['tags']);
-            $getBookMarkLists = $splitTags;
-        }
         ?>
         <?php if (empty($getBookMarkLists)): ?>
             <!-- ブックマークが1つもない場合の表示 -->
@@ -167,7 +162,7 @@ function h($str)
                     <tr>
                         <td>
                             <div>
-                                <button class="favorite-btn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
+                                <button class="favoriteBtn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
                                     <span class="icon">☆</span></button>
                             </div>
                         </td>
@@ -176,13 +171,13 @@ function h($str)
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank"> <?= h($b['title'] ?? '') ?></a>
                                 <!-- [問題] この隠しinputは使用されていない - 削除を検討 -->
                                 <input type="hidden" name="title" value="<?= h($b['title']) ?>">
-                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
+                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="openNewTab" title="新しいタブで開く">↗️</a>
                             </div>
                         </td>
                         <td>
                             <div>
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank"><?= h($b['url'] ?? '') ?></a>
-                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="open-new-tab" title="新しいタブで開く">↗️</a>
+                                <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="openNewTab" title="新しいタブで開く">↗️</a>
                             </div>
                         </td>
                         <td>
@@ -202,7 +197,7 @@ function h($str)
                             <form action="./API/deleteBookMark.php" method="post">
                                 <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
                                 <input type="hidden" name="deleteKey" value="<?= h($b['deleteKey']) ?>">
-                                <button class="delete-btn" name="action" value="delete" data-delete-item-key="<?= h($b['deleteKey']) ?>">削除</button>
+                                <button class="deleteBtn" name="action" value="delete" data-delete-item-key="<?= h($b['deleteKey']) ?>">削除</button>
                             </form>
                         </td>
                     </tr>
@@ -240,22 +235,21 @@ function h($str)
                     document.addEventListener('filterApplied', initializeFavoriteButtons);
                     絞り込み処理側で document.dispatchEvent(new Event('filterApplied')) を呼び出します。
 
-                    案3: 絞り込み後に直接呼び出し（最もシンプル）
-                    PHPで絞り込みが行われた場合のみ、ループ外で一度だけ初期化を呼び出します。 -->
-
-
-                    <!-- 214行目を削除し、ループ外に以下を追加 -->
-                    <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
-                        <script>
-                            if (typeof initializeFavoriteButtons === 'function') {
-                                initializeFavoriteButtons();
-                            }
-                        </script>
-                    <?php endif; ?>
-                    <!-- **案1（MutationObserver）**が最も堅牢で、今後の拡張にも対応しやすいです。どの案で進めますか？ -->
+                    
+                     **案1（MutationObserver）**が最も堅牢で、今後の拡張にも対応しやすいです。どの案で進めますか？ -->
                     <!-- 絞り込み、絞り込み解除時のお気に入りボタンの状態保持 -->
-                    <script src="./js/innerloop_favorite.js"></script>
                 <?php endforeach; ?>
+
+                <!-- 案3: 絞り込み後に直接呼び出し（最もシンプル）
+                PHPで絞り込みが行われた場合のみ、ループ外で一度だけ初期化を呼び出します -->
+                <!-- 214行目を削除し、ループ外に以下を追加 -->
+                <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
+                    <script>
+                        if (typeof initializeFavoriteButtons === 'function') {
+                            initializeFavoriteButtons();
+                        }
+                    </script>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
