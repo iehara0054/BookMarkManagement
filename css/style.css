@@ -117,10 +117,6 @@ body > p {
 }
 
 /* メッセージスタイル */
-/* [問題] CSSクラス名の不一致
-   - このクラス名は ".success-message" だが、index.phpでは "successMessage" を使用している
-   - どちらかに統一すべき（HTMLを修正するか、CSSを修正するか）
-*/
 .successMessage {
     background: linear-gradient(135deg, #e8e8e8 0%, #d8d8d8 100%);
     color: #333;
@@ -145,10 +141,6 @@ body > p {
     animation: slideIn 0.4s ease-out;
 }
 
-/* [問題] CSSクラス名の不一致
-   - このクラス名は ".error-message" だが、index.phpでは "errorMessage" を使用している
-   - どちらかに統一すべき（HTMLを修正するか、CSSを修正するか）
-*/
 .errorMessage {
     background: linear-gradient(135deg, #d0d0d0 0%, #b8b8b8 100%);
     color: #222;

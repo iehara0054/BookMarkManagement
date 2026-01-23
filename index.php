@@ -27,7 +27,6 @@ function h($str)
 ?>
 
 <!DOCTYPE html lang="ja">
-<!-- [問題] lang属性がない（アクセシビリティ）- <html lang="ja"> にすべき -->
 <html>
 
 <head>
@@ -45,7 +44,6 @@ function h($str)
         <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
 
         <?php if (!empty($_SESSION['success_message'])): ?>
-            <!-- [問題] CSSクラス名の不一致 - HTMLでは "successMessage" だが、CSSでは ".success-message" のためスタイルが適用されていない -->
             <div class="successMessage">
                 <?= h($_SESSION['success_message']) ?>
             </div>
@@ -79,24 +77,18 @@ function h($str)
         ============================================================================ -->
         <h2>ブックマーク一覧</h2>
 
-        <!-- [問題] フォームのaction属性が空 - action="" は現在のページにPOSTするが、明示的にすべき -->
         <form id="searchForm" name="search" method="POST" action="index.php">
             <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル、メモ、タグ">
             <button class="searchBtn">絞り込み検索</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
 
-        <!-- [問題] フォームのaction属性が空 - action="" は現在のページにPOSTするが、明示的にすべき -->
         <form id="all" name="all" method="POST" action="index.php">
             <button type="submit" class="release-btn" name="submitButton">絞り込み解除</button>
         </form>
         <p class="search-hint">部分一致に対応しています</p>
         <?php
         $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
-
-        // [問題] 使用されていないコード / バグの可能性
-        // - $_POST['tags']が存在する場合、タグ配列でブックマークリストを上書きしている
-        // - この処理の意図が不明。おそらくバグ
         ?>
         <?php if (empty($getBookMarkLists)): ?>
             <!-- ブックマークが1つもない場合の表示 -->
@@ -148,7 +140,6 @@ function h($str)
                 }
                 else if (!empty($searchValue) && empty($filteredValue)) //絞り込み検索の結果が存在しない場合
                 {
-                    // [問題] CSSクラス名の不一致 - HTMLでは "errorMessage" だが、CSSでは ".error-message" のためスタイルが適用されていない
                     echo '<div class="errorMessage">その検索ワードは存在しません</div>';
                     $arrayBookMarkList = [];
                 }
@@ -169,8 +160,6 @@ function h($str)
                         <td>
                             <div>
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank"> <?= h($b['title'] ?? '') ?></a>
-                                <!-- [問題] この隠しinputは使用されていない - 削除を検討 -->
-                                <input type="hidden" name="title" value="<?= h($b['title']) ?>">
                                 <a href="<?= h($b['url'] ?? '') ?>" target="_blank" class="openNewTab" title="新しいタブで開く">↗️</a>
                             </div>
                         </td>
@@ -201,48 +190,7 @@ function h($str)
                             </form>
                         </td>
                     </tr>
-                    <!-- [問題] ループ内でのスクリプト読み込み（パフォーマンス問題）
-                         - foreachループ内で毎回 innerloop_favorite.js を読み込んでいる
-                         - ブックマークが100件あれば100回読み込まれる
-                         - ループ外に移動すべき -->
-                    <!-- 問題を理解しました。現在214行目のinnerloop_favorite.jsはループ内で毎回読み込まれており、パフォーマンス上の問題があります。
-
-                    代替案
-                    案1: MutationObserverを使用（推奨）
-                    ループ外で一度だけスクリプトを読み込み、DOMの変更を監視して自動的にボタンを初期化します。
-
-
-                    // onload_favorite.js を以下のように修正
-                    document.addEventListener('DOMContentLoaded', function() {
-                    initializeFavoriteButtons();
-
-                    // 絞り込みでDOMが変更された時も再初期化
-                    const observer = new MutationObserver(function(mutations) {
-                    initializeFavoriteButtons();
-                    });
-
-                    const tbody = document.querySelector('#listTpl tbody');
-                    if (tbody) {
-                    observer.observe(tbody, { childList: true, subtree: true });
-                    }
-                    });
-                    案2: カスタムイベントを使用
-                    絞り込み処理の後にカスタムイベントを発火させ、それをトリガーに初期化を実行します。
-
-
-                    // onload_favorite.js を以下のように修正
-                    document.addEventListener('DOMContentLoaded', initializeFavoriteButtons);
-                    document.addEventListener('filterApplied', initializeFavoriteButtons);
-                    絞り込み処理側で document.dispatchEvent(new Event('filterApplied')) を呼び出します。
-
-                    
-                     **案1（MutationObserver）**が最も堅牢で、今後の拡張にも対応しやすいです。どの案で進めますか？ -->
-                    <!-- 絞り込み、絞り込み解除時のお気に入りボタンの状態保持 -->
                 <?php endforeach; ?>
-
-                <!-- 案3: 絞り込み後に直接呼び出し（最もシンプル）
-                PHPで絞り込みが行われた場合のみ、ループ外で一度だけ初期化を呼び出します -->
-                <!-- 214行目を削除し、ループ外に以下を追加 -->
                 <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
                     <script>
                         if (typeof initializeFavoriteButtons === 'function') {

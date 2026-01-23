@@ -10,7 +10,6 @@ $Helper = new Helper();
 // POSTリクエストの処理
 // ============================================================
 $tags = '';
-// [問題] 無意味な初期化 - 1行目の初期化は直後に上書きされるため不要
 $enteredBookMarkData = [];
 $enteredBookMarkData = $_POST;
 
@@ -63,9 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				'updated_at' => $now,
 			);
 
-			// [問題] バリデーション後も処理が続行する可能性
-			// - is_valid_url()は内部でexit()するが、関数の戻り値を使って明示的に処理を分岐すべき
-			// - 現状では処理フローが分かりにくい
 			// URLのバリデーション
 			if (!$Helper->is_valid_url($url))
 			{

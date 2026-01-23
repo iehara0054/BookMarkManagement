@@ -6,8 +6,6 @@ async function toggleFavorite(button) {
     const icon = button.querySelector('.icon');
     const csrfToken = document.querySelector('input[name="csrf_token"]').value;
 
-//     PHP側: $_POST['csrf_token']からトークンを取得しようとしていた
-// JavaScript側: JSONで送信しているため$_POSTには何も入らず、さらにCSRFトークンを送信していなかった
     const requestBody = { id: itemId, csrf_token: csrfToken };
 try {
     const response = await fetch('API/toggleFavorite.php', {
@@ -21,14 +19,8 @@ try {
     const data = await response.json();
 
 const item = data.find(value => value.id === itemId);
-// [問題] try-catchの位置が不適切
-// - tryがfetch後の処理途中から始まっており、エラーハンドリングが不完全
-// - fetchを含む全体を囲むべき
 
     if (item) {
-
-    // [問題] デバッグ用console.logが残存 - 本番コードには不要、削除すべき
-
 
     // お気に入り状態を切り替え
     if (item.favorite === true)
@@ -48,4 +40,3 @@ const item = data.find(value => value.id === itemId);
     button.disabled = false;
   }
 }
-// [問題] コメントアウトされたコード - 不要なら削除すべき
