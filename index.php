@@ -31,8 +31,9 @@ function h($str)
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ブックマークマネージャー</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css?v=3">
 </head>
 
 <body>
@@ -76,6 +77,7 @@ function h($str)
          ブックマーク一覧の表示
         ============================================================================ -->
         <h2>ブックマーク一覧</h2>
+        <div class="cross"></div> <!-- 十字マーク作成 -->
 
         <form id="searchForm" name="search" method="POST" action="index.php">
             <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル、メモ、タグ">
@@ -228,6 +230,7 @@ function h($str)
         </script>
         <?php unset($_SESSION['delete_flg']) ?>
     <?php endif; ?>
+
 </body>
 
 </html>
