@@ -15,15 +15,15 @@ $Helper = new Helper();
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    if (!hash_equals($_SESSION["csrf_token"], $_POST['csrf_token'] ?? ''))
+    $posted = json_decode(file_get_contents('php://input'), true);
+
+    if (!hash_equals($_SESSION["csrf_token"], $posted['csrf_token'] ?? ''))
     {
         http_response_code(400);
         $errors[] = 'Invalid CSRF token.';
     }
     else
     {
-
-        $posted = json_decode(file_get_contents('php://input'), true);
         $postedId = $posted['id'] ?? null;
 
         if ($postedId === null)

@@ -4,8 +4,11 @@
 async function toggleFavorite(button) {
     const itemId = button.getAttribute('data-item-id');
     const icon = button.querySelector('.icon');
+    const csrfToken = document.querySelector('input[name="csrf_token"]').value;
 
-    const requestBody = { id: itemId };
+//     PHP側: $_POST['csrf_token']からトークンを取得しようとしていた
+// JavaScript側: JSONで送信しているため$_POSTには何も入らず、さらにCSRFトークンを送信していなかった
+    const requestBody = { id: itemId, csrf_token: csrfToken };
 try {
     const response = await fetch('API/toggleFavorite.php', {
       method: 'POST',
@@ -33,7 +36,7 @@ const item = data.find(value => value.id === itemId);
       button.classList.add('is-favorited');
       icon.textContent = '★';
 
-    } 
+    }
     else
     {
       button.classList.remove('is-favorited');
