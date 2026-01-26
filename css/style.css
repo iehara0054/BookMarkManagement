@@ -592,16 +592,19 @@ tbody td:nth-child(5) div {
     }
 
     #searchForm {
-        flex-direction: column;
+        display: block;
     }
 
     #searchForm #searchInput {
-        max-width: 100%;
         width: 100%;
+        padding: 12px 24px;
+        margin-bottom: 10px;
     }
 
     #searchForm .searchBtn {
         width: 100%;
+        padding: 12px 24px;
+        border: 2px solid transparent;
     }
 
     .cross {
@@ -709,4 +712,9 @@ dialog::backdrop {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin-right: 10px;
 }
+
+.release-btn {
+    width: 100%;
+}
+
 }
