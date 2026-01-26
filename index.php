@@ -37,7 +37,7 @@ function h($str)
 </head>
 
 <body>
-
+    <div class="cross"></div> <!-- 十字マーク作成 -->
     <h1>ブックマークリスト</h1>
     <p>ブックマークを追加・更新ができます</p>
     <form id="inputForm" method="POST" action="./API/add.php">
@@ -77,7 +77,6 @@ function h($str)
          ブックマーク一覧の表示
         ============================================================================ -->
         <h2>ブックマーク一覧</h2>
-        <div class="cross"></div> <!-- 十字マーク作成 -->
 
         <form id="searchForm" name="search" method="POST" action="index.php">
             <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル、メモ、タグ">

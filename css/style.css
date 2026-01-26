@@ -606,7 +606,7 @@ tbody td:nth-child(5) div {
 
     .cross {
         position: fixed;
-        top: 30px; /* 下からの位置 */
+        top: 30px; /* 上からの位置 */
         right: 30px;  /* 右からの位置 */
         z-index: 9999; /* 他の要素より上に表示 */
         /* ボタンの見た目調整 */
