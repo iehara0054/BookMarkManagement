@@ -37,10 +37,54 @@ function h($str)
 </head>
 
 <body>
-    <div class="cross"></div> <!-- 十字マーク作成 -->
+    <!-- ============================================================================
+         モーダル機能
+        ============================================================================ -->
+    <!-- ボタン -->
+    <button id="rotateBtn" class="animated-button">＋</button>
+
+    <!-- モーダル（ネイティブダイアログ） -->
+    <dialog id="myModal">
+        <p>ブックマークを追加・更新ができます</p>
+        <form id="inputForm" method="POST" action="./API/add.php">
+
+            <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
+
+            <?php if (!empty($_SESSION['success_message'])): ?>
+                <div class="successMessage">
+                    <?= h($_SESSION['success_message']) ?>
+                </div>
+                <?php unset($_SESSION['success_message']); ?>
+            <?php endif; ?>
+
+            <input id="title" type="text" name="title" placeholder="タイトル（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['title']) ? $_SESSION['detected_error_url']['title'] : '') ?>" required>
+
+            <?php if (!empty($_SESSION['error_url'])): ?>
+                <div class="error-url">
+                    <?= h($_SESSION['error_url']) ?>
+                </div>
+                <?php unset($_SESSION['error_url']); ?>
+            <?php endif; ?>
+
+            <input id="url" type="text" name="url" placeholder="URL（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['url']) ? $_SESSION['detected_error_url']['url'] : '') ?>" required>
+
+            <input id="memo" type="text" name="memo" placeholder="メモ（任意）" value="<?= h(!empty($_SESSION['detected_error_url']['memo']) ? $_SESSION['detected_error_url']['memo'] : '') ?>">
+
+            <input id="tags" type="text" name="tags" placeholder="タグ・カンマ区切り可(任意・全角カンマ可)" value="<?= h(!empty($_SESSION['detected_error_url']['user_entered_low_tags']) ? $_SESSION['detected_error_url']['user_entered_low_tags'] : '') ?>">
+
+            <button type="submit">追加</button>
+            <button type="button" onclick="clearText()">クリア</button>
+
+            <?php unset($_SESSION['detected_error_url']); ?>
+        </form>
+        <button id="closeBtn">閉じる</button>
+    </dialog>
     <h1>ブックマークリスト</h1>
+    <!-- ============================================================================
+         入力フィールド
+        ============================================================================ -->
     <p>ブックマークを追加・更新ができます</p>
-    <form id="inputForm" method="POST" action="./API/add.php">
+    <form id="inputForm" class="mobileNone" method="POST" action="./API/add.php">
 
         <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
 
@@ -204,6 +248,7 @@ function h($str)
     </div>
     <script src="./js/onload_favorite.js"></script>
     <script src="./js/toggle_favorite.js"></script>
+    <script src="./js/modal_control.js"></script>
     <!-- 絞り込み検索後のスクロール -->
     <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchValue'])): ?>
         <script>
