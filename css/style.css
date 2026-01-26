@@ -614,6 +614,15 @@ tbody td:nth-child(5) div {
         display: block;
     }
 
+    .search-hint {
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+
+    table {
+        margin-top: 10px;
+    }
+
     .cross {
         position: fixed;
         top: 30px; /* 上からの位置 */
