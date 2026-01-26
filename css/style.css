@@ -593,6 +593,8 @@ tbody td:nth-child(5) div {
 
     #searchForm {
         display: block;
+        margin-right: 0;
+        margin-bottom: 0;
     }
 
     #searchForm #searchInput {
@@ -605,6 +607,11 @@ tbody td:nth-child(5) div {
         width: 100%;
         padding: 12px 24px;
         border: 2px solid transparent;
+        margin-bottom: 10px;
+    }
+
+    #all {
+        display: block;
     }
 
     .cross {
