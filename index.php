@@ -57,7 +57,7 @@ function h($str)
                 <?php unset($_SESSION['success_message']); ?>
             <?php endif; ?>
 
-            <input id="title" type="text" name="title" placeholder="タイトル（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['title']) ? $_SESSION['detected_error_url']['title'] : '') ?>" required>
+            <input id="titleModal" type="text" name="title" placeholder="タイトル（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['title']) ? $_SESSION['detected_error_url']['title'] : '') ?>" required>
 
             <?php if (!empty($_SESSION['error_url'])): ?>
                 <div class="error-url">
@@ -66,11 +66,11 @@ function h($str)
                 <?php unset($_SESSION['error_url']); ?>
             <?php endif; ?>
 
-            <input id="url" type="text" name="url" placeholder="URL（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['url']) ? $_SESSION['detected_error_url']['url'] : '') ?>" required>
+            <input id="urlModal" type="text" name="url" placeholder="URL（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['url']) ? $_SESSION['detected_error_url']['url'] : '') ?>" required>
 
-            <input id="memo" type="text" name="memo" placeholder="メモ（任意）" value="<?= h(!empty($_SESSION['detected_error_url']['memo']) ? $_SESSION['detected_error_url']['memo'] : '') ?>">
+            <input id="memoModal" type="text" name="memo" placeholder="メモ（任意）" value="<?= h(!empty($_SESSION['detected_error_url']['memo']) ? $_SESSION['detected_error_url']['memo'] : '') ?>">
 
-            <input id="tags" type="text" name="tags" placeholder="タグ・カンマ区切り可(任意・全角カンマ可)" value="<?= h(!empty($_SESSION['detected_error_url']['user_entered_low_tags']) ? $_SESSION['detected_error_url']['user_entered_low_tags'] : '') ?>">
+            <input id="tagsModal" type="text" name="tags" placeholder="タグ・カンマ区切り可(任意・全角カンマ可)" value="<?= h(!empty($_SESSION['detected_error_url']['user_entered_low_tags']) ? $_SESSION['detected_error_url']['user_entered_low_tags'] : '') ?>">
 
             <button type="submit">追加</button>
             <button type="button" onclick="clearText()">クリア</button>

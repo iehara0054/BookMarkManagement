@@ -6,6 +6,11 @@ function clearText() {
             document.getElementById('url').value = '';
             document.getElementById('memo').value = '';
             document.getElementById('tags').value = '';
+
+            document.getElementById('titleModal').value = '';
+            document.getElementById('urlModal').value = '';
+            document.getElementById('memoModal').value = '';
+            document.getElementById('tagsModal').value = '';
         }
 
 /**
