@@ -40,19 +40,23 @@ function h($str)
     <!-- ============================================================================
          モーダル機能
         ============================================================================ -->
-    <!-- ボタン -->
-    <button id="rotateBtn" class="animated-button">＋</button>
-
     <script>
         <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === false): ?>
             // セッションフラグがあればモーダルを開く
             document.addEventListener('DOMContentLoaded', function() {
                 const modal = document.getElementById('myModal');
-                myModal.showModal();
+                modal.showModal();
             });
-            <?php unset($_SESSION['showModal']); ?>
+        <?php elseif (isset($_SESSION['showModal']) && $_SESSION['showModal'] === true): ?>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = document.getElementById('myModal');
+                modal.close();
+            });
         <?php endif; ?>
+        <?php unset($_SESSION['showModal']); ?>
     </script>
+    <!-- ボタン -->
+    <button id="rotateBtn" class="animated-button">＋</button>
 
     <!-- モーダル（ネイティブダイアログ） -->
     <dialog id="myModal">
