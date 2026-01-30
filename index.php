@@ -54,7 +54,7 @@ function h($str)
                 <div class="successMessage">
                     <?= h($_SESSION['success_message']) ?>
                 </div>
-                <?php unset($_SESSION['success_message']); ?>
+
             <?php endif; ?>
 
             <input id="titleModal" type="text" name="title" placeholder="タイトル（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['title']) ? $_SESSION['detected_error_url']['title'] : '') ?>" required>
@@ -63,7 +63,7 @@ function h($str)
                 <div class="error-url">
                     <?= h($_SESSION['error_url']) ?>
                 </div>
-                <?php unset($_SESSION['error_url']); ?>
+
             <?php endif; ?>
 
             <input id="urlModal" type="text" name="url" placeholder="URL（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['url']) ? $_SESSION['detected_error_url']['url'] : '') ?>" required>
@@ -75,10 +75,22 @@ function h($str)
             <button type="submit">追加</button>
             <button type="button" onclick="clearText()">クリア</button>
 
-            <?php unset($_SESSION['detected_error_url']); ?>
+
         </form>
         <button id="closeBtn">閉じる</button>
     </dialog>
+
+    <script>
+        <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === true): ?>
+            // セッションフラグがあればモーダルを開く
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = document.getElementById('myModal');
+                myModal.show();
+            });
+            <?php unset($_SESSION['showModal']); ?>
+        <?php endif; ?>
+    </script>
+
     <h1>ブックマークリスト</h1>
     <!-- ============================================================================
          入力フィールド

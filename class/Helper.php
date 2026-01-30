@@ -10,6 +10,7 @@ class Helper
      * URLのバリデーション
      *
      * @param string $url バリデーションする文字列
+     * @param bool バリデーションの結果
      */
     public function is_valid_url(string $url): bool
     {

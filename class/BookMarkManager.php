@@ -40,7 +40,7 @@ class BookMarkManager
         {
             $json = json_encode(array_values($enteredBookMarkData), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
-            $tmp = Helper::BOOKMARKS_JSON_FILE . '.tmp';
+            $tmp = $this->Helper::BOOKMARKS_JSON_FILE . '.tmp';
             $fp = fopen($tmp, 'wb');
 
         if ($fp === false)
