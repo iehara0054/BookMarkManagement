@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				$_SESSION['detected_error_url'] = $enteredBookMarkData;
 				$_SESSION['detected_error_url']['user_entered_low_tags'] = $userEnteredLowTags;
 
-				$_SESSION['showModal'] = true;
+				$_SESSION['showModal'] = false;
 
 				header('Location: ../index.php');
 				exit();
