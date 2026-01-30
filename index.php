@@ -47,11 +47,6 @@ function h($str)
                 const modal = document.getElementById('myModal');
                 modal.showModal();
             });
-        <?php elseif (isset($_SESSION['showModal']) && $_SESSION['showModal'] === true): ?>
-            document.addEventListener('DOMContentLoaded', function() {
-                const modal = document.getElementById('myModal');
-                modal.close();
-            });
         <?php endif; ?>
         <?php unset($_SESSION['showModal']); ?>
     </script>
@@ -92,6 +87,7 @@ function h($str)
         </form>
         <button id="closeBtn">閉じる</button>
     </dialog>
+
 
     <h1>ブックマークリスト</h1>
     <!-- ============================================================================
@@ -260,6 +256,14 @@ function h($str)
             </tbody>
         </table>
     </div>
+    <script>
+        <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === true): ?>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = document.getElementById('myModal');
+                modal.close();
+            });
+        <?php endif; ?>
+    </script>
     <script src="./js/onload_favorite.js"></script>
     <script src="./js/toggle_favorite.js"></script>
     <script src="./js/modal_control.js"></script>

@@ -572,13 +572,16 @@ tbody td:nth-child(5) div {
    モーダル（デスクトップでは非表示）
    ======================================== */
 dialog {
-    visibility: hidden;
+    display: none;
 }
 /* ========================================
    レスポンシブデザイン
    ======================================== */
 @media (max-width: 768px) {
     #rotateBtn {
+        display: block;
+    }
+    dialog {
         display: block;
     }
     h1 {
