@@ -581,7 +581,7 @@ dialog {
     #rotateBtn {
         display: block;
     }
-    dialog {
+    dialog[open] {
         display: block;
     }
     h1 {
@@ -697,24 +697,37 @@ dialog {
     /* モーダル */
 /* ボタンの初期設定 */
 .animated-button {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #007bff;
+  padding: 12px 20px;
+  border-radius: 30px;
+  background-color: #333;
   color: white;
   border: none;
-  font-size: 24px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  /* 回転アニメーションの設定 */
-  transition: transform 0.5s ease;
-  transform: rotate(0deg);
+  transition: all 0.3s ease;
   position: fixed;
+  top: 20px;
+  right: 20px;
   z-index: 9999;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* ボタンが回転する状態（JSでクラス追加） */
-.animated-button.is-rotated {
-  transform: rotate(135deg); /* 45度以上回して、かつ閉じるマークのように見せる */
+.animated-button:hover {
+  background-color: #555;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ＋アイコンの回転アニメーション */
+.animated-button .btn-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+/* ボタンが回転する状態（JSでクラス追加） - アイコンだけ回転 */
+.animated-button.is-rotated .btn-icon {
+  transform: rotate(45deg);
 }
 
 /* モーダルのスタイル (初期状態は非表示) */

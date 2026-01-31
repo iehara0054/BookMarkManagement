@@ -51,7 +51,7 @@ function h($str)
         <?php unset($_SESSION['showModal']); ?>
     </script>
     <!-- ボタン -->
-    <button id="rotateBtn" class="animated-button">＋</button>
+    <button id="rotateBtn" class="animated-button"><span class="btn-icon">＋</span> 追加</button>
 
     <!-- モーダル（ネイティブダイアログ） -->
     <dialog id="myModal">
