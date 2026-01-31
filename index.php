@@ -40,7 +40,7 @@ function h($str)
     <!-- ============================================================================
          モーダル機能
         ============================================================================ -->
-    <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === false): ?>
+    <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === $BookMarkManager::URL_ERROR): ?>
         <script src="./js/mobile_show_modal.js"></script>
     <?php endif; ?>
     <?php unset($_SESSION['showModal']); ?>
@@ -251,7 +251,7 @@ function h($str)
         </table>
     </div>
 
-    <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === true): ?>
+    <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === $BookMarkManager::URL_VALID): ?>
         <script src="./js/modal_close.js"></script>
     <?php endif; ?>
     <script src="./js/onload_favorite.js"></script>

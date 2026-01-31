@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				$_SESSION['detected_error_url'] = $enteredBookMarkData;
 				$_SESSION['detected_error_url']['user_entered_low_tags'] = $userEnteredLowTags;
 
-				$_SESSION['showModal'] = false;
+				$_SESSION['showModal'] = $BookMarkManager::URL_ERROR;
 
 				header('Location: ../index.php');
 				exit();
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
 			$_SESSION['success_message'] = 'ブックマークを追加しました';
 
-			$_SESSION['showModal'] = true;
+			$_SESSION['showModal'] = $BookMarkManager::URL_VALID;
 
 			header('Location: ../index.php');
 			exit();

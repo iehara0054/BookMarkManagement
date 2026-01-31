@@ -10,6 +10,9 @@ class BookMarkManager
         $this->Helper = new Helper();
     }
 
+    const URL_VALID = true;
+    const URL_ERROR = false;
+
     /**
      * ブックマークデータをJSONファイルから読み込む
      * 

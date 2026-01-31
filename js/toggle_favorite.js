@@ -18,7 +18,7 @@ try {
 
     const data = await response.json();
 
-const item = data.find(value => value.id === itemId);
+    const item = data.find(value => value.id === itemId);
 
     if (item) {
 
