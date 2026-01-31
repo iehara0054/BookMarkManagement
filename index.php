@@ -40,16 +40,10 @@ function h($str)
     <!-- ============================================================================
          モーダル機能
         ============================================================================ -->
-    <script>
-        <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === false): ?>
-            // セッションフラグがあればモーダルを開く
-            document.addEventListener('DOMContentLoaded', function() {
-                const modal = document.getElementById('myModal');
-                modal.showModal();
-            });
-        <?php endif; ?>
-        <?php unset($_SESSION['showModal']); ?>
-    </script>
+    <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === false): ?>
+        <script src="./js/mobile_show_modal.js"></script>
+    <?php endif; ?>
+    <?php unset($_SESSION['showModal']); ?>
     <!-- ボタン -->
     <button id="rotateBtn" class="animated-button"><span class="btn-icon">＋</span> 追加</button>
 
@@ -256,40 +250,24 @@ function h($str)
             </tbody>
         </table>
     </div>
-    <script>
-        <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === true): ?>
-            document.addEventListener('DOMContentLoaded', function() {
-                const modal = document.getElementById('myModal');
-                modal.close();
-            });
-        <?php endif; ?>
-    </script>
+
+    <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === true): ?>
+        <script src="./js/modal_close.js"></script>
+    <?php endif; ?>
     <script src="./js/onload_favorite.js"></script>
     <script src="./js/toggle_favorite.js"></script>
     <script src="./js/modal_control.js"></script>
     <!-- 絞り込み検索後のスクロール -->
     <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchValue'])): ?>
-        <script>
-            document.querySelector('#listTpl').scrollIntoView({
-                behavior: 'auto'
-            });
-        </script>
+        <script src="./js/filter_scroll.js"></script>
     <?php endif; ?>
     <!-- 絞り込み検索解除後のスクロール -->
     <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitButton'])): ?>
-        <script>
-            document.querySelector('#listTpl').scrollIntoView({
-                behavior: 'auto'
-            });
-        </script>
+        <script src="./js/unfilter_scroll.js"></script>
     <?php endif; ?>
     <!-- 削除後のスクロール -->
     <?php if (!empty($_SESSION['delete_flg'])): ?>
-        <script>
-            document.querySelector('#listTpl').scrollIntoView({
-                behavior: 'auto'
-            });
-        </script>
+        <script src="./js/scroll_after_deletion.js"></script>
         <?php unset($_SESSION['delete_flg']) ?>
     <?php endif; ?>
 
