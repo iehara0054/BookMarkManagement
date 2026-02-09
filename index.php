@@ -26,9 +26,8 @@ function h($str)
 }
 ?>
 
-<!-- [レビュー指摘:高] DOCTYPEにlang属性は無効。正しくは <!DOCTYPE html> と <html lang="ja"> に分離すること -->
-<!DOCTYPE html lang="ja">
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 
 <head>
     <meta charset="utf-8">
@@ -44,16 +43,14 @@ function h($str)
     <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === $BookMarkManager::URL_ERROR): ?>
         <script src="./js/mobile_show_modal.js"></script>
     <?php endif; ?>
-    <!-- [レビュー指摘:高] ここで showModal を unset しているため、254行目の判定(URL_VALID)が常にfalseになり modal_close.js が読み込まれない -->
-    <?php unset($_SESSION['showModal']); ?>
+
     <!-- ボタン -->
     <button id="rotateBtn" class="animated-button"><span class="btn-icon">＋</span> 追加</button>
 
     <!-- モーダル（ネイティブダイアログ） -->
     <dialog id="myModal">
         <p>ブックマークを追加・更新ができます</p>
-        <!-- [レビュー指摘:中] id="inputForm" が91行目のフォームと重複している。HTMLではIDはページ内で一意でなければならない -->
-        <form id="inputForm" method="POST" action="./API/add.php">
+        <form id="inputFormModal" method="POST" action="./API/add.php">
 
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
 
@@ -258,24 +255,24 @@ function h($str)
         </table>
     </div>
 
-    <!-- [レビュー指摘:高] $_SESSION['showModal'] は47行目で既にunset済みのため、この条件は常にfalseになり modal_close.js が読み込まれない -->
     <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === $BookMarkManager::URL_VALID): ?>
         <script src="./js/modal_close.js"></script>
     <?php endif; ?>
+    <?php unset($_SESSION['showModal']); ?>
     <script src="./js/onload_favorite.js"></script>
     <script src="./js/toggle_favorite.js"></script>
     <script src="./js/modal_control.js"></script>
     <!-- 絞り込み検索後のスクロール -->
     <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchValue'])): ?>
-        <script src="./js/filter_scroll.js"></script>
+        <script src="./js/scroll.js"></script>
     <?php endif; ?>
     <!-- 絞り込み検索解除後のスクロール -->
     <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitButton'])): ?>
-        <script src="./js/unfilter_scroll.js"></script>
+        <script src="./js/scroll.js"></script>
     <?php endif; ?>
     <!-- 削除後のスクロール -->
     <?php if (!empty($_SESSION['delete_flg'])): ?>
-        <script src="./js/scroll_after_deletion.js"></script>
+        <script src="./js/scroll.js"></script>
         <?php unset($_SESSION['delete_flg']) ?>
     <?php endif; ?>
 
