@@ -8,6 +8,7 @@ async function toggleFavorite(button) {
 
     const requestBody = { id: itemId, csrf_token: csrfToken };
 try {
+    // [レビュー指摘:中] 相対パスのため、index.php以外から呼ぶ場合に壊れる
     const response = await fetch('API/toggleFavorite.php', {
       method: 'POST',
       headers: {
@@ -37,6 +38,6 @@ try {
   }
   } catch (error) {
     console.error('❌ エラー発生:', error);
-    button.disabled = false;
+    button.disabled = false; // [レビュー指摘:中] disabledに設定する処理がないため、この復元は意味がない。連打防止が不完全
   }
 }

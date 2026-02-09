@@ -11,6 +11,7 @@ $Helper = new Helper();
 // ============================================================
 $tags = '';
 $enteredBookMarkData = [];
+// [レビュー指摘:中] $_POSTを丸ごと代入しており、意図しないデータが混入する可能性がある（後で上書きされるが不要な処理）
 $enteredBookMarkData = $_POST;
 
 $errors = [];
@@ -67,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 			{
 				// 無効な場合：エラー情報をセッションに保存
 				$_SESSION['error_url'] = 'URLの形式ではありません';
+				// [レビュー指摘:中] $enteredBookMarkData にはdeleteKeyやidも含まれており、不要な秘密情報がセッションに残る
 				$_SESSION['detected_error_url'] = $enteredBookMarkData;
 				$_SESSION['detected_error_url']['user_entered_low_tags'] = $userEnteredLowTags;
 

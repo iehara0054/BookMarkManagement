@@ -1,6 +1,7 @@
 /**
  * クリアボタン
  */
+// [レビュー指摘:低] モバイル時にデスクトップ側の要素(#title等)が存在しない場合、nullに対する.valueアクセスでエラーになりうる
 function clearText() {
             document.getElementById('title').value = '';
             document.getElementById('url').value = '';
@@ -18,6 +19,8 @@ function clearText() {
  */
 async function initializeFavoriteButtons() {
   try {
+    // [レビュー指摘:高] JSONファイルを直接公開している。deleteKeyなどの秘密情報がクライアントに漏洩する
+    // [レビュー指摘:中] 相対パスのため、index.php以外から呼ぶ場合に壊れる
     const response = await fetch('data/bookmarks_file.json?t=' + Date.now());
 
     if (!response.ok) {

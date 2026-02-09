@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
             exit;
         }
 
+        // [レビュー指摘:中] file_get_contentsを直接使用している。load_bookmarkLists()メソッドを活用すべき
         $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
         $getJsonDataDecode = json_decode($getJsonData, true);
 

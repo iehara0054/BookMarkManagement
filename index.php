@@ -26,6 +26,7 @@ function h($str)
 }
 ?>
 
+<!-- [レビュー指摘:高] DOCTYPEにlang属性は無効。正しくは <!DOCTYPE html> と <html lang="ja"> に分離すること -->
 <!DOCTYPE html lang="ja">
 <html>
 
@@ -43,6 +44,7 @@ function h($str)
     <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === $BookMarkManager::URL_ERROR): ?>
         <script src="./js/mobile_show_modal.js"></script>
     <?php endif; ?>
+    <!-- [レビュー指摘:高] ここで showModal を unset しているため、254行目の判定(URL_VALID)が常にfalseになり modal_close.js が読み込まれない -->
     <?php unset($_SESSION['showModal']); ?>
     <!-- ボタン -->
     <button id="rotateBtn" class="animated-button"><span class="btn-icon">＋</span> 追加</button>
@@ -50,10 +52,12 @@ function h($str)
     <!-- モーダル（ネイティブダイアログ） -->
     <dialog id="myModal">
         <p>ブックマークを追加・更新ができます</p>
+        <!-- [レビュー指摘:中] id="inputForm" が91行目のフォームと重複している。HTMLではIDはページ内で一意でなければならない -->
         <form id="inputForm" method="POST" action="./API/add.php">
 
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
 
+            <!-- [レビュー指摘:低] モーダル内の success_message 表示後に unset していない。デスクトップ側(99行目)では unset しているが、ここでは残り続ける -->
             <?php if (!empty($_SESSION['success_message'])): ?>
                 <div class="successMessage">
                     <?= h($_SESSION['success_message']) ?>
@@ -62,6 +66,7 @@ function h($str)
 
             <input id="titleModal" type="text" name="title" placeholder="タイトル（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['title']) ? $_SESSION['detected_error_url']['title'] : '') ?>" required>
 
+            <!-- [レビュー指摘:低] モーダル内の error_url も unset がない（デスクトップ側108行目にはある） -->
             <?php if (!empty($_SESSION['error_url'])): ?>
                 <div class="error-url">
                     <?= h($_SESSION['error_url']) ?>
@@ -126,12 +131,14 @@ function h($str)
         ============================================================================ -->
         <h2>ブックマーク一覧</h2>
 
+        <!-- [レビュー指摘:高] CSRFトークンはあるが、POST受信時(156行目)にCSRF検証をしていない -->
         <form id="searchForm" name="search" method="POST" action="index.php">
             <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル、メモ、タグ">
             <button class="searchBtn">絞り込み検索</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
 
+        <!-- [レビュー指摘:高] 絞り込み解除フォームにCSRFトークンがなく、CSRF検証もない -->
         <form id="all" name="all" method="POST" action="index.php">
             <button type="submit" class="release-btn" name="submitButton">絞り込み解除</button>
         </form>
@@ -251,6 +258,7 @@ function h($str)
         </table>
     </div>
 
+    <!-- [レビュー指摘:高] $_SESSION['showModal'] は47行目で既にunset済みのため、この条件は常にfalseになり modal_close.js が読み込まれない -->
     <?php if (isset($_SESSION['showModal']) && $_SESSION['showModal'] === $BookMarkManager::URL_VALID): ?>
         <script src="./js/modal_close.js"></script>
     <?php endif; ?>
