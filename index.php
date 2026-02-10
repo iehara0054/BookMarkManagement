@@ -265,11 +265,7 @@ function h($str)
                     </tr>
                 <?php endforeach; ?>
                 <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
-                    <script>
-                        if (typeof initializeFavoriteButtons === 'function') {
-                            initializeFavoriteButtons();
-                        }
-                    </script>
+                    <script src="./js/initialize_favorite_buttons.js"></script>
                 <?php endif; ?>
             </tbody>
         </table>
