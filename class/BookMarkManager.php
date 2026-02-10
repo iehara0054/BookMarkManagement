@@ -112,17 +112,20 @@ class BookMarkManager
                 return true;
             }
             // [レビュー指摘:中] memoがnullや空の場合、PHP 8.xで警告が出る可能性がある。$item['memo'] ?? '' を使うべき
-            if (stripos($item['memo'], $targetValue) !== false)
+            if (stripos((string)($item['memo'] ?? ''), $targetValue) !== false)
             {
                 return true;
             }
             // [レビュー指摘:中] tagsがnullや文字列の場合にTypeErrorが発生する。事前にis_arrayチェックを入れるべき
+            if (is_array($item['tags']))
+            {
             foreach ($item['tags'] as $tag)
             {
-                if (stripos((trim($tag)), $targetValue) !== false)
+                    if (stripos(trim((string)(($tag ?? ''))), $targetValue) !== false)
                 {
                     return true;
                 }
+            }
             }
         });
         return is_array($filteredValue) ? $filteredValue : [];

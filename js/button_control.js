@@ -2,6 +2,7 @@
  * クリアボタン
  */
 // [レビュー指摘:低] モバイル時にデスクトップ側の要素(#title等)が存在しない場合、nullに対する.valueアクセスでエラーになりうる
+// [家原から回答].htaccessでブロックする予定
 function clearText() {
             document.getElementById('title').value = '';
             document.getElementById('url').value = '';

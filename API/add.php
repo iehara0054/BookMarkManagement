@@ -5,14 +5,11 @@ session_start();
 
 $BookMarkManager = new BookMarkManager();
 $Helper = new Helper();
-
 //============================================================
 // POSTリクエストの処理
 // ============================================================
 $tags = '';
 $enteredBookMarkData = [];
-// [レビュー指摘:中] $_POSTを丸ごと代入しており、意図しないデータが混入する可能性がある（後で上書きされるが不要な処理）
-$enteredBookMarkData = $_POST;
 
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -68,9 +65,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 			{
 				// 無効な場合：エラー情報をセッションに保存
 				$_SESSION['error_url'] = 'URLの形式ではありません';
+				$_SESSION['modal_error_url'] = 'URLの形式ではありません';
 				// [レビュー指摘:中] $enteredBookMarkData にはdeleteKeyやidも含まれており、不要な秘密情報がセッションに残る
-				$_SESSION['detected_error_url'] = $enteredBookMarkData;
-				$_SESSION['detected_error_url']['user_entered_low_tags'] = $userEnteredLowTags;
+				$_SESSION['detected_error_url'] = [
+					'title' => $title,
+					'url'   => $url,
+					'memo'  => $memo,
+					'user_entered_low_tags' => $userEnteredLowTags,
+				];
 
 				$_SESSION['showModal'] = $BookMarkManager::URL_ERROR;
 
@@ -83,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 			$BookMarkManager->save_bookMarks($bookMarkList);
 
 			$_SESSION['success_message'] = 'ブックマークを追加しました';
+			$_SESSION['modal_success_message'] = 'ブックマークを追加しました';
 
 			$_SESSION['showModal'] = $BookMarkManager::URL_VALID;
 

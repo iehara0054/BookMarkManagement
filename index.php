@@ -1,9 +1,7 @@
 <?php
 require_once __DIR__ . '/class/BookMarkManager.php';
-require_once __DIR__ . '/class/Helper.php';
 
 $BookMarkManager = new BookMarkManager();
-$Helper = new Helper();
 
 // ========================================
 // セッション管理とCSRF対策
@@ -54,20 +52,22 @@ function h($str)
 
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
 
-            <!-- [レビュー指摘:低] モーダル内の success_message 表示後に unset していない。デスクトップ側(99行目)では unset しているが、ここでは残り続ける -->
-            <?php if (!empty($_SESSION['success_message'])): ?>
+            <!-- [レビュー指摘:低] モーダル内の success_message 表示後に unset していない。デスクトップ側(99行目)では unset しているが、ここでは残り続ける → 修正済み -->
+            <?php if (!empty($_SESSION['modal_success_message'])): ?>
                 <div class="successMessage">
-                    <?= h($_SESSION['success_message']) ?>
+                    <?= h($_SESSION['modal_success_message']) ?>
                 </div>
+                <?php unset($_SESSION['modal_success_message']); ?>
             <?php endif; ?>
 
             <input id="titleModal" type="text" name="title" placeholder="タイトル（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['title']) ? $_SESSION['detected_error_url']['title'] : '') ?>" required>
 
-            <!-- [レビュー指摘:低] モーダル内の error_url も unset がない（デスクトップ側108行目にはある） -->
-            <?php if (!empty($_SESSION['error_url'])): ?>
+            <!-- [レビュー指摘:低] モーダル内の error_url も unset がない（デスクトップ側108行目にはある） → 修正済み -->
+            <?php if (!empty($_SESSION['modal_error_url'])): ?>
                 <div class="error-url">
-                    <?= h($_SESSION['error_url']) ?>
+                    <?= h($_SESSION['modal_error_url']) ?>
                 </div>
+                <?php unset($_SESSION['modal_error_url']); ?>
             <?php endif; ?>
 
             <input id="urlModal" type="text" name="url" placeholder="URL（必須）" value="<?= h(!empty($_SESSION['detected_error_url']['url']) ? $_SESSION['detected_error_url']['url'] : '') ?>" required>
@@ -128,16 +128,17 @@ function h($str)
         ============================================================================ -->
         <h2>ブックマーク一覧</h2>
 
-        <!-- [レビュー指摘:高] CSRFトークンはあるが、POST受信時(156行目)にCSRF検証をしていない -->
+        <!-- [レビュー指摘:高] CSRFトークンはあるが、POST受信時にCSRF検証をしていない → 修正済み -->
         <form id="searchForm" name="search" method="POST" action="index.php">
             <input type="text" id="searchInput" name="searchValue" placeholder="検索したいタイトル、メモ、タグ">
             <button class="searchBtn">絞り込み検索</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
 
-        <!-- [レビュー指摘:高] 絞り込み解除フォームにCSRFトークンがなく、CSRF検証もない -->
+        <!-- [レビュー指摘:高] 絞り込み解除フォームにCSRFトークンがなく、CSRF検証もない → 修正済み -->
         <form id="all" name="all" method="POST" action="index.php">
             <button type="submit" class="release-btn" name="submitButton">絞り込み解除</button>
+            <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
         <p class="search-hint">部分一致に対応しています</p>
         <?php
@@ -155,34 +156,28 @@ function h($str)
         <?php endif; ?>
 
         <?php
-        $searchValue = '';
-        $filteredValue = [];
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchValue']) && $_POST['searchValue'] !== '')
+        $errors = [];
+        $arrayBookMarkList = $getBookMarkLists;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
-            $searchValue = $_POST['searchValue'];
-            $filteredValue = $BookMarkManager->search_bookmarks($searchValue);
-        }
-        ?>
-
-        <!-- ブックマークが存在する場合、テーブルで表示 -->
-        <script src="./js/button_control.js"></script>
-        <table>
-            <thead>
-                <tr>
-                    <!-- テーブルヘッダー -->
-                    <th>お気に入り</th>
-                    <th>タイトル</th>
-                    <th>URL</th>
-                    <th>メモ</th>
-                    <th>タグ</th>
-                    <th>削除</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
+            if (!hash_equals($_SESSION["csrf_token"], $_POST['csrf_token'] ?? ''))
+            {
+                http_response_code(400);
+                $errors[] = 'Invalid CSRF token.';
+            }
+            else
+            {
+                $searchValue = '';
+                $filteredValue = [];
+                if (isset($_POST['searchValue']) && $_POST['searchValue'] !== '')
+                {
+                    $searchValue = $_POST['searchValue'];
+                    $filteredValue = $BookMarkManager->search_bookmarks($searchValue);
+                }
                 // ========================================
                 // 絞り込み検索
                 // ========================================
+
                 if (isset($_POST['submitButton'])) //jsonからブックマークリストを読み込む
                 {
                     $arrayBookMarkList =  $BookMarkManager->load_bookmarkLists();
@@ -200,7 +195,32 @@ function h($str)
                 {
                     $arrayBookMarkList = $getBookMarkLists; //ブックマークがひとつもない場合
                 }
-                ?>
+            }
+        }
+        ?>
+
+        <?php if (!empty($errors)): ?>
+            <?php foreach ($errors as $error): ?>
+                <div class="errorMessage"><?= h($error) ?></div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <!-- ブックマークが存在する場合、テーブルで表示 -->
+        <script src="./js/button_control.js"></script>
+        <table>
+            <thead>
+                <tr>
+                    <!-- テーブルヘッダー -->
+                    <th>お気に入り</th>
+                    <th>タイトル</th>
+                    <th>URL</th>
+                    <th>メモ</th>
+                    <th>タグ</th>
+                    <th>削除</th>
+                </tr>
+            </thead>
+            <tbody>
+
                 <?php
                 foreach (array_reverse($arrayBookMarkList) as $b): ?>
                     <tr>
