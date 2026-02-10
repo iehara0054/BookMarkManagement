@@ -29,8 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         }
 
         // [レビュー指摘:中] file_get_contentsを直接使用している。load_bookmarkLists()メソッドを活用すべき
-        $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
-        $getJsonDataDecode = json_decode($getJsonData, true);
+        $getJsonDataDecode = $BookMarkManager->load_bookmarkLists();
 
         foreach ($getJsonDataDecode as $key => &$item)
         {

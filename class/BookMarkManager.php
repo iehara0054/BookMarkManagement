@@ -16,7 +16,7 @@ class BookMarkManager
     /**
      * ブックマークデータをJSONファイルから読み込む
      * 
-     * @return array　$data ブックマーク一覧。ファイルが存在しない場合は空
+     * @return array ブックマーク一覧。ファイルが存在しない場合は空
      */
     public function load_bookmarkLists(): array
     {
@@ -70,15 +70,14 @@ class BookMarkManager
      * 
      * @param string $targetKey 文字列'target_key'
      * @param string $targetValue　削除するブックマークのID
-     * @return array $newData 削除の完了したブックマークデータ
+     * @return array 削除の完了したブックマークデータ
      */
     public function delete_bookMarks(string $targetKey, $targetValue): array
     {
         try
         {
             // [レビュー指摘:中] file_get_contentsを直接呼んでいる。load_bookmarkLists()メソッドを活用すべき（責務の重複）
-            $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
-            $getJsonDataDecode = json_decode($getJsonData, true);
+            $getJsonDataDecode = $this->load_bookmarkLists();
 
             $newData = array_values(array_filter($getJsonDataDecode, function ($item) use ($targetKey, $targetValue)
             {
