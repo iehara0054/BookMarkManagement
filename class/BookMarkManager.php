@@ -35,7 +35,7 @@ class BookMarkManager
      * ブックマークデータをJSONファイルに保存
      * 
      * @param array $bookMarks 保存するタスクの配列
-     * @return string $json　保存したjsonファイル
+     * @return string 保存したjsonファイル
      */
     public function save_bookMarks(array $enteredBookMarkData): string
     {
@@ -101,8 +101,7 @@ class BookMarkManager
      */
     public function search_bookmarks($targetValue)
     {
-        $getJsonData = file_get_contents(Helper::BOOKMARKS_JSON_FILE);
-        $getJsonDataDecode = json_decode($getJsonData, true);
+        $getJsonDataDecode = $this->load_bookmarkLists();
 
         $filteredValue = array_filter($getJsonDataDecode, function ($item) use ($targetValue)
         {
