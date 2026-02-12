@@ -46,11 +46,11 @@ class BookMarkManager
             $tmp = $this->Helper::BOOKMARKS_JSON_FILE . '.tmp';
             $fp = fopen($tmp, 'wb');
 
-        // [レビュー指摘:低] このif文のインデントが前後のコードと揃っていない
-        if ($fp === false)
-        {
-            throw new RuntimeException('Cannot write temp file');
-        }
+            // [レビュー指摘:低] このif文のインデントが前後のコードと揃っていない
+            if ($fp === false)
+            {
+                throw new RuntimeException('Cannot write temp file');
+            }
 
             fwrite($fp, $json);
 
