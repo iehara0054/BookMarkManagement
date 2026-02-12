@@ -117,13 +117,13 @@ class BookMarkManager
             // [レビュー指摘:中] tagsがnullや文字列の場合にTypeErrorが発生する。事前にis_arrayチェックを入れるべき
             if (is_array($item['tags']))
             {
-            foreach ($item['tags'] as $tag)
-            {
-                    if (stripos(trim((string)(($tag ?? ''))), $targetValue) !== false)
+                foreach ($item['tags'] as $tag)
                 {
-                    return true;
+                    if (stripos(trim((string)(($tag ?? ''))), $targetValue) !== false)
+                    {
+                        return true;
+                    }
                 }
-            }
             }
         });
         return is_array($filteredValue) ? $filteredValue : [];
