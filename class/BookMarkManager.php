@@ -46,7 +46,7 @@ class BookMarkManager
             $tmp = $this->Helper::BOOKMARKS_JSON_FILE . '.tmp';
             $fp = fopen($tmp, 'wb');
 
-            // [レビュー指摘:低] このif文のインデントが前後のコードと揃っていない
+            // [レビュー指摘:低] このif文のインデントが前後のコードと揃っていない → 修正済み
             if ($fp === false)
             {
                 throw new RuntimeException('Cannot write temp file');
@@ -76,7 +76,7 @@ class BookMarkManager
     {
         try
         {
-            // [レビュー指摘:中] file_get_contentsを直接呼んでいる。load_bookmarkLists()メソッドを活用すべき（責務の重複）
+            // [レビュー指摘:中] file_get_contentsを直接呼んでいる。load_bookmarkLists()メソッドを活用すべき（責務の重複） → 修正済み
             $getJsonDataDecode = $this->load_bookmarkLists();
 
             $newData = array_values(array_filter($getJsonDataDecode, function ($item) use ($targetKey, $targetValue)
@@ -109,12 +109,12 @@ class BookMarkManager
             {
                 return true;
             }
-            // [レビュー指摘:中] memoがnullや空の場合、PHP 8.xで警告が出る可能性がある。$item['memo'] ?? '' を使うべき
+            // [レビュー指摘:中] memoがnullや空の場合、PHP 8.xで警告が出る可能性がある。$item['memo'] ?? '' を使うべき → 修正済み
             if (stripos((string)($item['memo'] ?? ''), $targetValue) !== false)
             {
                 return true;
             }
-            // [レビュー指摘:中] tagsがnullや文字列の場合にTypeErrorが発生する。事前にis_arrayチェックを入れるべき
+            // [レビュー指摘:中] tagsがnullや文字列の場合にTypeErrorが発生する。事前にis_arrayチェックを入れるべき → 修正済み
             if (is_array($item['tags']))
             {
                 foreach ($item['tags'] as $tag)

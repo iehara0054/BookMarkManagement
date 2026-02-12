@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				// 無効な場合：エラー情報をセッションに保存
 				$_SESSION['error_url'] = 'URLの形式ではありません';
 				$_SESSION['modal_error_url'] = 'URLの形式ではありません';
-				// [レビュー指摘:中] $enteredBookMarkData にはdeleteKeyやidも含まれており、不要な秘密情報がセッションに残る
+				// [レビュー指摘:中] $enteredBookMarkData にはdeleteKeyやidも含まれており、不要な秘密情報がセッションに残る → 修正済み
 				$_SESSION['detected_error_url'] = [
 					'title' => $title,
 					'url'   => $url,

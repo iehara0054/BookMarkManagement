@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
             exit;
         }
 
-        // [レビュー指摘:中] file_get_contentsを直接使用している。load_bookmarkLists()メソッドを活用すべき
+        // [レビュー指摘:中] file_get_contentsを直接使用している。load_bookmarkLists()メソッドを活用すべき → 修正済み
         $getJsonDataDecode = $BookMarkManager->load_bookmarkLists();
 
         foreach ($getJsonDataDecode as $key => &$item)
