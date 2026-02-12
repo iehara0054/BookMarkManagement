@@ -101,7 +101,7 @@ class BookMarkManager
      */
     public function search_bookmarks($targetValue)
     {
-        $getJsonDataDecode = $this->load_bookmarkLists();
+        $getJsonDataDecodeA = $this->load_bookmarkLists();
 
         $filteredValue = array_filter($getJsonDataDecode, function ($item) use ($targetValue)
         {
