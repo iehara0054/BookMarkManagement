@@ -7,9 +7,12 @@ async function toggleFavorite(button) {
     const csrfToken = document.querySelector('input[name="csrf_token"]').value;
 
     const requestBody = { id: itemId, csrf_token: csrfToken };
+
+    button.disabled = true;
+
 try {
     // [レビュー指摘:中] 相対パスのため、index.php以外から呼ぶ場合に壊れる
-    const response = await fetch('API/toggleFavorite.php', {
+    const response = await fetch('./API/toggleFavorite.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -38,6 +41,9 @@ try {
   }
   } catch (error) {
     console.error('❌ エラー発生:', error);
-    button.disabled = false; // [レビュー指摘:中] disabledに設定する処理がないため、この復元は意味がない。連打防止が不完全
+    button.disabled = false;
+     // [レビュー指摘:中] disabledに設定する処理がないため、この復元は意味がない。連打防止が不完全
+  } finally {
+    button.disabled = false;
   }
 }
