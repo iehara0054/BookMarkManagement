@@ -34,7 +34,7 @@ class BookMarkManager
     /**
      * ブックマークデータをJSONファイルに保存
      * 
-     * @param array $bookMarks 保存するタスクの配列
+     * @param array $enteredBookMarkData 保存するタスクの配列
      * @return string 保存したjsonファイル
      */
     public function save_bookMarks(array $enteredBookMarkData): string
@@ -52,7 +52,11 @@ class BookMarkManager
                 throw new RuntimeException('Cannot write temp file');
             }
 
+            flock($fp, LOCK_EX);
+
             fwrite($fp, $json);
+
+            flock($fp, LOCK_UN);
 
             fclose($fp);
 
