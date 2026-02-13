@@ -12,7 +12,7 @@ async function toggleFavorite(button) {
 
 try {
     // [レビュー指摘:中] 相対パスのため、index.php以外から呼ぶ場合に壊れる　→ 修正済み
-    const response = await fetch('/API/toggleFavorite.php', {
+    const response = await fetch('API/toggleFavorite.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
