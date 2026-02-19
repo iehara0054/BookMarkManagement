@@ -259,7 +259,7 @@ function h($str)
                             <form action="./API/deleteBookMark.php" method="post">
                                 <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
                                 <input type="hidden" name="deleteKey" value="<?= h($b['deleteKey']) ?>">
-                                <button class="deleteBtn" name="action" value="delete" data-delete-item-key="<?= h($b['deleteKey']) ?>">削除</button>
+                                <button class="deleteBtn" name="action" value="delete" data-delete-item-key="<?= h($b['deleteKey'])  ?>" onclick="return confirm('本当に削除しますか？');">削除</button>
                             </form>
                         </td>
                     </tr>
