@@ -223,7 +223,7 @@ function h($str)
                 <?php
                 foreach (array_reverse($arrayBookMarkList) as $b): ?>
                     <tr draggable="true">
-                        <td class="drag-handle" draggable="true" title="ドラッグして並び替え">≡</td>
+                        <td class="drag-handle" draggable="true">≡</td>
                         <td>
                             <div>
                                 <button class="favoriteBtn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
