@@ -222,7 +222,7 @@ function h($str)
             <tbody id="sortable-list">
                 <?php
                 foreach (array_reverse($arrayBookMarkList) as $b): ?>
-                    <tr draggable="true">
+                    <tr>
                         <td class="drag-handle" draggable="true">≡</td>
                         <td>
                             <div>
