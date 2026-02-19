@@ -219,11 +219,11 @@ function h($str)
                     <th>削除</th>
                 </tr>
             </thead>
-            <tbody>
-
+            <tbody id="sortable-list">
                 <?php
                 foreach (array_reverse($arrayBookMarkList) as $b): ?>
-                    <tr>
+                    <tr draggable="true">
+                        <td class="drag-handle" draggable="true" title="ドラッグして並び替え">≡</td>
                         <td>
                             <div>
                                 <button class="favoriteBtn" data-item-id="<?= h($b['id']) ?>" onclick="toggleFavorite(this)">
@@ -264,10 +264,10 @@ function h($str)
                         </td>
                     </tr>
                 <?php endforeach; ?>
-                <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
-                    <script src="./js/initialize_favorite_buttons.js"></script>
-                <?php endif; ?>
             </tbody>
+            <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
+                <script src="./js/initialize_favorite_buttons.js"></script>
+            <?php endif; ?>
         </table>
     </div>
 
@@ -278,6 +278,7 @@ function h($str)
     <script src="./js/onload_favorite.js"></script>
     <script src="./js/toggle_favorite.js"></script>
     <script src="./js/modal_control.js"></script>
+    <script src="./js/list_drag.js"></script>
     <!-- 絞り込み検索後のスクロール -->
     <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchValue'])): ?>
         <script src="./js/scroll.js"></script>
