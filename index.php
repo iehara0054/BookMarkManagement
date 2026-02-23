@@ -211,6 +211,7 @@ function h($str)
             <thead>
                 <tr>
                     <!-- テーブルヘッダー -->
+                    <th></th>
                     <th>お気に入り</th>
                     <th>タイトル</th>
                     <th>URL</th>
