@@ -140,7 +140,7 @@ function h($str)
             <button type="submit" class="release-btn" name="submitButton">絞り込み解除</button>
             <input type="hidden" name="csrf_token" value="<?= h($_SESSION['csrf_token']) ?>">
         </form>
-        <p class="search-hint">部分一致に対応しています</p>
+        <p class="search-hint">部分一致に対応しています　｜　<span class="drag-hint-icon">≡</span> を掴んでリストの順番を入れ替え可能です</p>
         <?php
         $getBookMarkLists =  $BookMarkManager->load_bookmarkLists();
         ?>

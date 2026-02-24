@@ -9,7 +9,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
-    background: linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 50%, #f0f0f0 100%);
+    background: linear-gradient(135deg, #fdf8f0 0%, #f5ead8 50%, #f8f2e4 100%);
     min-height: 100vh;
     padding: 20px;
     color: #333;
@@ -319,12 +319,22 @@ body > p {
 }
 
 /* 検索ヒントテキスト */
+.drag-hint-icon {
+    font-size: 1.8rem;
+    color: #aaa;
+    line-height: 1;
+    transform: translateY(-0.15em);
+}
+
 .search-hint {
     color: #777;
     font-size: 0.9rem;
     margin-top: 2px;
     margin-bottom: 0;
     padding-left: 18px;
+    display: flex;
+    align-items: center;
+    gap: 0;
 }
 
 /* ========================================
@@ -487,7 +497,7 @@ tbody td:nth-child(6) div {
 .drag-handle {
     cursor: grab;
     color: #aaa;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     user-select: none;
     text-align: center;
     vertical-align: middle !important;
